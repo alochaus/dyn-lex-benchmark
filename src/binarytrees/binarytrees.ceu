@@ -1,0 +1,84 @@
+var bottomUpTree
+set bottomUpTree = func (d) {
+    var depth = d
+    if depth > 0 {
+        set depth = depth - 1
+        @[
+            left=bottomUpTree(depth),
+            right=bottomUpTree(depth)
+        ]
+    } else {
+        @[
+            left=nil, 
+            right=nil
+        ]
+    }
+}
+
+var itemCheck
+set itemCheck = func (tree) {
+    if tree == nil {
+        1
+    }
+    else {
+        1 + itemCheck(tree[:left]) + itemCheck(tree[:right])
+    }
+}
+
+var stress
+set stress = func (mindepth, maxdepth, depth) {
+    val iterations = (2**((maxdepth - depth) + mindepth))
+    
+    var check = 1
+    loop {
+        val t = bottomUpTree(depth)
+        set check = check + itemCheck(t)
+    }
+    
+    @[
+        (:iterations, iterations),
+        (:check, check)
+    ]
+}
+
+var main
+set main = func (n) {
+    val N = n or 10
+
+    val mindepth = 4
+    var maxdepth
+
+    if (mindepth + 2) < N {
+        set maxdepth = N
+    } else {
+        set maxdepth = mindepth + 2
+    }
+
+    
+    val stretchdepth = maxdepth + 1
+    val stretchtree = bottomUpTree(stretchdepth)
+    println("stretch tree of depth ", stretchdepth, "\t check: ", itemCheck(stretchtree))
+    
+
+    val longlivedtree = bottomUpTree(maxdepth)
+
+    var depth = mindepth
+
+    loop {
+        if depth > maxdepth {
+            break
+        }
+
+        val r = stress(mindepth, maxdepth, depth)
+        val iterations = r[:iterations]
+        val check = r[:check]
+
+        println(iterations, "\t trees of depth ", depth, "\t check: ", check)
+        
+        set depth = depth + 2
+    }
+
+    println("long lived tree of depth ", maxdepth, "\t check: ", itemCheck(longlivedtree))
+}
+
+main(21)
