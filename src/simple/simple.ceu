@@ -1,0 +1,10 @@
+var i = 1
+var sum = 0
+loop {
+    break if (i == 1000000)
+    
+    set sum = sum + i
+    set i = i + 1
+}
+
+println("The sum is: ", sum)
