@@ -232,25 +232,25 @@
             
      // IMPLS
         void ceu_exit (CEU_Block* blk) {
-            if (blk == NULL) {
-                exit(0);
-            }
-            CEU_Block* up = (blk->istop) ? blk->up.frame->up_block : blk->up.block;
-            ceu_block_free(blk);
-            return ceu_exit(up);
+            // if (blk == NULL) {
+            //     exit(0);
+            // }
+            // CEU_Block* up = (blk->istop) ? blk->up.frame->up_block : blk->up.block;
+            // ceu_block_free(blk);
+            // return ceu_exit(up);
         }
         void ceu_ferror (CEU_Block* blk, CEU_Value err) {
-            fprintf(stderr, "%s\n", err.Error);
-            ceu_exit(blk);
+            // fprintf(stderr, "%s\n", err.Error);
+            // ceu_exit(blk);
         }
         void ceu_ferror_pre (CEU_Block* blk, char* pre, CEU_Value err) {
-            fprintf(stderr, "%s : %s\n", pre, err.Error);
-            ceu_exit(blk);
+            // fprintf(stderr, "%s : %s\n", pre, err.Error);
+            // ceu_exit(blk);
         }
         CEU_Value ceu_assert (CEU_Block* blk, CEU_Value v) {
-            if (v.type == CEU_VALUE_ERROR) {
-                ceu_ferror(blk, v);
-            }
+            // if (v.type == CEU_VALUE_ERROR) {
+            //     ceu_ferror(blk, v);
+            // }
             return v;
         }
         CEU_Value ceu_assert_pre (CEU_Block* blk, CEU_Value v, char* pre) {
@@ -376,11 +376,11 @@
                         if (chk.Bool) {
                             return (CEU_Value) { CEU_VALUE_NIL };
                         } else {
-                            // CEU_Tags_List* v = malloc(sizeof(CEU_Tags_List));
-                            // assert(v != NULL);
-                            // v->tag = tag.Tag;
-                            // v->next = dyn.Dyn->Any.tags;
-                            // dyn.Dyn->Any.tags = v;
+                            CEU_Tags_List* v = malloc(sizeof(CEU_Tags_List));
+                            assert(v != NULL);
+                            v->tag = tag.Tag;
+                            v->next = dyn.Dyn->Any.tags;
+                            dyn.Dyn->Any.tags = v;
                             return dyn;
                         }
                     } else {            // rem
@@ -426,44 +426,44 @@
         }
      // GC
         void ceu_gc_free (CEU_Dyn* dyn) {
-            switch (dyn->Any.type) {
-                case CEU_VALUE_CLOSURE:
-                    for (int i=0; i<dyn->Closure.upvs.its; i++) {
-                        ceu_gc_dec(dyn->Closure.upvs.buf[i], 1);
-                    }
-                    break;
-                case CEU_VALUE_TUPLE:
-                    for (int i=0; i<dyn->Tuple.its; i++) {
-                        ceu_gc_dec(dyn->Tuple.buf[i], 1);
-                    }
-                    break;
-                case CEU_VALUE_VECTOR:
-                    for (int i=0; i<dyn->Vector.its; i++) {
-                        CEU_Value ret = ceu_vector_get(&dyn->Vector, i);
-                        assert(ret.type != CEU_VALUE_ERROR);
-                        ceu_gc_dec(ret, 1);
-                    }
-                    break;
-                case CEU_VALUE_DICT:
-                    for (int i=0; i<dyn->Dict.max; i++) {
-                        ceu_gc_dec((*dyn->Dict.buf)[i][0], 1);
-                        ceu_gc_dec((*dyn->Dict.buf)[i][1], 1);
-                    }
-                    break;
-                default:
-                    assert(0);
-                    break;
-            }
-            ceu_gc_count++;
-            ceu_hold_rem(dyn);
-            ceu_dyn_free(dyn);
+            // switch (dyn->Any.type) {
+            //     case CEU_VALUE_CLOSURE:
+            //         for (int i=0; i<dyn->Closure.upvs.its; i++) {
+            //             ceu_gc_dec(dyn->Closure.upvs.buf[i], 1);
+            //         }
+            //         break;
+            //     case CEU_VALUE_TUPLE:
+            //         for (int i=0; i<dyn->Tuple.its; i++) {
+            //             ceu_gc_dec(dyn->Tuple.buf[i], 1);
+            //         }
+            //         break;
+            //     case CEU_VALUE_VECTOR:
+            //         for (int i=0; i<dyn->Vector.its; i++) {
+            //             CEU_Value ret = ceu_vector_get(&dyn->Vector, i);
+            //             assert(ret.type != CEU_VALUE_ERROR);
+            //             ceu_gc_dec(ret, 1);
+            //         }
+            //         break;
+            //     case CEU_VALUE_DICT:
+            //         for (int i=0; i<dyn->Dict.max; i++) {
+            //             ceu_gc_dec((*dyn->Dict.buf)[i][0], 1);
+            //             ceu_gc_dec((*dyn->Dict.buf)[i][1], 1);
+            //         }
+            //         break;
+            //     default:
+            //         assert(0);
+            //         break;
+            // }
+            // ceu_gc_count++;
+            // ceu_hold_rem(dyn);
+            // ceu_dyn_free(dyn);
         }
         
         void ceu_gc_chk (CEU_Dyn* dyn) {
-            assert(dyn->Any.type > CEU_VALUE_DYNAMIC);
-            if (dyn->Any.refs == 0) {
-                ceu_gc_free(dyn);
-            }
+            // assert(dyn->Any.type > CEU_VALUE_DYNAMIC);
+            // if (dyn->Any.refs == 0) {
+            //     ceu_gc_free(dyn);
+            // }
         }
 
         // var x = ?        // var source
@@ -476,18 +476,18 @@
         // closure
         
         void ceu_gc_inc (CEU_Value new) {
-            if (new.type > CEU_VALUE_DYNAMIC) {
-                new.Dyn->Any.refs++;
-            }
+            // if (new.type > CEU_VALUE_DYNAMIC) {
+            //     new.Dyn->Any.refs++;
+            // }
         }
         
         void ceu_gc_dec (CEU_Value old, int chk) {
-            if (old.type > CEU_VALUE_DYNAMIC) {
-                old.Dyn->Any.refs--;
-                if (chk) {
-                    ceu_gc_chk(old.Dyn);
-                }
-            }
+            // if (old.type > CEU_VALUE_DYNAMIC) {
+            //     old.Dyn->Any.refs--;
+            //     if (chk) {
+            //         ceu_gc_chk(old.Dyn);
+            //     }
+            // }
         }
      // BLOCK
         void ceu_dyn_free (CEU_Dyn* dyn) {
@@ -515,35 +515,35 @@
         }
         
         void ceu_block_free (CEU_Block* blk) {
-            CEU_Dyn* cur = blk->dyns;
-            while (cur != NULL) {
-                CEU_Dyn* old = cur;
-                cur = old->Any.hld_next;
-                ceu_dyn_free((CEU_Dyn*)old);
-            }
-            blk->dyns = NULL;
+            // CEU_Dyn* cur = blk->dyns;
+            // while (cur != NULL) {
+            //     CEU_Dyn* old = cur;
+            //     cur = old->Any.hld_next;
+            //     ceu_dyn_free((CEU_Dyn*)old);
+            // }
+            // blk->dyns = NULL;
         }
      // HOLD
         void ceu_hold_add (CEU_Dyn* dyn, CEU_Dyn** nxt) {
-            dyn->Any.hld_prev = nxt;
-            dyn->Any.hld_next = *nxt;
-            if (*nxt != NULL) {
-                (*nxt)->Any.hld_prev = &dyn->Any.hld_next;
-            }
-            *nxt = dyn;
+            // dyn->Any.hld_prev = nxt;
+            // dyn->Any.hld_next = *nxt;
+            // if (*nxt != NULL) {
+            //     (*nxt)->Any.hld_prev = &dyn->Any.hld_next;
+            // }
+            // *nxt = dyn;
         }
         void ceu_hold_rem (CEU_Dyn* dyn) {
-            *(dyn->Any.hld_prev) = dyn->Any.hld_next;
-            if (dyn->Any.hld_next != NULL) {
-                dyn->Any.hld_next->Any.hld_prev = dyn->Any.hld_prev;
-            }
-            dyn->Any.hld_prev = NULL;
-            dyn->Any.hld_next = NULL;
+            // *(dyn->Any.hld_prev) = dyn->Any.hld_next;
+            // if (dyn->Any.hld_next != NULL) {
+            //     dyn->Any.hld_next->Any.hld_prev = dyn->Any.hld_prev;
+            // }
+            // dyn->Any.hld_prev = NULL;
+            // dyn->Any.hld_next = NULL;
         }
         void ceu_hold_chg (CEU_Dyn* dyn, CEU_Dyn** nxt, int depth) {
-            dyn->Any.hld_depth = depth;
-            ceu_hold_rem(dyn);
-            ceu_hold_add(dyn, nxt);
+            // dyn->Any.hld_depth = depth;
+            // ceu_hold_rem(dyn);
+            // ceu_hold_add(dyn, nxt);
         }
 
         CEU_Value ceu_hold_chk_set (CEU_Dyn** dst, int depth, CEU_HOLD type, CEU_Value src, int nest, char* pre) {
@@ -582,23 +582,23 @@
             switch (src.Dyn->Any.type) {
                 case CEU_VALUE_CLOSURE:
                     for (int i=0; i<src.Dyn->Closure.upvs.its; i++) {
-                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Closure.upvs.buf[i], 1, pre));
+                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Closure.upvs.buf[i], 1, pre));
                     }
                     break;
                 case CEU_VALUE_TUPLE:
                     for (int i=0; i<src.Dyn->Tuple.its; i++) {
-                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Tuple.buf[i], 1, pre));
+                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Tuple.buf[i], 1, pre));
                     }
                     break;
                 case CEU_VALUE_VECTOR:
                     for (int i=0; i<src.Dyn->Vector.its; i++) {
-                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, ceu_vector_get(&src.Dyn->Vector,i), 1, pre));
+                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, ceu_vector_get(&src.Dyn->Vector,i), 1, pre));
                     }
                     break;
                 case CEU_VALUE_DICT:
                     for (int i=0; i<src.Dyn->Dict.max; i++) {
-                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][0], 1, pre));
-                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][1], 1, pre));
+                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][0], 1, pre));
+                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][1], 1, pre));
                     }
                     break;
             }
@@ -850,64 +850,64 @@
             }
         }        
         CEU_Value ceu_dict_set (CEU_Dict* col, CEU_Value key, CEU_Value val) {
-            if (key.type == CEU_VALUE_NIL) {
-                return (CEU_Value) { CEU_VALUE_ERROR, {.Error="dict error : index cannot be nil"} };
-            }
-            int old;
-            ceu_dict_key_to_index(col, key, &old);
-            if (old == -1) {
-                old = col->max;
-                int new = MAX(5, old * 2);
-                col->max = new;
-                col->buf = realloc(col->buf, new*2*sizeof(CEU_Value));
-                assert(col->buf != NULL);
-                memset(&(*col->buf)[old], 0, (new-old)*2*sizeof(CEU_Value));  // x[i]=nil
-            }
-            assert(old != -1);
+            // if (key.type == CEU_VALUE_NIL) {
+            //     return (CEU_Value) { CEU_VALUE_ERROR, {.Error="dict error : index cannot be nil"} };
+            // }
+            // int old;
+            // ceu_dict_key_to_index(col, key, &old);
+            // if (old == -1) {
+            //     old = col->max;
+            //     int new = MAX(5, old * 2);
+            //     col->max = new;
+            //     col->buf = realloc(col->buf, new*2*sizeof(CEU_Value));
+            //     assert(col->buf != NULL);
+            //     memset(&(*col->buf)[old], 0, (new-old)*2*sizeof(CEU_Value));  // x[i]=nil
+            // }
+            // assert(old != -1);
             
-            CEU_Value vv = ceu_dict_get(col, key);
+            // CEU_Value vv = ceu_dict_get(col, key);
             
-            if (val.type == CEU_VALUE_NIL) {
-                ceu_gc_dec(vv, 1);
-                ceu_gc_dec(key, 1);
-                (*col->buf)[old][0] = (CEU_Value) { CEU_VALUE_NIL };
-                return (CEU_Value) { CEU_VALUE_NIL };
-            } else {
-                CEU_Value err1 = ceu_hold_chk_set_col((CEU_Dyn*)col, key);
-                if (err1.type == CEU_VALUE_ERROR) {
-                    return err1;
-                }
-                CEU_Value err2 = ceu_hold_chk_set_col((CEU_Dyn*)col, val);
-                if (err2.type == CEU_VALUE_ERROR) {
-                    return err2;
-                }
+            // if (val.type == CEU_VALUE_NIL) {
+            //     ceu_gc_dec(vv, 1);
+            //     ceu_gc_dec(key, 1);
+            //     (*col->buf)[old][0] = (CEU_Value) { CEU_VALUE_NIL };
+            //     return (CEU_Value) { CEU_VALUE_NIL };
+            // } else {
+            //     CEU_Value err1 = ceu_hold_chk_set_col((CEU_Dyn*)col, key);
+            //     if (err1.type == CEU_VALUE_ERROR) {
+            //         return err1;
+            //     }
+            //     CEU_Value err2 = ceu_hold_chk_set_col((CEU_Dyn*)col, val);
+            //     if (err2.type == CEU_VALUE_ERROR) {
+            //         return err2;
+            //     }
 
-                ceu_gc_inc(val);
-                ceu_gc_dec(vv, 1);
-                if (vv.type == CEU_VALUE_NIL) {
-                    ceu_gc_inc(key);
-                }
-                (*col->buf)[old][0] = key;
-                (*col->buf)[old][1] = val;
+            //     ceu_gc_inc(val);
+            //     ceu_gc_dec(vv, 1);
+            //     if (vv.type == CEU_VALUE_NIL) {
+            //         ceu_gc_inc(key);
+            //     }
+            //     (*col->buf)[old][0] = key;
+            //     (*col->buf)[old][1] = val;
                 return (CEU_Value) { CEU_VALUE_NIL };
-            }
+            // }
         }        
         
         CEU_Value ceu_col_check (CEU_Value col, CEU_Value idx) {
-            if (col.type<CEU_VALUE_TUPLE || col.type>CEU_VALUE_DICT) {                
-                return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected collection"} };
-            }
-            if (col.type != CEU_VALUE_DICT) {
-                if (idx.type != CEU_VALUE_NUMBER) {
-                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected number"} };
-                }
-                if (col.type==CEU_VALUE_TUPLE && (idx.Number<0 || idx.Number>=col.Dyn->Tuple.its)) {                
-                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
-                }
-                if (col.type==CEU_VALUE_VECTOR && (idx.Number<0 || idx.Number>col.Dyn->Vector.its)) {                
-                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
-                }
-            }
+            // if (col.type<CEU_VALUE_TUPLE || col.type>CEU_VALUE_DICT) {                
+            //     return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected collection"} };
+            // }
+            // if (col.type != CEU_VALUE_DICT) {
+            //     if (idx.type != CEU_VALUE_NUMBER) {
+            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected number"} };
+            //     }
+            //     if (col.type==CEU_VALUE_TUPLE && (idx.Number<0 || idx.Number>=col.Dyn->Tuple.its)) {                
+            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
+            //     }
+            //     if (col.type==CEU_VALUE_VECTOR && (idx.Number<0 || idx.Number>col.Dyn->Vector.its)) {                
+            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
+            //     }
+            // }
             return (CEU_Value) { CEU_VALUE_NIL };
         }
      // CREATES
@@ -956,7 +956,7 @@
         CEU_Value ceu_closure_create (CEU_Block* blk, CEU_HOLD tphold, CEU_Frame* frame, CEU_Proto proto, int upvs) {
             CEU_Closure* ret = malloc(sizeof(CEU_Closure));
             assert(ret != NULL);
-            CEU_Value* buf = malloc(1 * sizeof(CEU_Value));
+            CEU_Value* buf = malloc(upvs * sizeof(CEU_Value));
             assert(buf != NULL);
             for (int i=0; i<upvs; i++) {
                 buf[i] = (CEU_Value) { CEU_VALUE_NIL };
@@ -1551,11 +1551,11 @@
                             { // func args
                                 
                                     if (0 < ceu_n) {
-                                        // ceu_assert_pre(
-                                        //     ceu_block_125,
-                                        //     ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
-                                        //     "prelude.ceu : (lin 21, col 27)"
-                                        // );
+                                        ceu_assert_pre(
+                                            ceu_block_125,
+                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            "prelude.ceu : (lin 21, col 27)"
+                                        );
                                         id_v1 = ceu_args[0];
                                         ceu_gc_inc(id_v1);
                                     } else {
@@ -1563,11 +1563,11 @@
                                     }
                                     
                                     if (1 < ceu_n) {
-                                        // ceu_assert_pre(
-                                        //     ceu_block_125,
-                                        //     ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
-                                        //     "prelude.ceu : (lin 21, col 27)"
-                                        // );
+                                        ceu_assert_pre(
+                                            ceu_block_125,
+                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            "prelude.ceu : (lin 21, col 27)"
+                                        );
                                         id_v2 = ceu_args[1];
                                         ceu_gc_inc(id_v2);
                                     } else {
@@ -1589,7 +1589,7 @@
                     CEU_Value ceu_closure_106 = ceu_acc;
                     if (ceu_closure_106.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        // ceu_ferror_pre(ceu_block_125, "prelude.ceu : (lin 22, col 30)", err);
+                        ceu_ferror_pre(ceu_block_125, "prelude.ceu : (lin 22, col 30)", err);
                     }
                     CEU_Frame ceu_frame_106 = { &ceu_closure_106.Dyn->Closure, ceu_block_125 };
                     
