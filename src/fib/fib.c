@@ -1248,13 +1248,13 @@
             CEU_Value ceu_acc;        
             
                     { // BLOCK | 
-                        CEU_Block _ceu_block_2027 = (CEU_Block) { 1, 1, {.frame=&_ceu_frame_}, NULL };
-                        CEU_Block* ceu_block_2027 = &_ceu_block_2027; 
+                        CEU_Block _ceu_block_1238 = (CEU_Block) { 1, 1, {.frame=&_ceu_frame_}, NULL };
+                        CEU_Block* ceu_block_1238 = &_ceu_block_1238; 
                         
                             // main block varargs (...)
-                            CEU_Value id__dot__dot__dot_ = ceu_tuple_create(ceu_block_2027, ceu_argc);
+                            CEU_Value id__dot__dot__dot_ = ceu_tuple_create(ceu_block_1238, ceu_argc);
                             for (int i=0; i<ceu_argc; i++) {
-                                CEU_Value vec = ceu_vector_from_c_string(ceu_block_2027, ceu_argv[i]);
+                                CEU_Value vec = ceu_vector_from_c_string(ceu_block_1238, ceu_argv[i]);
                                 assert(ceu_tuple_set(&id__dot__dot__dot_.Dyn->Tuple, i, vec).type != CEU_VALUE_ERROR);
                             }
                         
@@ -1292,13 +1292,7 @@
                         
                             CEU_Value id_to_dash_tag = (CEU_Value) { CEU_VALUE_NIL };
                         
-                            CEU_Value id_bottomUpTree = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_itemCheck = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_stress = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_main = (CEU_Value) { CEU_VALUE_NIL };
+                            CEU_Value id_fib = (CEU_Value) { CEU_VALUE_NIL };
                         
                         
                         
@@ -1411,7 +1405,7 @@
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_31 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_31,
@@ -1423,8 +1417,8 @@
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 3, col 1)"
                         );
                     
@@ -1541,7 +1535,7 @@
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_60 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_60,
@@ -1553,8 +1547,8 @@
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 11, col 1)"
                         );
                     
@@ -1824,7 +1818,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_126 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_126,
@@ -1836,8 +1830,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 21, col 1)"
                         );
                     
@@ -2248,7 +2242,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_239 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_239,
@@ -2260,8 +2254,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 29, col 1)"
                         );
                     
@@ -2531,7 +2525,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_305 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_305,
@@ -2543,8 +2537,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 43, col 1)"
                         );
                     
@@ -2814,7 +2808,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_371 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_371,
@@ -2826,8 +2820,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 51, col 1)"
                         );
                     
@@ -3097,7 +3091,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_437 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_437,
@@ -3109,8 +3103,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 59, col 1)"
                         );
                     
@@ -3380,7 +3374,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_503 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_503,
@@ -3392,8 +3386,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 67, col 1)"
                         );
                     
@@ -3663,7 +3657,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_569 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_569,
@@ -3675,8 +3669,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 75, col 1)"
                         );
                     
@@ -3968,7 +3962,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_641 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_641,
@@ -3980,8 +3974,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 85, col 1)"
                         );
                     
@@ -4273,7 +4267,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_713 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_713,
@@ -4285,8 +4279,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 94, col 1)"
                         );
                     
@@ -4578,7 +4572,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_785 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_785,
@@ -4590,8 +4584,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 103, col 1)"
                         );
                     
@@ -4883,7 +4877,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_857 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_857,
@@ -4895,8 +4889,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 112, col 1)"
                         );
                     
@@ -5401,7 +5395,7 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_1001 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_1001,
@@ -5416,8 +5410,8 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     
                         { // ACC - SET
                             ceu_assert_pre(
-                                ceu_block_2027,
-                                ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, (ceu_set_1002), 0, "set error"),
+                                ceu_block_1238,
+                                ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, (ceu_set_1002), 0, "set error"),
                                 "prelude.ceu : (lin 124, col 5)"
                             );
                             ceu_gc_inc((ceu_set_1002));
@@ -5811,7 +5805,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_1115 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_1115,
@@ -5823,8 +5817,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 148, col 1)"
                         );
                     
@@ -6000,7 +5994,7 @@ ceu_args_1146[0] = ceu_acc;
                     }
                  // CLOSURE | 
                 CEU_Value ceu_ret_1158 = ceu_closure_create (
-                    ceu_block_2027,
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
                     ceu_proto_1158,
@@ -6012,8 +6006,8 @@ ceu_args_1146[0] = ceu_acc;
                 
                 
                         ceu_assert_pre(
-                            ceu_block_2027,
-                            ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
+                            ceu_block_1238,
+                            ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
                             "prelude.ceu : (lin 168, col 1)"
                         );
                     
@@ -6027,1194 +6021,15 @@ ceu_args_1146[0] = ceu_acc;
                 
                 
                     
-                    ceu_gc_inc(id_bottomUpTree);
-                    ceu_acc = id_bottomUpTree;
+                    ceu_gc_inc(id_fib);
+                    ceu_acc = id_fib;
                     
                 
                 { // SET | 
                      // TYPE | 
                     
                  // PROTO | 
-                    CEU_Value ceu_proto_1236 (
-                        CEU_Frame* ceu_frame,
-                        int ceu_n,
-                        CEU_Value ceu_args[]
-                    ) {
-                        CEU_Value ceu_acc;        
-                        
-                        
-                            CEU_Value id_d;
-                            CEU_Block* _id_d_;
-                            
-                        
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1235 = (CEU_Block) { ceu_frame->up_block->depth + 1, 1, {.frame=ceu_frame}, NULL };
-                        CEU_Block* ceu_block_1235 = &_ceu_block_1235; 
-                        
-                        
-                            { // func args
-                                ceu_gc_inc_args(ceu_n, ceu_args);
-                                
-                                    if (0 < ceu_n) {
-                                        ceu_assert_pre(
-                                            ceu_block_1235,
-                                            ceu_hold_chk_set(&ceu_block_1235->dyns, ceu_block_1235->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 2, col 29)"
-                                        );
-                                        id_d = ceu_args[0];
-                                    } else {
-                                        id_d = (CEU_Value) { CEU_VALUE_NIL };
-                                    }
-                                    
-                                
-                            }
-                            
-                        
-                            CEU_Value id_depth = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                        
-                        
-                        // >>> block
-                        
-                // DCL | 
-                ceu_acc = id_d;
-
-                        ceu_assert_pre(
-                            ceu_block_1235,
-                            ceu_hold_chk_set(&ceu_block_1235->dyns, ceu_block_1235->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 3, col 5)"
-                        );
-                    
-                
-                    id_depth = ceu_acc;
-                    ceu_gc_inc(id_depth);
-                    ceu_acc = id_depth;
-                    
-                
-                { // IF | 
-                    
-                { // CALL | 
-                    ceu_acc = op_greater;
-
-                    CEU_Value ceu_closure_1186 = ceu_acc;
-                    if (ceu_closure_1186.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1235, "binarytrees.ceu : (lin 4, col 14)", err);
-                    }
-                    CEU_Frame ceu_frame_1186 = { &ceu_closure_1186.Dyn->Closure, ceu_block_1235 };
-                    
-                    CEU_Value ceu_args_1186[2];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1186[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });ceu_args_1186[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1186.closure->proto (
-                        &ceu_frame_1186,
-                        2,
-                        ceu_args_1186
-                    );
-                    ceu_assert_pre(ceu_block_1235, ceu_acc, "binarytrees.ceu : (lin 4, col 14) : call error");
-                } // CALL
-                
-                    if (ceu_as_bool(ceu_acc)) {
-                        
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1220 = (CEU_Block) { (ceu_block_1235->depth + 1), 0, {.block=ceu_block_1235}, NULL };
-                        CEU_Block* ceu_block_1220 = &_ceu_block_1220; 
-                        
-                        
-                        
-                        
-                        
-                        // >>> block
-                        
-                { // SET | 
-                    
-                { // CALL | 
-                    ceu_acc = op_minus;
-
-                    CEU_Value ceu_closure_1199 = ceu_acc;
-                    if (ceu_closure_1199.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1220, "binarytrees.ceu : (lin 5, col 27)", err);
-                    }
-                    CEU_Frame ceu_frame_1199 = { &ceu_closure_1199.Dyn->Closure, ceu_block_1220 };
-                    
-                    CEU_Value ceu_args_1199[2];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1199[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1199[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1199.closure->proto (
-                        &ceu_frame_1199,
-                        2,
-                        ceu_args_1199
-                    );
-                    ceu_assert_pre(ceu_block_1220, ceu_acc, "binarytrees.ceu : (lin 5, col 27) : call error");
-                } // CALL
-                
-                    CEU_Value ceu_set_1200 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1220,
-                                ceu_hold_chk_set(&ceu_block_1235->dyns, ceu_block_1235->depth, CEU_HOLD_MUTAB, (ceu_set_1200), 0, "set error"),
-                                "binarytrees.ceu : (lin 5, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1200));
-                            ceu_gc_dec(id_depth, 1);
-                            id_depth = (ceu_set_1200);
-                        }
-                        
-                    ceu_acc = ceu_set_1200;
-                }
-                
-                { // TUPLE | 
-                    CEU_Value ceu_tup_1217 = ceu_tuple_create(ceu_block_1220, 2);
-                    
-                { // CALL | 
-                    ceu_acc = id_bottomUpTree;
-
-                    CEU_Value ceu_closure_1208 = ceu_acc;
-                    if (ceu_closure_1208.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1220, "binarytrees.ceu : (lin 7, col 13)", err);
-                    }
-                    CEU_Frame ceu_frame_1208 = { &ceu_closure_1208.Dyn->Closure, ceu_block_1220 };
-                    
-                    CEU_Value ceu_args_1208[1];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1208[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1208.closure->proto (
-                        &ceu_frame_1208,
-                        1,
-                        ceu_args_1208
-                    );
-                    ceu_assert_pre(ceu_block_1220, ceu_acc, "binarytrees.ceu : (lin 7, col 13) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_1220,
-                            ceu_tuple_set(&ceu_tup_1217.Dyn->Tuple, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 6, col 9)"
-                        );
-                        
-                { // CALL | 
-                    ceu_acc = id_bottomUpTree;
-
-                    CEU_Value ceu_closure_1216 = ceu_acc;
-                    if (ceu_closure_1216.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1220, "binarytrees.ceu : (lin 8, col 13)", err);
-                    }
-                    CEU_Frame ceu_frame_1216 = { &ceu_closure_1216.Dyn->Closure, ceu_block_1220 };
-                    
-                    CEU_Value ceu_args_1216[1];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1216[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1216.closure->proto (
-                        &ceu_frame_1216,
-                        1,
-                        ceu_args_1216
-                    );
-                    ceu_assert_pre(ceu_block_1220, ceu_acc, "binarytrees.ceu : (lin 8, col 13) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_1220,
-                            ceu_tuple_set(&ceu_tup_1217.Dyn->Tuple, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 6, col 9)"
-                        );
-                        
-                    ceu_acc = ceu_tup_1217;
-                }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1220, 
-                                ceu_hold_chk_set(&ceu_block_1235->dyns, ceu_block_1235->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 4, col 18)"
-                            );
-                            
-                        
-                        
-                        ceu_block_free(ceu_block_1220);
-                    }
-                    
-                    } else {
-                        
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1232 = (CEU_Block) { (ceu_block_1235->depth + 1), 0, {.block=ceu_block_1235}, NULL };
-                        CEU_Block* ceu_block_1232 = &_ceu_block_1232; 
-                        
-                        
-                        
-                        
-                        
-                        // >>> block
-                        
-                { // TUPLE | 
-                    CEU_Value ceu_tup_1229 = ceu_tuple_create(ceu_block_1232, 2);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_NIL });
-                        ceu_assert_pre(
-                            ceu_block_1232,
-                            ceu_tuple_set(&ceu_tup_1229.Dyn->Tuple, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 11, col 9)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NIL });
-                        ceu_assert_pre(
-                            ceu_block_1232,
-                            ceu_tuple_set(&ceu_tup_1229.Dyn->Tuple, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 11, col 9)"
-                        );
-                        
-                    ceu_acc = ceu_tup_1229;
-                }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1232, 
-                                ceu_hold_chk_set(&ceu_block_1235->dyns, ceu_block_1235->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 10, col 12)"
-                            );
-                            
-                        
-                        
-                        ceu_block_free(ceu_block_1232);
-                    }
-                    
-                    }
-                }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1235, 
-                                ceu_hold_chk_set(&ceu_frame->up_block->dyns, ceu_frame->up_block->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 2, col 29)"
-                            );
-                            
-                        
-                            if (id_depth.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_depth, (id_depth.Dyn->Any.hld_depth == ceu_block_1235->depth));
-                            }
-                        
-                        
-                            
-                                if (id_d.type > CEU_VALUE_DYNAMIC) {
-                                    ceu_gc_dec(id_d, !(ceu_acc.type>CEU_VALUE_DYNAMIC && ceu_acc.Dyn==id_d.Dyn));
-                                }
-                                
-                        
-                        ceu_block_free(ceu_block_1235);
-                    }
-                    
-                        return ceu_acc;
-                    }
-                 // CLOSURE | 
-                CEU_Value ceu_ret_1236 = ceu_closure_create (
-                    ceu_block_2027,
-                    CEU_HOLD_FLEET,
-                    NULL,
-                    ceu_proto_1236,
-                    0
-                );
-                ceu_acc = ceu_ret_1236;
-                
-                // UPVALS
-                
-                
-                    CEU_Value ceu_set_1237 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_2027,
-                                ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, (ceu_set_1237), 0, "set error"),
-                                "binarytrees.ceu : (lin 2, col 5)"
-                            );
-                            ceu_gc_inc((ceu_set_1237));
-                            ceu_gc_dec(id_bottomUpTree, 1);
-                            id_bottomUpTree = (ceu_set_1237);
-                        }
-                        
-                    ceu_acc = ceu_set_1237;
-                }
-                
-                // DCL | 
-                
-                
-                    
-                    ceu_gc_inc(id_itemCheck);
-                    ceu_acc = id_itemCheck;
-                    
-                
-                { // SET | 
-                     // TYPE | 
-                    
-                 // PROTO | 
-                    CEU_Value ceu_proto_1304 (
-                        CEU_Frame* ceu_frame,
-                        int ceu_n,
-                        CEU_Value ceu_args[]
-                    ) {
-                        CEU_Value ceu_acc;        
-                        
-                        
-                            CEU_Value id_tree;
-                            CEU_Block* _id_tree_;
-                            
-                        
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1303 = (CEU_Block) { ceu_frame->up_block->depth + 1, 1, {.frame=ceu_frame}, NULL };
-                        CEU_Block* ceu_block_1303 = &_ceu_block_1303; 
-                        
-                        
-                            { // func args
-                                ceu_gc_inc_args(ceu_n, ceu_args);
-                                
-                                    if (0 < ceu_n) {
-                                        ceu_assert_pre(
-                                            ceu_block_1303,
-                                            ceu_hold_chk_set(&ceu_block_1303->dyns, ceu_block_1303->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 19, col 29)"
-                                        );
-                                        id_tree = ceu_args[0];
-                                    } else {
-                                        id_tree = (CEU_Value) { CEU_VALUE_NIL };
-                                    }
-                                    
-                                
-                            }
-                            
-                        
-                        
-                        
-                        // >>> block
-                        
-                { // IF | 
-                    
-                { // INDEX | 
-                    // IDX
-                    
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });
-                        CEU_Value ceu_idx_1257 = ceu_acc;
-                        
-                    // COL
-                    ceu_acc = id_tree;
-
-                    ceu_assert_pre(ceu_block_1303, ceu_col_check(ceu_acc, ceu_idx_1257), "binarytrees.ceu : (lin 20, col 8)");
-                
-                        switch (ceu_acc.type) {
-                            case CEU_VALUE_TUPLE:
-                                ceu_acc = ceu_acc.Dyn->Tuple.buf[(int) ceu_idx_1257.Number];
-                                break;
-                            case CEU_VALUE_VECTOR:
-                                ceu_acc = ceu_assert_pre(ceu_block_1303, ceu_vector_get(&ceu_acc.Dyn->Vector, ceu_idx_1257.Number), "binarytrees.ceu : (lin 20, col 8)");
-                                break;
-                            case CEU_VALUE_DICT: {
-                                CEU_Value ceu_dict = ceu_acc;
-                                ceu_acc = ceu_dict_get(&ceu_dict.Dyn->Dict, ceu_idx_1257);
-                                break;
-                            }
-                            default:
-                                assert(0 && "bug found");
-                        }
-                    
-                }
-                
-                    if (ceu_as_bool(ceu_acc)) {
-                        
-                    CEU_Block* ceu_block_1294 = ceu_block_1303;
-                    // >>> block
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1292 = ceu_acc;
-                    if (ceu_closure_1292.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1294, "binarytrees.ceu : (lin 21, col 32)", err);
-                    }
-                    CEU_Frame ceu_frame_1292 = { &ceu_closure_1292.Dyn->Closure, ceu_block_1294 };
-                    
-                    CEU_Value ceu_args_1292[2];
-                    
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1276 = ceu_acc;
-                    if (ceu_closure_1276.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1294, "binarytrees.ceu : (lin 21, col 11)", err);
-                    }
-                    CEU_Frame ceu_frame_1276 = { &ceu_closure_1276.Dyn->Closure, ceu_block_1294 };
-                    
-                    CEU_Value ceu_args_1276[2];
-                    
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1276[0] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = id_itemCheck;
-
-                    CEU_Value ceu_closure_1273 = ceu_acc;
-                    if (ceu_closure_1273.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1294, "binarytrees.ceu : (lin 21, col 13)", err);
-                    }
-                    CEU_Frame ceu_frame_1273 = { &ceu_closure_1273.Dyn->Closure, ceu_block_1294 };
-                    
-                    CEU_Value ceu_args_1273[1];
-                    
-                    
-                { // INDEX | 
-                    // IDX
-                    
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });
-                        CEU_Value ceu_idx_1271 = ceu_acc;
-                        
-                    // COL
-                    ceu_acc = id_tree;
-
-                    ceu_assert_pre(ceu_block_1294, ceu_col_check(ceu_acc, ceu_idx_1271), "binarytrees.ceu : (lin 21, col 23)");
-                
-                        switch (ceu_acc.type) {
-                            case CEU_VALUE_TUPLE:
-                                ceu_acc = ceu_acc.Dyn->Tuple.buf[(int) ceu_idx_1271.Number];
-                                break;
-                            case CEU_VALUE_VECTOR:
-                                ceu_acc = ceu_assert_pre(ceu_block_1294, ceu_vector_get(&ceu_acc.Dyn->Vector, ceu_idx_1271.Number), "binarytrees.ceu : (lin 21, col 23)");
-                                break;
-                            case CEU_VALUE_DICT: {
-                                CEU_Value ceu_dict = ceu_acc;
-                                ceu_acc = ceu_dict_get(&ceu_dict.Dyn->Dict, ceu_idx_1271);
-                                break;
-                            }
-                            default:
-                                assert(0 && "bug found");
-                        }
-                    
-                }
-                ceu_args_1273[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1273.closure->proto (
-                        &ceu_frame_1273,
-                        1,
-                        ceu_args_1273
-                    );
-                    ceu_assert_pre(ceu_block_1294, ceu_acc, "binarytrees.ceu : (lin 21, col 13) : call error");
-                } // CALL
-                ceu_args_1276[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1276.closure->proto (
-                        &ceu_frame_1276,
-                        2,
-                        ceu_args_1276
-                    );
-                    ceu_assert_pre(ceu_block_1294, ceu_acc, "binarytrees.ceu : (lin 21, col 11) : call error");
-                } // CALL
-                ceu_args_1292[0] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = id_itemCheck;
-
-                    CEU_Value ceu_closure_1289 = ceu_acc;
-                    if (ceu_closure_1289.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1294, "binarytrees.ceu : (lin 21, col 34)", err);
-                    }
-                    CEU_Frame ceu_frame_1289 = { &ceu_closure_1289.Dyn->Closure, ceu_block_1294 };
-                    
-                    CEU_Value ceu_args_1289[1];
-                    
-                    
-                { // INDEX | 
-                    // IDX
-                    
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });
-                        CEU_Value ceu_idx_1287 = ceu_acc;
-                        
-                    // COL
-                    ceu_acc = id_tree;
-
-                    ceu_assert_pre(ceu_block_1294, ceu_col_check(ceu_acc, ceu_idx_1287), "binarytrees.ceu : (lin 21, col 44)");
-                
-                        switch (ceu_acc.type) {
-                            case CEU_VALUE_TUPLE:
-                                ceu_acc = ceu_acc.Dyn->Tuple.buf[(int) ceu_idx_1287.Number];
-                                break;
-                            case CEU_VALUE_VECTOR:
-                                ceu_acc = ceu_assert_pre(ceu_block_1294, ceu_vector_get(&ceu_acc.Dyn->Vector, ceu_idx_1287.Number), "binarytrees.ceu : (lin 21, col 44)");
-                                break;
-                            case CEU_VALUE_DICT: {
-                                CEU_Value ceu_dict = ceu_acc;
-                                ceu_acc = ceu_dict_get(&ceu_dict.Dyn->Dict, ceu_idx_1287);
-                                break;
-                            }
-                            default:
-                                assert(0 && "bug found");
-                        }
-                    
-                }
-                ceu_args_1289[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1289.closure->proto (
-                        &ceu_frame_1289,
-                        1,
-                        ceu_args_1289
-                    );
-                    ceu_assert_pre(ceu_block_1294, ceu_acc, "binarytrees.ceu : (lin 21, col 34) : call error");
-                } // CALL
-                ceu_args_1292[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1292.closure->proto (
-                        &ceu_frame_1292,
-                        2,
-                        ceu_args_1292
-                    );
-                    ceu_assert_pre(ceu_block_1294, ceu_acc, "binarytrees.ceu : (lin 21, col 32) : call error");
-                } // CALL
-                
-                    // <<< block
-                    
-                    } else {
-                        
-                    CEU_Block* ceu_block_1300 = ceu_block_1303;
-                    // >>> block
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });
-                    // <<< block
-                    
-                    }
-                }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1303, 
-                                ceu_hold_chk_set(&ceu_frame->up_block->dyns, ceu_frame->up_block->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 19, col 29)"
-                            );
-                            
-                        
-                        
-                            
-                                if (id_tree.type > CEU_VALUE_DYNAMIC) {
-                                    ceu_gc_dec(id_tree, !(ceu_acc.type>CEU_VALUE_DYNAMIC && ceu_acc.Dyn==id_tree.Dyn));
-                                }
-                                
-                        
-                        ceu_block_free(ceu_block_1303);
-                    }
-                    
-                        return ceu_acc;
-                    }
-                 // CLOSURE | 
-                CEU_Value ceu_ret_1304 = ceu_closure_create (
-                    ceu_block_2027,
-                    CEU_HOLD_FLEET,
-                    NULL,
-                    ceu_proto_1304,
-                    0
-                );
-                ceu_acc = ceu_ret_1304;
-                
-                // UPVALS
-                
-                
-                    CEU_Value ceu_set_1305 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_2027,
-                                ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, (ceu_set_1305), 0, "set error"),
-                                "binarytrees.ceu : (lin 19, col 5)"
-                            );
-                            ceu_gc_inc((ceu_set_1305));
-                            ceu_gc_dec(id_itemCheck, 1);
-                            id_itemCheck = (ceu_set_1305);
-                        }
-                        
-                    ceu_acc = ceu_set_1305;
-                }
-                
-                // DCL | 
-                
-                
-                    
-                    ceu_gc_inc(id_stress);
-                    ceu_acc = id_stress;
-                    
-                
-                { // SET | 
-                     // TYPE | 
-                    
-                 // PROTO | 
-                    CEU_Value ceu_proto_1435 (
-                        CEU_Frame* ceu_frame,
-                        int ceu_n,
-                        CEU_Value ceu_args[]
-                    ) {
-                        CEU_Value ceu_acc;        
-                        
-                        
-                            CEU_Value id_mindepth;
-                            CEU_Block* _id_mindepth_;
-                            
-                            CEU_Value id_maxdepth;
-                            CEU_Block* _id_maxdepth_;
-                            
-                            CEU_Value id_depth;
-                            CEU_Block* _id_depth_;
-                            
-                        
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1434 = (CEU_Block) { ceu_frame->up_block->depth + 1, 1, {.frame=ceu_frame}, NULL };
-                        CEU_Block* ceu_block_1434 = &_ceu_block_1434; 
-                        
-                        
-                            { // func args
-                                ceu_gc_inc_args(ceu_n, ceu_args);
-                                
-                                    if (0 < ceu_n) {
-                                        ceu_assert_pre(
-                                            ceu_block_1434,
-                                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 29, col 47)"
-                                        );
-                                        id_mindepth = ceu_args[0];
-                                    } else {
-                                        id_mindepth = (CEU_Value) { CEU_VALUE_NIL };
-                                    }
-                                    
-                                    if (1 < ceu_n) {
-                                        ceu_assert_pre(
-                                            ceu_block_1434,
-                                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 29, col 47)"
-                                        );
-                                        id_maxdepth = ceu_args[1];
-                                    } else {
-                                        id_maxdepth = (CEU_Value) { CEU_VALUE_NIL };
-                                    }
-                                    
-                                    if (2 < ceu_n) {
-                                        ceu_assert_pre(
-                                            ceu_block_1434,
-                                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_FLEET, ceu_args[2], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 29, col 47)"
-                                        );
-                                        id_depth = ceu_args[2];
-                                    } else {
-                                        id_depth = (CEU_Value) { CEU_VALUE_NIL };
-                                    }
-                                    
-                                
-                            }
-                            
-                        
-                            CEU_Value id_iterations = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_check = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_i = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                        
-                        
-                        // >>> block
-                        
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = op_asterisk_asterisk;
-
-                    CEU_Value ceu_closure_1349 = ceu_acc;
-                    if (ceu_closure_1349.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1434, "binarytrees.ceu : (lin 30, col 24)", err);
-                    }
-                    CEU_Frame ceu_frame_1349 = { &ceu_closure_1349.Dyn->Closure, ceu_block_1434 };
-                    
-                    CEU_Value ceu_args_1349[2];
-                    
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=2} });ceu_args_1349[0] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1345 = ceu_acc;
-                    if (ceu_closure_1345.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1434, "binarytrees.ceu : (lin 30, col 46)", err);
-                    }
-                    CEU_Frame ceu_frame_1345 = { &ceu_closure_1345.Dyn->Closure, ceu_block_1434 };
-                    
-                    CEU_Value ceu_args_1345[2];
-                    
-                    
-                { // CALL | 
-                    ceu_acc = op_minus;
-
-                    CEU_Value ceu_closure_1338 = ceu_acc;
-                    if (ceu_closure_1338.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1434, "binarytrees.ceu : (lin 30, col 37)", err);
-                    }
-                    CEU_Frame ceu_frame_1338 = { &ceu_closure_1338.Dyn->Closure, ceu_block_1434 };
-                    
-                    CEU_Value ceu_args_1338[2];
-                    
-                    ceu_acc = id_maxdepth;
-ceu_args_1338[0] = ceu_acc;
-ceu_acc = id_depth;
-ceu_args_1338[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1338.closure->proto (
-                        &ceu_frame_1338,
-                        2,
-                        ceu_args_1338
-                    );
-                    ceu_assert_pre(ceu_block_1434, ceu_acc, "binarytrees.ceu : (lin 30, col 37) : call error");
-                } // CALL
-                ceu_args_1345[0] = ceu_acc;
-ceu_acc = id_mindepth;
-ceu_args_1345[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1345.closure->proto (
-                        &ceu_frame_1345,
-                        2,
-                        ceu_args_1345
-                    );
-                    ceu_assert_pre(ceu_block_1434, ceu_acc, "binarytrees.ceu : (lin 30, col 46) : call error");
-                } // CALL
-                ceu_args_1349[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1349.closure->proto (
-                        &ceu_frame_1349,
-                        2,
-                        ceu_args_1349
-                    );
-                    ceu_assert_pre(ceu_block_1434, ceu_acc, "binarytrees.ceu : (lin 30, col 24) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_1434,
-                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 30, col 5)"
-                        );
-                    
-                
-                    id_iterations = ceu_acc;
-                    ceu_gc_inc(id_iterations);
-                    ceu_acc = id_iterations;
-                    
-                
-                // DCL | 
-                ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });
-                        ceu_assert_pre(
-                            ceu_block_1434,
-                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 32, col 5)"
-                        );
-                    
-                
-                    id_check = ceu_acc;
-                    ceu_gc_inc(id_check);
-                    ceu_acc = id_check;
-                    
-                
-                // DCL | 
-                ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });
-                        ceu_assert_pre(
-                            ceu_block_1434,
-                            ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 33, col 5)"
-                        );
-                    
-                
-                    id_i = ceu_acc;
-                    ceu_gc_inc(id_i);
-                    ceu_acc = id_i;
-                    
-                
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1423 = (CEU_Block) { (ceu_block_1434->depth + 1), 0, {.block=ceu_block_1434}, NULL };
-                        CEU_Block* ceu_block_1423 = &_ceu_block_1423; 
-                        
-                        
-                        
-                            CEU_Value id_t = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                        
-                        
-                        // >>> block
-                        
-                    while (1) { // LOOP | 
-                        
-                
-                { // CALL | 
-                    ceu_acc = op_greater;
-
-                    CEU_Value ceu_closure_1376 = ceu_acc;
-                    if (ceu_closure_1376.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1423, "binarytrees.ceu : (lin 35, col 21)", err);
-                    }
-                    CEU_Frame ceu_frame_1376 = { &ceu_closure_1376.Dyn->Closure, ceu_block_1423 };
-                    
-                    CEU_Value ceu_args_1376[2];
-                    
-                    ceu_acc = id_i;
-ceu_args_1376[0] = ceu_acc;
-ceu_acc = id_iterations;
-ceu_args_1376[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1376.closure->proto (
-                        &ceu_frame_1376,
-                        2,
-                        ceu_args_1376
-                    );
-                    ceu_assert_pre(ceu_block_1423, ceu_acc, "binarytrees.ceu : (lin 35, col 21) : call error");
-                } // CALL
-                
-                if (ceu_as_bool(ceu_acc)) {
-                    
-                    break;
-                }
-            
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = id_bottomUpTree;
-
-                    CEU_Value ceu_closure_1388 = ceu_acc;
-                    if (ceu_closure_1388.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1423, "binarytrees.ceu : (lin 37, col 17)", err);
-                    }
-                    CEU_Frame ceu_frame_1388 = { &ceu_closure_1388.Dyn->Closure, ceu_block_1423 };
-                    
-                    CEU_Value ceu_args_1388[1];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1388[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1388.closure->proto (
-                        &ceu_frame_1388,
-                        1,
-                        ceu_args_1388
-                    );
-                    ceu_assert_pre(ceu_block_1423, ceu_acc, "binarytrees.ceu : (lin 37, col 17) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_1423,
-                            ceu_hold_chk_set(&ceu_block_1423->dyns, ceu_block_1423->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 37, col 9)"
-                        );
-                    
-                
-                    id_t = ceu_acc;
-                    ceu_gc_inc(id_t);
-                    ceu_acc = id_t;
-                    
-                
-                { // SET | 
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1406 = ceu_acc;
-                    if (ceu_closure_1406.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1423, "binarytrees.ceu : (lin 38, col 27)", err);
-                    }
-                    CEU_Frame ceu_frame_1406 = { &ceu_closure_1406.Dyn->Closure, ceu_block_1423 };
-                    
-                    CEU_Value ceu_args_1406[2];
-                    
-                    ceu_acc = id_check;
-ceu_args_1406[0] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = id_itemCheck;
-
-                    CEU_Value ceu_closure_1403 = ceu_acc;
-                    if (ceu_closure_1403.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1423, "binarytrees.ceu : (lin 38, col 29)", err);
-                    }
-                    CEU_Frame ceu_frame_1403 = { &ceu_closure_1403.Dyn->Closure, ceu_block_1423 };
-                    
-                    CEU_Value ceu_args_1403[1];
-                    
-                    ceu_acc = id_t;
-ceu_args_1403[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1403.closure->proto (
-                        &ceu_frame_1403,
-                        1,
-                        ceu_args_1403
-                    );
-                    ceu_assert_pre(ceu_block_1423, ceu_acc, "binarytrees.ceu : (lin 38, col 29) : call error");
-                } // CALL
-                ceu_args_1406[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1406.closure->proto (
-                        &ceu_frame_1406,
-                        2,
-                        ceu_args_1406
-                    );
-                    ceu_assert_pre(ceu_block_1423, ceu_acc, "binarytrees.ceu : (lin 38, col 27) : call error");
-                } // CALL
-                
-                    CEU_Value ceu_set_1407 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1423,
-                                ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_MUTAB, (ceu_set_1407), 0, "set error"),
-                                "binarytrees.ceu : (lin 38, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1407));
-                            ceu_gc_dec(id_check, 1);
-                            id_check = (ceu_set_1407);
-                        }
-                        
-                    ceu_acc = ceu_set_1407;
-                }
-                
-                { // SET | 
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1419 = ceu_acc;
-                    if (ceu_closure_1419.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1423, "binarytrees.ceu : (lin 40, col 19)", err);
-                    }
-                    CEU_Frame ceu_frame_1419 = { &ceu_closure_1419.Dyn->Closure, ceu_block_1423 };
-                    
-                    CEU_Value ceu_args_1419[2];
-                    
-                    ceu_acc = id_i;
-ceu_args_1419[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1419[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1419.closure->proto (
-                        &ceu_frame_1419,
-                        2,
-                        ceu_args_1419
-                    );
-                    ceu_assert_pre(ceu_block_1423, ceu_acc, "binarytrees.ceu : (lin 40, col 19) : call error");
-                } // CALL
-                
-                    CEU_Value ceu_set_1420 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1423,
-                                ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_MUTAB, (ceu_set_1420), 0, "set error"),
-                                "binarytrees.ceu : (lin 40, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1420));
-                            ceu_gc_dec(id_i, 1);
-                            id_i = (ceu_set_1420);
-                        }
-                        
-                    ceu_acc = ceu_set_1420;
-                }
-                
-                    }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1423, 
-                                ceu_hold_chk_set(&ceu_block_1434->dyns, ceu_block_1434->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 34, col 5)"
-                            );
-                            
-                        
-                            if (id_t.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_t, (id_t.Dyn->Any.hld_depth == ceu_block_1423->depth));
-                            }
-                        
-                        
-                        ceu_block_free(ceu_block_1423);
-                    }
-                    
-                { // TUPLE | 
-                    CEU_Value ceu_tup_1431 = ceu_tuple_create(ceu_block_1434, 2);
-                    ceu_acc = id_iterations;
-
-                        ceu_assert_pre(
-                            ceu_block_1434,
-                            ceu_tuple_set(&ceu_tup_1431.Dyn->Tuple, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 43, col 5)"
-                        );
-                        ceu_acc = id_check;
-
-                        ceu_assert_pre(
-                            ceu_block_1434,
-                            ceu_tuple_set(&ceu_tup_1431.Dyn->Tuple, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 43, col 5)"
-                        );
-                        
-                    ceu_acc = ceu_tup_1431;
-                }
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_1434, 
-                                ceu_hold_chk_set(&ceu_frame->up_block->dyns, ceu_frame->up_block->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 29, col 47)"
-                            );
-                            
-                        
-                            if (id_iterations.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_iterations, (id_iterations.Dyn->Any.hld_depth == ceu_block_1434->depth));
-                            }
-                        
-                            if (id_check.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_check, (id_check.Dyn->Any.hld_depth == ceu_block_1434->depth));
-                            }
-                        
-                            if (id_i.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_i, (id_i.Dyn->Any.hld_depth == ceu_block_1434->depth));
-                            }
-                        
-                        
-                            
-                                if (id_mindepth.type > CEU_VALUE_DYNAMIC) {
-                                    ceu_gc_dec(id_mindepth, !(ceu_acc.type>CEU_VALUE_DYNAMIC && ceu_acc.Dyn==id_mindepth.Dyn));
-                                }
-                                
-                                if (id_maxdepth.type > CEU_VALUE_DYNAMIC) {
-                                    ceu_gc_dec(id_maxdepth, !(ceu_acc.type>CEU_VALUE_DYNAMIC && ceu_acc.Dyn==id_maxdepth.Dyn));
-                                }
-                                
-                                if (id_depth.type > CEU_VALUE_DYNAMIC) {
-                                    ceu_gc_dec(id_depth, !(ceu_acc.type>CEU_VALUE_DYNAMIC && ceu_acc.Dyn==id_depth.Dyn));
-                                }
-                                
-                        
-                        ceu_block_free(ceu_block_1434);
-                    }
-                    
-                        return ceu_acc;
-                    }
-                 // CLOSURE | 
-                CEU_Value ceu_ret_1435 = ceu_closure_create (
-                    ceu_block_2027,
-                    CEU_HOLD_FLEET,
-                    NULL,
-                    ceu_proto_1435,
-                    0
-                );
-                ceu_acc = ceu_ret_1435;
-                
-                // UPVALS
-                
-                
-                    CEU_Value ceu_set_1436 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_2027,
-                                ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, (ceu_set_1436), 0, "set error"),
-                                "binarytrees.ceu : (lin 29, col 5)"
-                            );
-                            ceu_gc_inc((ceu_set_1436));
-                            ceu_gc_dec(id_stress, 1);
-                            id_stress = (ceu_set_1436);
-                        }
-                        
-                    ceu_acc = ceu_set_1436;
-                }
-                
-                // DCL | 
-                
-                
-                    
-                    ceu_gc_inc(id_main);
-                    ceu_acc = id_main;
-                    
-                
-                { // SET | 
-                     // TYPE | 
-                    
-                 // PROTO | 
-                    CEU_Value ceu_proto_2017 (
+                    CEU_Value ceu_proto_1223 (
                         CEU_Frame* ceu_frame,
                         int ceu_n,
                         CEU_Value ceu_args[]
@@ -7227,8 +6042,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1419[1] = ceu
                             
                         
                     { // BLOCK | 
-                        CEU_Block _ceu_block_2016 = (CEU_Block) { ceu_frame->up_block->depth + 1, 1, {.frame=ceu_frame}, NULL };
-                        CEU_Block* ceu_block_2016 = &_ceu_block_2016; 
+                        CEU_Block _ceu_block_1222 = (CEU_Block) { ceu_frame->up_block->depth + 1, 1, {.frame=ceu_frame}, NULL };
+                        CEU_Block* ceu_block_1222 = &_ceu_block_1222; 
                         
                         
                             { // func args
@@ -7236,9 +6051,9 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1419[1] = ceu
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
-                                            ceu_block_2016,
-                                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
-                                            "binarytrees.ceu : (lin 50, col 21)"
+                                            ceu_block_1222,
+                                            ceu_hold_chk_set(&ceu_block_1222->dyns, ceu_block_1222->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
+                                            "fib.ceu : (lin 2, col 20)"
                                         );
                                         id_n = ceu_args[0];
                                     } else {
@@ -7249,1481 +6064,196 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1419[1] = ceu
                             }
                             
                         
-                            CEU_Value id_N = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_mindepth = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_maxdepth = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_stretchdepth = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_stretchtree = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_longlivedtree = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_depth = (CEU_Value) { CEU_VALUE_NIL };
-                        
                         
                         
                         // >>> block
                         
-                // DCL | 
-                ceu_acc = id_n;
-
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 51, col 5)"
-                        );
-                    
-                
-                    id_N = ceu_acc;
-                    ceu_gc_inc(id_N);
-                    ceu_acc = id_N;
-                    
-                
-                // DCL | 
-                ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=4} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 53, col 5)"
-                        );
-                    
-                
-                    id_mindepth = ceu_acc;
-                    ceu_gc_inc(id_mindepth);
-                    ceu_acc = id_mindepth;
-                    
-                
-                // DCL | 
-                
-                
-                    
-                    ceu_gc_inc(id_maxdepth);
-                    ceu_acc = id_maxdepth;
-                    
-                
                 { // IF | 
                     
                 { // CALL | 
-                    ceu_acc = op_less;
+                    ceu_acc = op_less_equals;
 
-                    CEU_Value ceu_closure_1480 = ceu_acc;
-                    if (ceu_closure_1480.type != CEU_VALUE_CLOSURE) {
+                    CEU_Value ceu_closure_1180 = ceu_acc;
+                    if (ceu_closure_1180.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 56, col 23)", err);
+                        ceu_ferror_pre(ceu_block_1222, "fib.ceu : (lin 3, col 10)", err);
                     }
-                    CEU_Frame ceu_frame_1480 = { &ceu_closure_1480.Dyn->Closure, ceu_block_2016 };
+                    CEU_Frame ceu_frame_1180 = { &ceu_closure_1180.Dyn->Closure, ceu_block_1222 };
                     
-                    CEU_Value ceu_args_1480[2];
+                    CEU_Value ceu_args_1180[2];
                     
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1473 = ceu_acc;
-                    if (ceu_closure_1473.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 56, col 18)", err);
-                    }
-                    CEU_Frame ceu_frame_1473 = { &ceu_closure_1473.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1473[2];
-                    
-                    ceu_acc = id_mindepth;
-ceu_args_1473[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=2} });ceu_args_1473[1] = ceu_acc;
+                    ceu_acc = id_n;
+ceu_args_1180[0] = ceu_acc;
+ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1180[1] = ceu_acc;
 
                     
                     
 
-                    ceu_acc = ceu_frame_1473.closure->proto (
-                        &ceu_frame_1473,
+                    ceu_acc = ceu_frame_1180.closure->proto (
+                        &ceu_frame_1180,
                         2,
-                        ceu_args_1473
+                        ceu_args_1180
                     );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 56, col 18) : call error");
-                } // CALL
-                ceu_args_1480[0] = ceu_acc;
-ceu_acc = id_N;
-ceu_args_1480[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1480.closure->proto (
-                        &ceu_frame_1480,
-                        2,
-                        ceu_args_1480
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 56, col 23) : call error");
+                    ceu_assert_pre(ceu_block_1222, ceu_acc, "fib.ceu : (lin 3, col 10) : call error");
                 } // CALL
                 
                     if (ceu_as_bool(ceu_acc)) {
                         
-                    CEU_Block* ceu_block_1490 = ceu_block_2016;
+                    CEU_Block* ceu_block_1185 = ceu_block_1222;
                     // >>> block
-                    
-                { // SET | 
-                    ceu_acc = id_N;
-
-                    CEU_Value ceu_set_1488 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1490,
-                                ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, (ceu_set_1488), 0, "set error"),
-                                "binarytrees.ceu : (lin 57, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1488));
-                            ceu_gc_dec(id_maxdepth, 1);
-                            id_maxdepth = (ceu_set_1488);
-                        }
-                        
-                    ceu_acc = ceu_set_1488;
-                }
-                
+                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });
                     // <<< block
                     
                     } else {
                         
-                    CEU_Block* ceu_block_1507 = ceu_block_2016;
+                    CEU_Block* ceu_block_1219 = ceu_block_1222;
                     // >>> block
-                    
-                { // SET | 
                     
                 { // CALL | 
                     ceu_acc = op_plus;
 
-                    CEU_Value ceu_closure_1504 = ceu_acc;
-                    if (ceu_closure_1504.type != CEU_VALUE_CLOSURE) {
+                    CEU_Value ceu_closure_1217 = ceu_acc;
+                    if (ceu_closure_1217.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1507, "binarytrees.ceu : (lin 59, col 33)", err);
+                        ceu_ferror_pre(ceu_block_1219, "fib.ceu : (lin 6, col 18)", err);
                     }
-                    CEU_Frame ceu_frame_1504 = { &ceu_closure_1504.Dyn->Closure, ceu_block_1507 };
+                    CEU_Frame ceu_frame_1217 = { &ceu_closure_1217.Dyn->Closure, ceu_block_1219 };
                     
-                    CEU_Value ceu_args_1504[2];
+                    CEU_Value ceu_args_1217[2];
                     
-                    ceu_acc = id_mindepth;
-ceu_args_1504[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=2} });ceu_args_1504[1] = ceu_acc;
+                    
+                { // CALL | 
+                    ceu_acc = id_fib;
+
+                    CEU_Value ceu_closure_1200 = ceu_acc;
+                    if (ceu_closure_1200.type != CEU_VALUE_CLOSURE) {
+                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
+                        ceu_ferror_pre(ceu_block_1219, "fib.ceu : (lin 6, col 9)", err);
+                    }
+                    CEU_Frame ceu_frame_1200 = { &ceu_closure_1200.Dyn->Closure, ceu_block_1219 };
+                    
+                    CEU_Value ceu_args_1200[1];
+                    
+                    
+                { // CALL | 
+                    ceu_acc = op_minus;
+
+                    CEU_Value ceu_closure_1198 = ceu_acc;
+                    if (ceu_closure_1198.type != CEU_VALUE_CLOSURE) {
+                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
+                        ceu_ferror_pre(ceu_block_1219, "fib.ceu : (lin 6, col 14)", err);
+                    }
+                    CEU_Frame ceu_frame_1198 = { &ceu_closure_1198.Dyn->Closure, ceu_block_1219 };
+                    
+                    CEU_Value ceu_args_1198[2];
+                    
+                    ceu_acc = id_n;
+ceu_args_1198[0] = ceu_acc;
+ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1198[1] = ceu_acc;
 
                     
                     
 
-                    ceu_acc = ceu_frame_1504.closure->proto (
-                        &ceu_frame_1504,
+                    ceu_acc = ceu_frame_1198.closure->proto (
+                        &ceu_frame_1198,
                         2,
-                        ceu_args_1504
+                        ceu_args_1198
                     );
-                    ceu_assert_pre(ceu_block_1507, ceu_acc, "binarytrees.ceu : (lin 59, col 33) : call error");
+                    ceu_assert_pre(ceu_block_1219, ceu_acc, "fib.ceu : (lin 6, col 14) : call error");
                 } // CALL
-                
-                    CEU_Value ceu_set_1505 = ceu_acc;
+                ceu_args_1200[0] = ceu_acc;
+
                     
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1507,
-                                ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, (ceu_set_1505), 0, "set error"),
-                                "binarytrees.ceu : (lin 59, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1505));
-                            ceu_gc_dec(id_maxdepth, 1);
-                            id_maxdepth = (ceu_set_1505);
-                        }
-                        
-                    ceu_acc = ceu_set_1505;
-                }
+                    
+
+                    ceu_acc = ceu_frame_1200.closure->proto (
+                        &ceu_frame_1200,
+                        1,
+                        ceu_args_1200
+                    );
+                    ceu_assert_pre(ceu_block_1219, ceu_acc, "fib.ceu : (lin 6, col 9) : call error");
+                } // CALL
+                ceu_args_1217[0] = ceu_acc;
+
+                { // CALL | 
+                    ceu_acc = id_fib;
+
+                    CEU_Value ceu_closure_1214 = ceu_acc;
+                    if (ceu_closure_1214.type != CEU_VALUE_CLOSURE) {
+                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
+                        ceu_ferror_pre(ceu_block_1219, "fib.ceu : (lin 6, col 20)", err);
+                    }
+                    CEU_Frame ceu_frame_1214 = { &ceu_closure_1214.Dyn->Closure, ceu_block_1219 };
+                    
+                    CEU_Value ceu_args_1214[1];
+                    
+                    
+                { // CALL | 
+                    ceu_acc = op_minus;
+
+                    CEU_Value ceu_closure_1212 = ceu_acc;
+                    if (ceu_closure_1212.type != CEU_VALUE_CLOSURE) {
+                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
+                        ceu_ferror_pre(ceu_block_1219, "fib.ceu : (lin 6, col 25)", err);
+                    }
+                    CEU_Frame ceu_frame_1212 = { &ceu_closure_1212.Dyn->Closure, ceu_block_1219 };
+                    
+                    CEU_Value ceu_args_1212[2];
+                    
+                    ceu_acc = id_n;
+ceu_args_1212[0] = ceu_acc;
+ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=2} });ceu_args_1212[1] = ceu_acc;
+
+                    
+                    
+
+                    ceu_acc = ceu_frame_1212.closure->proto (
+                        &ceu_frame_1212,
+                        2,
+                        ceu_args_1212
+                    );
+                    ceu_assert_pre(ceu_block_1219, ceu_acc, "fib.ceu : (lin 6, col 25) : call error");
+                } // CALL
+                ceu_args_1214[0] = ceu_acc;
+
+                    
+                    
+
+                    ceu_acc = ceu_frame_1214.closure->proto (
+                        &ceu_frame_1214,
+                        1,
+                        ceu_args_1214
+                    );
+                    ceu_assert_pre(ceu_block_1219, ceu_acc, "fib.ceu : (lin 6, col 20) : call error");
+                } // CALL
+                ceu_args_1217[1] = ceu_acc;
+
+                    
+                    
+
+                    ceu_acc = ceu_frame_1217.closure->proto (
+                        &ceu_frame_1217,
+                        2,
+                        ceu_args_1217
+                    );
+                    ceu_assert_pre(ceu_block_1219, ceu_acc, "fib.ceu : (lin 6, col 18) : call error");
+                } // CALL
                 
                     // <<< block
                     
                     }
                 }
                 
-                { // CALL | 
-                    ceu_acc = id_println;
-
-                    CEU_Value ceu_closure_1599 = ceu_acc;
-                    if (ceu_closure_1599.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 63, col 5)", err);
-                    }
-                    CEU_Frame ceu_frame_1599 = { &ceu_closure_1599.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1599[6];
-                    
-                    
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1521 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='N'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1521.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1521.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1521.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 13)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1521;
-                }
-                ceu_args_1599[0] = ceu_acc;
-ceu_acc = id_N;
-ceu_args_1599[1] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1557 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='m'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='i'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='n'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='p'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 7, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 8, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1557.Dyn->Vector, 9, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 23)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1557;
-                }
-                ceu_args_1599[2] = ceu_acc;
-ceu_acc = id_mindepth;
-ceu_args_1599[3] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1593 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='m'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='a'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='x'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='p'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 7, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 8, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1593.Dyn->Vector, 9, ceu_acc),
-                            "binarytrees.ceu : (lin 63, col 47)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1593;
-                }
-                ceu_args_1599[4] = ceu_acc;
-ceu_acc = id_maxdepth;
-ceu_args_1599[5] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1599.closure->proto (
-                        &ceu_frame_1599,
-                        6,
-                        ceu_args_1599
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 63, col 5) : call error");
-                } // CALL
-                
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1610 = ceu_acc;
-                    if (ceu_closure_1610.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 65, col 33)", err);
-                    }
-                    CEU_Frame ceu_frame_1610 = { &ceu_closure_1610.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1610[2];
-                    
-                    ceu_acc = id_maxdepth;
-ceu_args_1610[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1610[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1610.closure->proto (
-                        &ceu_frame_1610,
-                        2,
-                        ceu_args_1610
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 65, col 33) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 65, col 5)"
-                        );
-                    
-                
-                    id_stretchdepth = ceu_acc;
-                    ceu_gc_inc(id_stretchdepth);
-                    ceu_acc = id_stretchdepth;
-                    
-                
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = id_bottomUpTree;
-
-                    CEU_Value ceu_closure_1621 = ceu_acc;
-                    if (ceu_closure_1621.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 66, col 23)", err);
-                    }
-                    CEU_Frame ceu_frame_1621 = { &ceu_closure_1621.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1621[1];
-                    
-                    ceu_acc = id_stretchdepth;
-ceu_args_1621[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1621.closure->proto (
-                        &ceu_frame_1621,
-                        1,
-                        ceu_args_1621
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 66, col 23) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 66, col 5)"
-                        );
-                    
-                
-                    id_stretchtree = ceu_acc;
-                    ceu_gc_inc(id_stretchtree);
-                    ceu_acc = id_stretchtree;
-                    
-                
-                { // CALL | 
-                    ceu_acc = id_println;
-
-                    CEU_Value ceu_closure_1727 = ceu_acc;
-                    if (ceu_closure_1727.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 67, col 5)", err);
-                    }
-                    CEU_Frame ceu_frame_1727 = { &ceu_closure_1727.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1727[4];
-                    
-                    
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1689 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='s'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='r'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 7, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 8, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='r'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 9, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 10, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 11, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 12, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='o'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 13, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='f'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 14, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 15, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 16, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 17, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='p'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 18, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 19, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1689.Dyn->Vector, 20, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 13)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1689;
-                }
-                ceu_args_1727[0] = ceu_acc;
-ceu_acc = id_stretchdepth;
-ceu_args_1727[1] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1716 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='k'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1716.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 67, col 52)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1716;
-                }
-                ceu_args_1727[2] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = id_itemCheck;
-
-                    CEU_Value ceu_closure_1725 = ceu_acc;
-                    if (ceu_closure_1725.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 67, col 63)", err);
-                    }
-                    CEU_Frame ceu_frame_1725 = { &ceu_closure_1725.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1725[1];
-                    
-                    ceu_acc = id_stretchtree;
-ceu_args_1725[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1725.closure->proto (
-                        &ceu_frame_1725,
-                        1,
-                        ceu_args_1725
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 67, col 63) : call error");
-                } // CALL
-                ceu_args_1727[3] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1727.closure->proto (
-                        &ceu_frame_1727,
-                        4,
-                        ceu_args_1727
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 67, col 5) : call error");
-                } // CALL
-                
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = id_bottomUpTree;
-
-                    CEU_Value ceu_closure_1737 = ceu_acc;
-                    if (ceu_closure_1737.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 70, col 25)", err);
-                    }
-                    CEU_Frame ceu_frame_1737 = { &ceu_closure_1737.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_1737[1];
-                    
-                    ceu_acc = id_maxdepth;
-ceu_args_1737[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1737.closure->proto (
-                        &ceu_frame_1737,
-                        1,
-                        ceu_args_1737
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 70, col 25) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 70, col 5)"
-                        );
-                    
-                
-                    id_longlivedtree = ceu_acc;
-                    ceu_gc_inc(id_longlivedtree);
-                    ceu_acc = id_longlivedtree;
-                    
-                
-                // DCL | 
-                ceu_acc = id_mindepth;
-
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 72, col 5)"
-                        );
-                    
-                
-                    id_depth = ceu_acc;
-                    ceu_gc_inc(id_depth);
-                    ceu_acc = id_depth;
-                    
-                
-                    { // BLOCK | 
-                        CEU_Block _ceu_block_1899 = (CEU_Block) { (ceu_block_2016->depth + 1), 0, {.block=ceu_block_2016}, NULL };
-                        CEU_Block* ceu_block_1899 = &_ceu_block_1899; 
-                        
-                        
-                        
-                            CEU_Value id_r = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_iterations = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                            CEU_Value id_check = (CEU_Value) { CEU_VALUE_NIL };
-                        
-                        
-                        
-                        // >>> block
-                        
-                    while (1) { // LOOP | 
-                        
-                
-                { // CALL | 
-                    ceu_acc = op_greater;
-
-                    CEU_Value ceu_closure_1757 = ceu_acc;
-                    if (ceu_closure_1757.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1899, "binarytrees.ceu : (lin 75, col 25)", err);
-                    }
-                    CEU_Frame ceu_frame_1757 = { &ceu_closure_1757.Dyn->Closure, ceu_block_1899 };
-                    
-                    CEU_Value ceu_args_1757[2];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1757[0] = ceu_acc;
-ceu_acc = id_maxdepth;
-ceu_args_1757[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1757.closure->proto (
-                        &ceu_frame_1757,
-                        2,
-                        ceu_args_1757
-                    );
-                    ceu_assert_pre(ceu_block_1899, ceu_acc, "binarytrees.ceu : (lin 75, col 25) : call error");
-                } // CALL
-                
-                if (ceu_as_bool(ceu_acc)) {
-                    
-                    break;
-                }
-            
-                // DCL | 
-                
-                { // CALL | 
-                    ceu_acc = id_stress;
-
-                    CEU_Value ceu_closure_1775 = ceu_acc;
-                    if (ceu_closure_1775.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1899, "binarytrees.ceu : (lin 77, col 17)", err);
-                    }
-                    CEU_Frame ceu_frame_1775 = { &ceu_closure_1775.Dyn->Closure, ceu_block_1899 };
-                    
-                    CEU_Value ceu_args_1775[3];
-                    
-                    ceu_acc = id_mindepth;
-ceu_args_1775[0] = ceu_acc;
-ceu_acc = id_maxdepth;
-ceu_args_1775[1] = ceu_acc;
-ceu_acc = id_depth;
-ceu_args_1775[2] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1775.closure->proto (
-                        &ceu_frame_1775,
-                        3,
-                        ceu_args_1775
-                    );
-                    ceu_assert_pre(ceu_block_1899, ceu_acc, "binarytrees.ceu : (lin 77, col 17) : call error");
-                } // CALL
-                
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_hold_chk_set(&ceu_block_1899->dyns, ceu_block_1899->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 77, col 9)"
-                        );
-                    
-                
-                    id_r = ceu_acc;
-                    ceu_gc_inc(id_r);
-                    ceu_acc = id_r;
-                    
-                
-                // DCL | 
-                
-                { // INDEX | 
-                    // IDX
-                    
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });
-                        CEU_Value ceu_idx_1786 = ceu_acc;
-                        
-                    // COL
-                    ceu_acc = id_r;
-
-                    ceu_assert_pre(ceu_block_1899, ceu_col_check(ceu_acc, ceu_idx_1786), "binarytrees.ceu : (lin 78, col 26)");
-                
-                        switch (ceu_acc.type) {
-                            case CEU_VALUE_TUPLE:
-                                ceu_acc = ceu_acc.Dyn->Tuple.buf[(int) ceu_idx_1786.Number];
-                                break;
-                            case CEU_VALUE_VECTOR:
-                                ceu_acc = ceu_assert_pre(ceu_block_1899, ceu_vector_get(&ceu_acc.Dyn->Vector, ceu_idx_1786.Number), "binarytrees.ceu : (lin 78, col 26)");
-                                break;
-                            case CEU_VALUE_DICT: {
-                                CEU_Value ceu_dict = ceu_acc;
-                                ceu_acc = ceu_dict_get(&ceu_dict.Dyn->Dict, ceu_idx_1786);
-                                break;
-                            }
-                            default:
-                                assert(0 && "bug found");
-                        }
-                    
-                }
-                
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_hold_chk_set(&ceu_block_1899->dyns, ceu_block_1899->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 78, col 9)"
-                        );
-                    
-                
-                    id_iterations = ceu_acc;
-                    ceu_gc_inc(id_iterations);
-                    ceu_acc = id_iterations;
-                    
-                
-                // DCL | 
-                
-                { // INDEX | 
-                    // IDX
-                    
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });
-                        CEU_Value ceu_idx_1797 = ceu_acc;
-                        
-                    // COL
-                    ceu_acc = id_r;
-
-                    ceu_assert_pre(ceu_block_1899, ceu_col_check(ceu_acc, ceu_idx_1797), "binarytrees.ceu : (lin 79, col 21)");
-                
-                        switch (ceu_acc.type) {
-                            case CEU_VALUE_TUPLE:
-                                ceu_acc = ceu_acc.Dyn->Tuple.buf[(int) ceu_idx_1797.Number];
-                                break;
-                            case CEU_VALUE_VECTOR:
-                                ceu_acc = ceu_assert_pre(ceu_block_1899, ceu_vector_get(&ceu_acc.Dyn->Vector, ceu_idx_1797.Number), "binarytrees.ceu : (lin 79, col 21)");
-                                break;
-                            case CEU_VALUE_DICT: {
-                                CEU_Value ceu_dict = ceu_acc;
-                                ceu_acc = ceu_dict_get(&ceu_dict.Dyn->Dict, ceu_idx_1797);
-                                break;
-                            }
-                            default:
-                                assert(0 && "bug found");
-                        }
-                    
-                }
-                
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_hold_chk_set(&ceu_block_1899->dyns, ceu_block_1899->depth, CEU_HOLD_MUTAB, ceu_acc, 0, "declaration error"),
-                            "binarytrees.ceu : (lin 79, col 9)"
-                        );
-                    
-                
-                    id_check = ceu_acc;
-                    ceu_gc_inc(id_check);
-                    ceu_acc = id_check;
-                    
-                
-                { // CALL | 
-                    ceu_acc = id_println;
-
-                    CEU_Value ceu_closure_1883 = ceu_acc;
-                    if (ceu_closure_1883.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1899, "binarytrees.ceu : (lin 81, col 9)", err);
-                    }
-                    CEU_Frame ceu_frame_1883 = { &ceu_closure_1883.Dyn->Closure, ceu_block_1899 };
-                    
-                    CEU_Value ceu_args_1883[5];
-                    
-                    ceu_acc = id_iterations;
-ceu_args_1883[0] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1850 = ceu_vector_create(ceu_block_1899);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='r'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='s'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='o'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='f'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 7, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 8, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 9, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 10, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='p'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 11, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 12, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 13, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1850.Dyn->Vector, 14, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 29)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1850;
-                }
-                ceu_args_1883[1] = ceu_acc;
-ceu_acc = id_depth;
-ceu_args_1883[2] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1877 = ceu_vector_create(ceu_block_1899);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='k'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_1899,
-                            ceu_vector_set(&ceu_vec_1877.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 81, col 55)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1877;
-                }
-                ceu_args_1883[3] = ceu_acc;
-ceu_acc = id_check;
-ceu_args_1883[4] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1883.closure->proto (
-                        &ceu_frame_1883,
-                        5,
-                        ceu_args_1883
-                    );
-                    ceu_assert_pre(ceu_block_1899, ceu_acc, "binarytrees.ceu : (lin 81, col 9) : call error");
-                } // CALL
-                
-                { // SET | 
-                    
-                { // CALL | 
-                    ceu_acc = op_plus;
-
-                    CEU_Value ceu_closure_1895 = ceu_acc;
-                    if (ceu_closure_1895.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_1899, "binarytrees.ceu : (lin 83, col 27)", err);
-                    }
-                    CEU_Frame ceu_frame_1895 = { &ceu_closure_1895.Dyn->Closure, ceu_block_1899 };
-                    
-                    CEU_Value ceu_args_1895[2];
-                    
-                    ceu_acc = id_depth;
-ceu_args_1895[0] = ceu_acc;
-ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=2} });ceu_args_1895[1] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_1895.closure->proto (
-                        &ceu_frame_1895,
-                        2,
-                        ceu_args_1895
-                    );
-                    ceu_assert_pre(ceu_block_1899, ceu_acc, "binarytrees.ceu : (lin 83, col 27) : call error");
-                } // CALL
-                
-                    CEU_Value ceu_set_1896 = ceu_acc;
-                    
-                        { // ACC - SET
-                            ceu_assert_pre(
-                                ceu_block_1899,
-                                ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_MUTAB, (ceu_set_1896), 0, "set error"),
-                                "binarytrees.ceu : (lin 83, col 13)"
-                            );
-                            ceu_gc_inc((ceu_set_1896));
-                            ceu_gc_dec(id_depth, 1);
-                            id_depth = (ceu_set_1896);
-                        }
-                        
-                    ceu_acc = ceu_set_1896;
-                }
-                
-                    }
-                
                         // <<< block
                         
                         
                             // move up dynamic ceu_acc (return or error)
                             ceu_assert_pre(
-                                ceu_block_1899, 
-                                ceu_hold_chk_set(&ceu_block_2016->dyns, ceu_block_2016->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 74, col 5)"
-                            );
-                            
-                        
-                            if (id_r.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_r, (id_r.Dyn->Any.hld_depth == ceu_block_1899->depth));
-                            }
-                        
-                            if (id_iterations.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_iterations, (id_iterations.Dyn->Any.hld_depth == ceu_block_1899->depth));
-                            }
-                        
-                            if (id_check.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_check, (id_check.Dyn->Any.hld_depth == ceu_block_1899->depth));
-                            }
-                        
-                        
-                        ceu_block_free(ceu_block_1899);
-                    }
-                    
-                { // CALL | 
-                    ceu_acc = id_println;
-
-                    CEU_Value ceu_closure_2014 = ceu_acc;
-                    if (ceu_closure_2014.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 86, col 5)", err);
-                    }
-                    CEU_Frame ceu_frame_2014 = { &ceu_closure_2014.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_2014[4];
-                    
-                    
-                { // VECTOR | 
-                    CEU_Value ceu_vec_1976 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='l'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='o'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='n'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='g'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='l'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='i'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='v'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 7, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 8, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 9, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 10, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 11, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='r'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 12, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 13, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 14, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 15, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='o'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 16, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='f'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 17, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 18, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='d'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 19, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 20, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='p'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 21, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='t'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 22, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_1976.Dyn->Vector, 23, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 13)"
-                        );
-                        
-                    ceu_acc = ceu_vec_1976;
-                }
-                ceu_args_2014[0] = ceu_acc;
-ceu_acc = id_maxdepth;
-ceu_args_2014[1] = ceu_acc;
-
-                { // VECTOR | 
-                    CEU_Value ceu_vec_2003 = ceu_vector_create(ceu_block_2016);
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 0, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='h'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 1, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='e'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 2, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='c'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 3, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char='k'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 4, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=':'} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 5, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        ceu_acc = ((CEU_Value) { CEU_VALUE_CHAR, {.Char=' '} });
-                        ceu_assert_pre(
-                            ceu_block_2016,
-                            ceu_vector_set(&ceu_vec_2003.Dyn->Vector, 6, ceu_acc),
-                            "binarytrees.ceu : (lin 86, col 51)"
-                        );
-                        
-                    ceu_acc = ceu_vec_2003;
-                }
-                ceu_args_2014[2] = ceu_acc;
-
-                { // CALL | 
-                    ceu_acc = id_itemCheck;
-
-                    CEU_Value ceu_closure_2012 = ceu_acc;
-                    if (ceu_closure_2012.type != CEU_VALUE_CLOSURE) {
-                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2016, "binarytrees.ceu : (lin 86, col 62)", err);
-                    }
-                    CEU_Frame ceu_frame_2012 = { &ceu_closure_2012.Dyn->Closure, ceu_block_2016 };
-                    
-                    CEU_Value ceu_args_2012[1];
-                    
-                    ceu_acc = id_longlivedtree;
-ceu_args_2012[0] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_2012.closure->proto (
-                        &ceu_frame_2012,
-                        1,
-                        ceu_args_2012
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 86, col 62) : call error");
-                } // CALL
-                ceu_args_2014[3] = ceu_acc;
-
-                    
-                    
-
-                    ceu_acc = ceu_frame_2014.closure->proto (
-                        &ceu_frame_2014,
-                        4,
-                        ceu_args_2014
-                    );
-                    ceu_assert_pre(ceu_block_2016, ceu_acc, "binarytrees.ceu : (lin 86, col 5) : call error");
-                } // CALL
-                
-                        // <<< block
-                        
-                        
-                            // move up dynamic ceu_acc (return or error)
-                            ceu_assert_pre(
-                                ceu_block_2016, 
+                                ceu_block_1222, 
                                 ceu_hold_chk_set(&ceu_frame->up_block->dyns, ceu_frame->up_block->depth, CEU_HOLD_FLEET, ceu_acc, 0, "block escape error"),
-                                "binarytrees.ceu : (lin 50, col 21)"
+                                "fib.ceu : (lin 2, col 20)"
                             );
                             
-                        
-                            if (id_N.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_N, (id_N.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_mindepth.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_mindepth, (id_mindepth.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_maxdepth.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_maxdepth, (id_maxdepth.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_stretchdepth.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_stretchdepth, (id_stretchdepth.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_stretchtree.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_stretchtree, (id_stretchtree.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_longlivedtree.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_longlivedtree, (id_longlivedtree.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
-                        
-                            if (id_depth.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_depth, (id_depth.Dyn->Any.hld_depth == ceu_block_2016->depth));
-                            }
                         
                         
                             
@@ -8732,63 +6262,88 @@ ceu_args_2012[0] = ceu_acc;
                                 }
                                 
                         
-                        ceu_block_free(ceu_block_2016);
+                        ceu_block_free(ceu_block_1222);
                     }
                     
                         return ceu_acc;
                     }
                  // CLOSURE | 
-                CEU_Value ceu_ret_2017 = ceu_closure_create (
-                    ceu_block_2027,
+                CEU_Value ceu_ret_1223 = ceu_closure_create (
+                    ceu_block_1238,
                     CEU_HOLD_FLEET,
                     NULL,
-                    ceu_proto_2017,
+                    ceu_proto_1223,
                     0
                 );
-                ceu_acc = ceu_ret_2017;
+                ceu_acc = ceu_ret_1223;
                 
                 // UPVALS
                 
                 
-                    CEU_Value ceu_set_2018 = ceu_acc;
+                    CEU_Value ceu_set_1224 = ceu_acc;
                     
                         { // ACC - SET
                             ceu_assert_pre(
-                                ceu_block_2027,
-                                ceu_hold_chk_set(&ceu_block_2027->dyns, ceu_block_2027->depth, CEU_HOLD_MUTAB, (ceu_set_2018), 0, "set error"),
-                                "binarytrees.ceu : (lin 50, col 5)"
+                                ceu_block_1238,
+                                ceu_hold_chk_set(&ceu_block_1238->dyns, ceu_block_1238->depth, CEU_HOLD_MUTAB, (ceu_set_1224), 0, "set error"),
+                                "fib.ceu : (lin 2, col 5)"
                             );
-                            ceu_gc_inc((ceu_set_2018));
-                            ceu_gc_dec(id_main, 1);
-                            id_main = (ceu_set_2018);
+                            ceu_gc_inc((ceu_set_1224));
+                            ceu_gc_dec(id_fib, 1);
+                            id_fib = (ceu_set_1224);
                         }
                         
-                    ceu_acc = ceu_set_2018;
+                    ceu_acc = ceu_set_1224;
                 }
                 
                 { // CALL | 
-                    ceu_acc = id_main;
+                    ceu_acc = id_println;
 
-                    CEU_Value ceu_closure_2025 = ceu_acc;
-                    if (ceu_closure_2025.type != CEU_VALUE_CLOSURE) {
+                    CEU_Value ceu_closure_1236 = ceu_acc;
+                    if (ceu_closure_1236.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
-                        ceu_ferror_pre(ceu_block_2027, "binarytrees.ceu : (lin 89, col 1)", err);
+                        ceu_ferror_pre(ceu_block_1238, "fib.ceu : (lin 10, col 1)", err);
                     }
-                    CEU_Frame ceu_frame_2025 = { &ceu_closure_2025.Dyn->Closure, ceu_block_2027 };
+                    CEU_Frame ceu_frame_1236 = { &ceu_closure_1236.Dyn->Closure, ceu_block_1238 };
                     
-                    CEU_Value ceu_args_2025[1];
+                    CEU_Value ceu_args_1236[1];
                     
-                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=12} });ceu_args_2025[0] = ceu_acc;
+                    
+                { // CALL | 
+                    ceu_acc = id_fib;
+
+                    CEU_Value ceu_closure_1234 = ceu_acc;
+                    if (ceu_closure_1234.type != CEU_VALUE_CLOSURE) {
+                        CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
+                        ceu_ferror_pre(ceu_block_1238, "fib.ceu : (lin 10, col 9)", err);
+                    }
+                    CEU_Frame ceu_frame_1234 = { &ceu_closure_1234.Dyn->Closure, ceu_block_1238 };
+                    
+                    CEU_Value ceu_args_1234[1];
+                    
+                    ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=35} });ceu_args_1234[0] = ceu_acc;
 
                     
                     
 
-                    ceu_acc = ceu_frame_2025.closure->proto (
-                        &ceu_frame_2025,
+                    ceu_acc = ceu_frame_1234.closure->proto (
+                        &ceu_frame_1234,
                         1,
-                        ceu_args_2025
+                        ceu_args_1234
                     );
-                    ceu_assert_pre(ceu_block_2027, ceu_acc, "binarytrees.ceu : (lin 89, col 1) : call error");
+                    ceu_assert_pre(ceu_block_1238, ceu_acc, "fib.ceu : (lin 10, col 9) : call error");
+                } // CALL
+                ceu_args_1236[0] = ceu_acc;
+
+                    
+                    
+
+                    ceu_acc = ceu_frame_1236.closure->proto (
+                        &ceu_frame_1236,
+                        1,
+                        ceu_args_1236
+                    );
+                    ceu_assert_pre(ceu_block_1238, ceu_acc, "fib.ceu : (lin 10, col 1) : call error");
                 } // CALL
                 
                         // <<< block
@@ -8796,87 +6351,75 @@ ceu_args_2012[0] = ceu_acc;
                         
                         
                             if (op_ampersand_ampersand.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_ampersand_ampersand, (op_ampersand_ampersand.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_ampersand_ampersand, (op_ampersand_ampersand.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_bar_bar.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_bar_bar, (op_bar_bar.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_bar_bar, (op_bar_bar.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_plus.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_plus, (op_plus.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_plus, (op_plus.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_minus.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_minus, (op_minus.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_minus, (op_minus.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_asterisk.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_asterisk, (op_asterisk.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_asterisk, (op_asterisk.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_asterisk_asterisk.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_asterisk_asterisk, (op_asterisk_asterisk.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_asterisk_asterisk, (op_asterisk_asterisk.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_slash.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_slash, (op_slash.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_slash, (op_slash.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_slash_slash.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_slash_slash, (op_slash_slash.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_slash_slash, (op_slash_slash.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_null.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_null, (op_null.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_null, (op_null.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_greater_equals.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_greater_equals, (op_greater_equals.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_greater_equals, (op_greater_equals.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_greater.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_greater, (op_greater.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_greater, (op_greater.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_less_equals.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_less_equals, (op_less_equals.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_less_equals, (op_less_equals.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (op_less.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(op_less, (op_less.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(op_less, (op_less.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (id_to_dash_string.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_to_dash_string, (id_to_dash_string.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(id_to_dash_string, (id_to_dash_string.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (id_to_dash_number.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_to_dash_number, (id_to_dash_number.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(id_to_dash_number, (id_to_dash_number.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                             if (id_to_dash_tag.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_to_dash_tag, (id_to_dash_tag.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                                ceu_gc_dec(id_to_dash_tag, (id_to_dash_tag.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
-                            if (id_bottomUpTree.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_bottomUpTree, (id_bottomUpTree.Dyn->Any.hld_depth == ceu_block_2027->depth));
-                            }
-                        
-                            if (id_itemCheck.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_itemCheck, (id_itemCheck.Dyn->Any.hld_depth == ceu_block_2027->depth));
-                            }
-                        
-                            if (id_stress.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_stress, (id_stress.Dyn->Any.hld_depth == ceu_block_2027->depth));
-                            }
-                        
-                            if (id_main.type > CEU_VALUE_DYNAMIC) {
-                                ceu_gc_dec(id_main, (id_main.Dyn->Any.hld_depth == ceu_block_2027->depth));
+                            if (id_fib.type > CEU_VALUE_DYNAMIC) {
+                                ceu_gc_dec(id_fib, (id_fib.Dyn->Any.hld_depth == ceu_block_1238->depth));
                             }
                         
                         
-                        ceu_block_free(ceu_block_2027);
+                        ceu_block_free(ceu_block_1238);
                     }
                     
             return 0;

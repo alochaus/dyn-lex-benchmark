@@ -154,6 +154,7 @@
         
         void ceu_gc_inc (CEU_Value v);
         void ceu_gc_dec (CEU_Value v, int chk);
+        void ceu_gc_chk_args (int n, CEU_Value args[]);
 
         void ceu_hold_add (CEU_Dyn* dyn, CEU_Dyn** blk);
         void ceu_hold_rem (CEU_Dyn* dyn);
@@ -178,7 +179,7 @@
         CEU_Value ceu_col_check (CEU_Value col, CEU_Value idx);
 
         void ceu_print1 (CEU_Frame* _1, CEU_Value v);
-        CEU_Value ceu_op_equals_equals_f (CEU_Frame* _1, int n, CEU_Value args[]);
+        CEU_Value _ceu_op_equals_equals_f_ (CEU_Frame* _1, int n, CEU_Value args[]);
      // GLOBALS
         int ceu_gc_count = 0;
         
@@ -232,31 +233,31 @@
             
      // IMPLS
         void ceu_exit (CEU_Block* blk) {
-            // if (blk == NULL) {
-            //     exit(0);
-            // }
-            // CEU_Block* up = (blk->istop) ? blk->up.frame->up_block : blk->up.block;
-            // ceu_block_free(blk);
-            // return ceu_exit(up);
+            if (blk == NULL) {
+                exit(0);
+            }
+            CEU_Block* up = (blk->istop) ? blk->up.frame->up_block : blk->up.block;
+            ceu_block_free(blk);
+            return ceu_exit(up);
         }
         void ceu_ferror (CEU_Block* blk, CEU_Value err) {
-            // fprintf(stderr, "%s\n", err.Error);
-            // ceu_exit(blk);
+            fprintf(stderr, "%s\n", err.Error);
+            ceu_exit(blk);
         }
         void ceu_ferror_pre (CEU_Block* blk, char* pre, CEU_Value err) {
-            // fprintf(stderr, "%s : %s\n", pre, err.Error);
-            // ceu_exit(blk);
+            fprintf(stderr, "%s : %s\n", pre, err.Error);
+            ceu_exit(blk);
         }
         CEU_Value ceu_assert (CEU_Block* blk, CEU_Value v) {
-            // if (v.type == CEU_VALUE_ERROR) {
-            //     ceu_ferror(blk, v);
-            // }
+            if (v.type == CEU_VALUE_ERROR) {
+                ceu_ferror(blk, v);
+            }
             return v;
         }
         CEU_Value ceu_assert_pre (CEU_Block* blk, CEU_Value v, char* pre) {
-            // if (v.type == CEU_VALUE_ERROR) {
-            //     ceu_ferror_pre(blk, pre, v);
-            // }
+            if (v.type == CEU_VALUE_ERROR) {
+                ceu_ferror_pre(blk, pre, v);
+            }
             return v;
         }
         CEU_Value ceu_error_f (CEU_Frame* _1, int n, CEU_Value args[]) {
@@ -286,6 +287,8 @@
         CEU_Value ceu_dump_f (CEU_Frame* _1, int n, CEU_Value args[]) {
             assert(n == 1);
             _ceu_dump_(args[0]);
+            ceu_gc_chk_args(n, args);
+            return (CEU_Value) { CEU_VALUE_NIL };
         }
 
         int ceu_as_bool (CEU_Value v) {
@@ -293,6 +296,7 @@
         }
         CEU_Value ceu_type_f (CEU_Frame* _1, int n, CEU_Value args[]) {
             assert(n == 1 && "bug found");
+            ceu_gc_chk_args(n, args);
             return (CEU_Value) { CEU_VALUE_TAG, {.Tag=args[0].type} };
         }
         CEU_Value ceu_sup_question__f (CEU_Frame* _1, int n, CEU_Value args[]) {
@@ -312,6 +316,8 @@
             int sub2 = sub.Tag & 0x00FF0000;
             int sub3 = sub.Tag & 0xFF000000;
             
+            ceu_gc_chk_args(n, args);
+
             return (CEU_Value) { CEU_VALUE_BOOL, { .Bool =
                 (sup0 == sub0) && ((sup1 == 0) || (
                     (sup1 == sub1) && ((sup2 == 0) || (
@@ -416,54 +422,57 @@
             CEU_Value str = args[0];
             assert(str.type==CEU_VALUE_VECTOR && str.Dyn->Vector.unit==CEU_VALUE_CHAR);
             CEU_Tags_Names* cur = CEU_TAGS;
+            CEU_Value ret = (CEU_Value) { CEU_VALUE_NIL };
             while (cur != NULL) {
                 if (!strcmp(cur->name,str.Dyn->Vector.buf)) {
-                    return (CEU_Value) { CEU_VALUE_TAG, {.Tag=cur->tag} };
+                    ret = (CEU_Value) { CEU_VALUE_TAG, {.Tag=cur->tag} };
+                    break;
                 }
                 cur = cur->next;
             }
-            return (CEU_Value) { CEU_VALUE_NIL };
+            ceu_gc_chk_args(n, args);
+            return ret;
         }
      // GC
         void ceu_gc_free (CEU_Dyn* dyn) {
-            // switch (dyn->Any.type) {
-            //     case CEU_VALUE_CLOSURE:
-            //         for (int i=0; i<dyn->Closure.upvs.its; i++) {
-            //             ceu_gc_dec(dyn->Closure.upvs.buf[i], 1);
-            //         }
-            //         break;
-            //     case CEU_VALUE_TUPLE:
-            //         for (int i=0; i<dyn->Tuple.its; i++) {
-            //             ceu_gc_dec(dyn->Tuple.buf[i], 1);
-            //         }
-            //         break;
-            //     case CEU_VALUE_VECTOR:
-            //         for (int i=0; i<dyn->Vector.its; i++) {
-            //             CEU_Value ret = ceu_vector_get(&dyn->Vector, i);
-            //             assert(ret.type != CEU_VALUE_ERROR);
-            //             ceu_gc_dec(ret, 1);
-            //         }
-            //         break;
-            //     case CEU_VALUE_DICT:
-            //         for (int i=0; i<dyn->Dict.max; i++) {
-            //             ceu_gc_dec((*dyn->Dict.buf)[i][0], 1);
-            //             ceu_gc_dec((*dyn->Dict.buf)[i][1], 1);
-            //         }
-            //         break;
-            //     default:
-            //         assert(0);
-            //         break;
-            // }
-            // ceu_gc_count++;
-            // ceu_hold_rem(dyn);
-            // ceu_dyn_free(dyn);
+            switch (dyn->Any.type) {
+                case CEU_VALUE_CLOSURE:
+                    for (int i=0; i<dyn->Closure.upvs.its; i++) {
+                        ceu_gc_dec(dyn->Closure.upvs.buf[i], 1);
+                    }
+                    break;
+                case CEU_VALUE_TUPLE:
+                    for (int i=0; i<dyn->Tuple.its; i++) {
+                        ceu_gc_dec(dyn->Tuple.buf[i], 1);
+                    }
+                    break;
+                case CEU_VALUE_VECTOR:
+                    for (int i=0; i<dyn->Vector.its; i++) {
+                        CEU_Value ret = ceu_vector_get(&dyn->Vector, i);
+                        assert(ret.type != CEU_VALUE_ERROR);
+                        ceu_gc_dec(ret, 1);
+                    }
+                    break;
+                case CEU_VALUE_DICT:
+                    for (int i=0; i<dyn->Dict.max; i++) {
+                        ceu_gc_dec((*dyn->Dict.buf)[i][0], 1);
+                        ceu_gc_dec((*dyn->Dict.buf)[i][1], 1);
+                    }
+                    break;
+                default:
+                    assert(0);
+                    break;
+            }
+            ceu_gc_count++;
+            ceu_hold_rem(dyn);
+            ceu_dyn_free(dyn);
         }
         
         void ceu_gc_chk (CEU_Dyn* dyn) {
-            // assert(dyn->Any.type > CEU_VALUE_DYNAMIC);
-            // if (dyn->Any.refs == 0) {
-            //     ceu_gc_free(dyn);
-            // }
+            assert(dyn->Any.type > CEU_VALUE_DYNAMIC);
+            if (dyn->Any.refs == 0) {
+                ceu_gc_free(dyn);
+            }
         }
 
         // var x = ?        // var source
@@ -476,74 +485,85 @@
         // closure
         
         void ceu_gc_inc (CEU_Value new) {
-            // if (new.type > CEU_VALUE_DYNAMIC) {
-            //     new.Dyn->Any.refs++;
-            // }
+            if (new.type > CEU_VALUE_DYNAMIC) {
+                new.Dyn->Any.refs++;
+            }
         }
-        
         void ceu_gc_dec (CEU_Value old, int chk) {
-            // if (old.type > CEU_VALUE_DYNAMIC) {
-            //     old.Dyn->Any.refs--;
-            //     if (chk) {
-            //         ceu_gc_chk(old.Dyn);
-            //     }
-            // }
+            if (old.type > CEU_VALUE_DYNAMIC) {
+                old.Dyn->Any.refs--;
+                if (chk) {
+                    ceu_gc_chk(old.Dyn);
+                }
+            }
+        }
+        void ceu_gc_chk_args (int n, CEU_Value args[]) {
+            for (int i=0; i<n; i++) {
+                if (args[i].type > CEU_VALUE_DYNAMIC) {
+                    ceu_gc_chk(args[i].Dyn);
+                }
+            }
+        }
+        void ceu_gc_inc_args (int n, CEU_Value args[]) {
+            for (int i=0; i<n; i++) {
+                ceu_gc_inc(args[i]);
+            }
         }
      // BLOCK
         void ceu_dyn_free (CEU_Dyn* dyn) {
-            // while (dyn->Any.tags != NULL) {
-            //     CEU_Tags_List* tag = dyn->Any.tags;
-            //     dyn->Any.tags = tag->next;
-            //     free(tag);
-            // }
-            // switch (dyn->Any.type) {
-            //     case CEU_VALUE_CLOSURE:
-            //         free(dyn->Closure.upvs.buf);
-            //         break;
-            //     case CEU_VALUE_TUPLE:       // buf w/ dyn
-            //         break;
-            //     case CEU_VALUE_VECTOR:
-            //         free(dyn->Vector.buf);
-            //         break;
-            //     case CEU_VALUE_DICT:
-            //         free(dyn->Dict.buf);
-            //         break;
-            //     default:
-            //         assert(0 && "bug found");
-            // }
-            // free(dyn);
+            while (dyn->Any.tags != NULL) {
+                CEU_Tags_List* tag = dyn->Any.tags;
+                dyn->Any.tags = tag->next;
+                free(tag);
+            }
+            switch (dyn->Any.type) {
+                case CEU_VALUE_CLOSURE:
+                    free(dyn->Closure.upvs.buf);
+                    break;
+                case CEU_VALUE_TUPLE:       // buf w/ dyn
+                    break;
+                case CEU_VALUE_VECTOR:
+                    free(dyn->Vector.buf);
+                    break;
+                case CEU_VALUE_DICT:
+                    free(dyn->Dict.buf);
+                    break;
+                default:
+                    assert(0 && "bug found");
+            }
+            free(dyn);
         }
         
         void ceu_block_free (CEU_Block* blk) {
-            // CEU_Dyn* cur = blk->dyns;
-            // while (cur != NULL) {
-            //     CEU_Dyn* old = cur;
-            //     cur = old->Any.hld_next;
-            //     ceu_dyn_free((CEU_Dyn*)old);
-            // }
-            // blk->dyns = NULL;
+            CEU_Dyn* cur = blk->dyns;
+            while (cur != NULL) {
+                CEU_Dyn* old = cur;
+                cur = old->Any.hld_next;
+                ceu_dyn_free((CEU_Dyn*)old);
+            }
+            blk->dyns = NULL;
         }
      // HOLD
         void ceu_hold_add (CEU_Dyn* dyn, CEU_Dyn** nxt) {
-            // dyn->Any.hld_prev = nxt;
-            // dyn->Any.hld_next = *nxt;
-            // if (*nxt != NULL) {
-            //     (*nxt)->Any.hld_prev = &dyn->Any.hld_next;
-            // }
-            // *nxt = dyn;
+            dyn->Any.hld_prev = nxt;
+            dyn->Any.hld_next = *nxt;
+            if (*nxt != NULL) {
+                (*nxt)->Any.hld_prev = &dyn->Any.hld_next;
+            }
+            *nxt = dyn;
         }
         void ceu_hold_rem (CEU_Dyn* dyn) {
-            // *(dyn->Any.hld_prev) = dyn->Any.hld_next;
-            // if (dyn->Any.hld_next != NULL) {
-            //     dyn->Any.hld_next->Any.hld_prev = dyn->Any.hld_prev;
-            // }
-            // dyn->Any.hld_prev = NULL;
-            // dyn->Any.hld_next = NULL;
+            *(dyn->Any.hld_prev) = dyn->Any.hld_next;
+            if (dyn->Any.hld_next != NULL) {
+                dyn->Any.hld_next->Any.hld_prev = dyn->Any.hld_prev;
+            }
+            dyn->Any.hld_prev = NULL;
+            dyn->Any.hld_next = NULL;
         }
         void ceu_hold_chg (CEU_Dyn* dyn, CEU_Dyn** nxt, int depth) {
-            // dyn->Any.hld_depth = depth;
-            // ceu_hold_rem(dyn);
-            // ceu_hold_add(dyn, nxt);
+            dyn->Any.hld_depth = depth;
+            ceu_hold_rem(dyn);
+            ceu_hold_add(dyn, nxt);
         }
 
         CEU_Value ceu_hold_chk_set (CEU_Dyn** dst, int depth, CEU_HOLD type, CEU_Value src, int nest, char* pre) {
@@ -582,23 +602,23 @@
             switch (src.Dyn->Any.type) {
                 case CEU_VALUE_CLOSURE:
                     for (int i=0; i<src.Dyn->Closure.upvs.its; i++) {
-                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Closure.upvs.buf[i], 1, pre));
+                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Closure.upvs.buf[i], 1, pre));
                     }
                     break;
                 case CEU_VALUE_TUPLE:
                     for (int i=0; i<src.Dyn->Tuple.its; i++) {
-                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Tuple.buf[i], 1, pre));
+                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, src.Dyn->Tuple.buf[i], 1, pre));
                     }
                     break;
                 case CEU_VALUE_VECTOR:
                     for (int i=0; i<src.Dyn->Vector.its; i++) {
-                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, ceu_vector_get(&src.Dyn->Vector,i), 1, pre));
+                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, ceu_vector_get(&src.Dyn->Vector,i), 1, pre));
                     }
                     break;
                 case CEU_VALUE_DICT:
                     for (int i=0; i<src.Dyn->Dict.max; i++) {
-                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][0], 1, pre));
-                        // CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][1], 1, pre));
+                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][0], 1, pre));
+                        CEU_CHECK_ERROR_RETURN(ceu_hold_chk_set(dst, depth, type, (*src.Dyn->Dict.buf)[i][1], 1, pre));
                     }
                     break;
             }
@@ -634,7 +654,7 @@
             }
         }
 
-        CEU_Value ceu_drop_f (CEU_Frame* frame, int n, CEU_Value args[]) {
+        CEU_Value _ceu_drop_f_ (CEU_Frame* frame, int n, CEU_Value args[]) {
             assert(n == 1);
             CEU_Value src = args[0];
             CEU_Dyn* dyn = src.Dyn;
@@ -661,8 +681,7 @@
             switch (src.type) {
                 case CEU_VALUE_CLOSURE:
                     for (int i=0; i<dyn->Closure.upvs.its; i++) {
-                        CEU_Value args[1] = { dyn->Closure.upvs.buf[i] };
-                        CEU_Value ret = ceu_drop_f(frame, 1, args);
+                        CEU_Value ret = _ceu_drop_f_(frame, 1, &dyn->Closure.upvs.buf[i]);
                         if (ret.type == CEU_VALUE_ERROR) {
                             return ret;
                         }
@@ -670,8 +689,7 @@
                     break;
                 case CEU_VALUE_TUPLE: {
                     for (int i=0; i<dyn->Tuple.its; i++) {
-                        CEU_Value args[1] = { dyn->Tuple.buf[i] };
-                        CEU_Value ret = ceu_drop_f(frame, 1, args);
+                        CEU_Value ret = _ceu_drop_f_(frame, 1, &dyn->Tuple.buf[i]);
                         if (ret.type == CEU_VALUE_ERROR) {
                             return ret;
                         }
@@ -683,7 +701,7 @@
                         CEU_Value ret1 = ceu_vector_get(&dyn->Vector, i);
                         assert(ret1.type != CEU_VALUE_ERROR);
                         CEU_Value args[1] = { ret1 };
-                        CEU_Value ret2 = ceu_drop_f(frame, 1, args);
+                        CEU_Value ret2 = _ceu_drop_f_(frame, 1, args);
                         if (ret2.type == CEU_VALUE_ERROR) {
                             return ret2;
                         }
@@ -692,13 +710,11 @@
                 }
                 case CEU_VALUE_DICT: {
                     for (int i=0; i<dyn->Dict.max; i++) {
-                        CEU_Value args0[1] = { (*dyn->Dict.buf)[i][0] };
-                        CEU_Value ret0 = ceu_drop_f(frame, 1, args0);
+                        CEU_Value ret0 = _ceu_drop_f_(frame, 1, &(*dyn->Dict.buf)[i][0]);
                         if (ret0.type == CEU_VALUE_ERROR) {
                             return ret0;
                         }
-                        CEU_Value args1[1] = { (*dyn->Dict.buf)[i][1] };
-                        CEU_Value ret1 = ceu_drop_f(frame, 1, args1);
+                        CEU_Value ret1 = _ceu_drop_f_(frame, 1, &(*dyn->Dict.buf)[i][1]);
                         if (ret1.type == CEU_VALUE_ERROR) {
                             return ret1;
                         }
@@ -710,6 +726,11 @@
             }
             return (CEU_Value) { CEU_VALUE_NIL };;
         }        
+        CEU_Value ceu_drop_f (CEU_Frame* frame, int n, CEU_Value args[]) {
+            CEU_Value ret = _ceu_drop_f_(frame, n, args);
+            ceu_gc_chk_args(n, args);
+            return ret;
+        }
      // TUPLE / VECTOR / DICT
         #define ceu_sizeof(type, member) sizeof(((type *)0)->member)
         int ceu_tag_to_size (int type) {
@@ -802,7 +823,7 @@
             return vec;
         }
 
-        CEU_Value ceu_next_f (CEU_Frame* _1, int n, CEU_Value args[]) {
+        CEU_Value _ceu_next_f_ (CEU_Frame* _1, int n, CEU_Value args[]) {
             assert(n==1 || n==2);
             CEU_Value col = args[0];
             if (col.type != CEU_VALUE_DICT) {
@@ -814,7 +835,7 @@
             }
             for (int i=0; i<col.Dyn->Dict.max-1; i++) {     // -1: last element has no next
                 CEU_Value args[] = { key, (*col.Dyn->Dict.buf)[i][0] };
-                CEU_Value ret = ceu_op_equals_equals_f(NULL, 2, args);
+                CEU_Value ret = _ceu_op_equals_equals_f_(NULL, 2, args);
                 assert(ret.type != CEU_VALUE_ERROR);
                 if (ret.Bool) {
                     return (*col.Dyn->Dict.buf)[i+1][0];
@@ -822,12 +843,17 @@
             }
             return (CEU_Value) { CEU_VALUE_NIL };
         }        
+        CEU_Value ceu_next_f (CEU_Frame* _1, int n, CEU_Value args[]) {
+            CEU_Value ret = _ceu_next_f_(_1, n, args);
+            ceu_gc_chk_args(n, args);
+            return ret;
+        }
         int ceu_dict_key_to_index (CEU_Dict* col, CEU_Value key, int* idx) {
             *idx = -1;
             for (int i=0; i<col->max; i++) {
                 CEU_Value cur = (*col->buf)[i][0];
                 CEU_Value args[] = { key, cur };
-                CEU_Value ret = ceu_op_equals_equals_f(NULL, 2, args);
+                CEU_Value ret = _ceu_op_equals_equals_f_(NULL, 2, args);
                 assert(ret.type != CEU_VALUE_ERROR);
                 if (ret.Bool) {
                     *idx = i;
@@ -850,64 +876,64 @@
             }
         }        
         CEU_Value ceu_dict_set (CEU_Dict* col, CEU_Value key, CEU_Value val) {
-            // if (key.type == CEU_VALUE_NIL) {
-            //     return (CEU_Value) { CEU_VALUE_ERROR, {.Error="dict error : index cannot be nil"} };
-            // }
-            // int old;
-            // ceu_dict_key_to_index(col, key, &old);
-            // if (old == -1) {
-            //     old = col->max;
-            //     int new = MAX(5, old * 2);
-            //     col->max = new;
-            //     col->buf = realloc(col->buf, new*2*sizeof(CEU_Value));
-            //     assert(col->buf != NULL);
-            //     memset(&(*col->buf)[old], 0, (new-old)*2*sizeof(CEU_Value));  // x[i]=nil
-            // }
-            // assert(old != -1);
+            if (key.type == CEU_VALUE_NIL) {
+                return (CEU_Value) { CEU_VALUE_ERROR, {.Error="dict error : index cannot be nil"} };
+            }
+            int old;
+            ceu_dict_key_to_index(col, key, &old);
+            if (old == -1) {
+                old = col->max;
+                int new = MAX(5, old * 2);
+                col->max = new;
+                col->buf = realloc(col->buf, new*2*sizeof(CEU_Value));
+                assert(col->buf != NULL);
+                memset(&(*col->buf)[old], 0, (new-old)*2*sizeof(CEU_Value));  // x[i]=nil
+            }
+            assert(old != -1);
             
-            // CEU_Value vv = ceu_dict_get(col, key);
+            CEU_Value vv = ceu_dict_get(col, key);
             
-            // if (val.type == CEU_VALUE_NIL) {
-            //     ceu_gc_dec(vv, 1);
-            //     ceu_gc_dec(key, 1);
-            //     (*col->buf)[old][0] = (CEU_Value) { CEU_VALUE_NIL };
-            //     return (CEU_Value) { CEU_VALUE_NIL };
-            // } else {
-            //     CEU_Value err1 = ceu_hold_chk_set_col((CEU_Dyn*)col, key);
-            //     if (err1.type == CEU_VALUE_ERROR) {
-            //         return err1;
-            //     }
-            //     CEU_Value err2 = ceu_hold_chk_set_col((CEU_Dyn*)col, val);
-            //     if (err2.type == CEU_VALUE_ERROR) {
-            //         return err2;
-            //     }
-
-            //     ceu_gc_inc(val);
-            //     ceu_gc_dec(vv, 1);
-            //     if (vv.type == CEU_VALUE_NIL) {
-            //         ceu_gc_inc(key);
-            //     }
-            //     (*col->buf)[old][0] = key;
-            //     (*col->buf)[old][1] = val;
+            if (val.type == CEU_VALUE_NIL) {
+                ceu_gc_dec(vv, 1);
+                ceu_gc_dec(key, 1);
+                (*col->buf)[old][0] = (CEU_Value) { CEU_VALUE_NIL };
                 return (CEU_Value) { CEU_VALUE_NIL };
-            // }
+            } else {
+                CEU_Value err1 = ceu_hold_chk_set_col((CEU_Dyn*)col, key);
+                if (err1.type == CEU_VALUE_ERROR) {
+                    return err1;
+                }
+                CEU_Value err2 = ceu_hold_chk_set_col((CEU_Dyn*)col, val);
+                if (err2.type == CEU_VALUE_ERROR) {
+                    return err2;
+                }
+
+                ceu_gc_inc(val);
+                ceu_gc_dec(vv, 1);
+                if (vv.type == CEU_VALUE_NIL) {
+                    ceu_gc_inc(key);
+                }
+                (*col->buf)[old][0] = key;
+                (*col->buf)[old][1] = val;
+                return (CEU_Value) { CEU_VALUE_NIL };
+            }
         }        
         
         CEU_Value ceu_col_check (CEU_Value col, CEU_Value idx) {
-            // if (col.type<CEU_VALUE_TUPLE || col.type>CEU_VALUE_DICT) {                
-            //     return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected collection"} };
-            // }
-            // if (col.type != CEU_VALUE_DICT) {
-            //     if (idx.type != CEU_VALUE_NUMBER) {
-            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected number"} };
-            //     }
-            //     if (col.type==CEU_VALUE_TUPLE && (idx.Number<0 || idx.Number>=col.Dyn->Tuple.its)) {                
-            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
-            //     }
-            //     if (col.type==CEU_VALUE_VECTOR && (idx.Number<0 || idx.Number>col.Dyn->Vector.its)) {                
-            //         return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
-            //     }
-            // }
+            if (col.type<CEU_VALUE_TUPLE || col.type>CEU_VALUE_DICT) {                
+                return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected collection"} };
+            }
+            if (col.type != CEU_VALUE_DICT) {
+                if (idx.type != CEU_VALUE_NUMBER) {
+                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : expected number"} };
+                }
+                if (col.type==CEU_VALUE_TUPLE && (idx.Number<0 || idx.Number>=col.Dyn->Tuple.its)) {                
+                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
+                }
+                if (col.type==CEU_VALUE_VECTOR && (idx.Number<0 || idx.Number>col.Dyn->Vector.its)) {                
+                    return (CEU_Value) { CEU_VALUE_ERROR, {.Error="index error : out of bounds"} };
+                }
+            }
             return (CEU_Value) { CEU_VALUE_NIL };
         }
      // CREATES
@@ -972,8 +998,7 @@
         void ceu_print1 (CEU_Frame* _1, CEU_Value v) {
             // no tags when _1==NULL (ceu_error_list_print)
             if (_1!=NULL && v.type>CEU_VALUE_DYNAMIC) {  // TAGS
-                CEU_Value args[1] = { v };
-                CEU_Value tup = ceu_tags_f(_1, 1, args);
+                CEU_Value tup = ceu_tags_f(_1, 1, &v);
                 assert(tup.type != CEU_VALUE_ERROR);
                 int N = tup.Dyn->Tuple.its;
                 if (N > 0) {
@@ -1075,6 +1100,7 @@
                 }
                 ceu_print1(_1, args[i]);
             }
+            ceu_gc_chk_args(n, args);
             return (CEU_Value) { CEU_VALUE_NIL };
         }
         CEU_Value ceu_println_f (CEU_Frame* _1, int n, CEU_Value args[]) {
@@ -1084,7 +1110,7 @@
         }
     
         // EQ / NEQ / LEN
-        CEU_Value ceu_op_equals_equals_f (CEU_Frame* _1, int n, CEU_Value args[]) {
+        CEU_Value _ceu_op_equals_equals_f_ (CEU_Frame* _1, int n, CEU_Value args[]) {
             assert(n == 2);
             CEU_Value e1 = args[0];
             CEU_Value e2 = args[1];
@@ -1121,6 +1147,11 @@
             }
             return (CEU_Value) { CEU_VALUE_BOOL, {.Bool=v} };
         }
+        CEU_Value ceu_op_equals_equals_f (CEU_Frame* _1, int n, CEU_Value args[]) {
+            CEU_Value ret = _ceu_op_equals_equals_f_(_1, n, args);
+            ceu_gc_chk_args(n, args);
+            return ret;
+        }
         CEU_Value ceu_op_slash_equals_f (CEU_Frame* _1, int n, CEU_Value args[]) {
             CEU_Value ret = ceu_op_equals_equals_f(_1, n, args);
             ret.Bool = !ret.Bool;
@@ -1129,13 +1160,16 @@
         
         CEU_Value ceu_op_hash_f (CEU_Frame* _1, int n, CEU_Value args[]) {
             assert(n == 1);
+            CEU_Value ret;
             if (args[0].type == CEU_VALUE_VECTOR) {
-                return (CEU_Value) { CEU_VALUE_NUMBER, {.Number=args[0].Dyn->Vector.its} };
+                ret = (CEU_Value) { CEU_VALUE_NUMBER, {.Number=args[0].Dyn->Vector.its} };
             } else if (args[0].type == CEU_VALUE_TUPLE) {
-                return (CEU_Value) { CEU_VALUE_NUMBER, {.Number=args[0].Dyn->Tuple.its} };
+                ret = (CEU_Value) { CEU_VALUE_NUMBER, {.Number=args[0].Dyn->Tuple.its} };
             } else {
-                return (CEU_Value) { CEU_VALUE_ERROR, {.Error="length error : not a vector"} };
+                ret = (CEU_Value) { CEU_VALUE_ERROR, {.Error="length error : not a vector"} };
             }
+            ceu_gc_chk_args(n, args);
+            return ret;
         }        
      // GLOBALS
         CEU_Block _ceu_block_ = { 0, 0, {.block=NULL}, NULL };
@@ -1291,15 +1325,15 @@
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_30,
-                                            ceu_hold_chk_set(&ceu_block_30->dyns, ceu_block_30->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_30->dyns, ceu_block_30->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 3, col 28)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1307,11 +1341,10 @@
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_30,
-                                            ceu_hold_chk_set(&ceu_block_30->dyns, ceu_block_30->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_30->dyns, ceu_block_30->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 3, col 28)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1326,11 +1359,13 @@
                         
                 { // IF | 
                     ceu_acc = id_v1;
+
                     if (ceu_as_bool(ceu_acc)) {
                         
                     CEU_Block* ceu_block_21 = ceu_block_30;
                     // >>> block
                     ceu_acc = id_v2;
+
                     // <<< block
                     
                     } else {
@@ -1420,15 +1455,15 @@
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_59,
-                                            ceu_hold_chk_set(&ceu_block_59->dyns, ceu_block_59->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_59->dyns, ceu_block_59->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 11, col 28)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1436,11 +1471,10 @@
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_59,
-                                            ceu_hold_chk_set(&ceu_block_59->dyns, ceu_block_59->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_59->dyns, ceu_block_59->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 11, col 28)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1455,6 +1489,7 @@
                         
                 { // IF | 
                     ceu_acc = id_v1;
+
                     if (ceu_as_bool(ceu_acc)) {
                         
                     CEU_Block* ceu_block_50 = ceu_block_59;
@@ -1467,6 +1502,7 @@
                     CEU_Block* ceu_block_56 = ceu_block_59;
                     // >>> block
                     ceu_acc = id_v2;
+
                     // <<< block
                     
                     }
@@ -1549,15 +1585,15 @@
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_125,
-                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 21, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1565,11 +1601,10 @@
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_125,
-                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_125->dyns, ceu_block_125->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 21, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1586,6 +1621,7 @@
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_106 = ceu_acc;
                     if (ceu_closure_106.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1598,6 +1634,7 @@
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_86 = ceu_acc;
                     if (ceu_closure_86.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1610,6 +1647,7 @@
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_80 = ceu_acc;
                     if (ceu_closure_80.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1619,7 +1657,8 @@
                     
                     CEU_Value ceu_args_80[1];
                     
-                    ceu_acc = id_v1;ceu_args_80[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_80[0] = ceu_acc;
 
                     
                     
@@ -1648,6 +1687,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_86[1] 
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_102 = ceu_acc;
                     if (ceu_closure_102.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1660,6 +1700,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_86[1] 
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_96 = ceu_acc;
                     if (ceu_closure_96.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1669,7 +1710,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_86[1] 
                     
                     CEU_Value ceu_args_96[1];
                     
-                    ceu_acc = id_v2;ceu_args_96[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_96[0] = ceu_acc;
 
                     
                     
@@ -1714,6 +1756,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_114 = ceu_acc;
                     if (ceu_closure_114.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1825,15 +1868,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_238,
-                                            ceu_hold_chk_set(&ceu_block_238->dyns, ceu_block_238->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_238->dyns, ceu_block_238->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 29, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1841,11 +1884,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_238,
-                                            ceu_hold_chk_set(&ceu_block_238->dyns, ceu_block_238->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_238->dyns, ceu_block_238->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 29, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -1866,6 +1908,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_147 = ceu_acc;
                     if (ceu_closure_147.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1875,7 +1918,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                     CEU_Value ceu_args_147[1];
                     
-                    ceu_acc = id_v1;ceu_args_147[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_147[0] = ceu_acc;
 
                     
                     
@@ -1904,6 +1948,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_158 = ceu_acc;
                     if (ceu_closure_158.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1913,7 +1958,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                     CEU_Value ceu_args_158[1];
                     
-                    ceu_acc = id_v2;ceu_args_158[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_158[0] = ceu_acc;
 
                     
                     
@@ -1942,6 +1988,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                 { // CALL | 
                     ceu_acc = op_ampersand_ampersand;
+
                     CEU_Value ceu_closure_184 = ceu_acc;
                     if (ceu_closure_184.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1954,6 +2001,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_169 = ceu_acc;
                     if (ceu_closure_169.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1963,7 +2011,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_102[1]
                     
                     CEU_Value ceu_args_169[2];
                     
-                    ceu_acc = id_t1;ceu_args_169[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_169[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_169[1] = ceu_acc;
 
                     
@@ -1980,6 +2029,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_169[1]
 
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_180 = ceu_acc;
                     if (ceu_closure_180.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -1989,7 +2039,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_169[1]
                     
                     CEU_Value ceu_args_180[2];
                     
-                    ceu_acc = id_t2;ceu_args_180[0] = ceu_acc;
+                    ceu_acc = id_t2;
+ceu_args_180[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_nil} });ceu_args_180[1] = ceu_acc;
 
                     
@@ -2031,6 +2082,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_nil} });ceu_args_180[1] = 
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_216 = ceu_acc;
                     if (ceu_closure_216.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2043,6 +2095,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_nil} });ceu_args_180[1] = 
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_201 = ceu_acc;
                     if (ceu_closure_201.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2052,7 +2105,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_nil} });ceu_args_180[1] = 
                     
                     CEU_Value ceu_args_201[2];
                     
-                    ceu_acc = id_t1;ceu_args_201[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_201[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_201[1] = ceu_acc;
 
                     
@@ -2069,6 +2123,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_201[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_212 = ceu_acc;
                     if (ceu_closure_212.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2078,7 +2133,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_201[1]
                     
                     CEU_Value ceu_args_212[2];
                     
-                    ceu_acc = id_t2;ceu_args_212[0] = ceu_acc;
+                    ceu_acc = id_t2;
+ceu_args_212[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1] = ceu_acc;
 
                     
@@ -2111,6 +2167,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_224 = ceu_acc;
                     if (ceu_closure_224.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2235,15 +2292,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_304,
-                                            ceu_hold_chk_set(&ceu_block_304->dyns, ceu_block_304->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_304->dyns, ceu_block_304->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 43, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2251,11 +2308,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_304,
-                                            ceu_hold_chk_set(&ceu_block_304->dyns, ceu_block_304->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_304->dyns, ceu_block_304->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 43, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2272,6 +2328,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_285 = ceu_acc;
                     if (ceu_closure_285.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2284,6 +2341,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_265 = ceu_acc;
                     if (ceu_closure_265.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2296,6 +2354,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_259 = ceu_acc;
                     if (ceu_closure_259.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2305,7 +2364,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_212[1]
                     
                     CEU_Value ceu_args_259[1];
                     
-                    ceu_acc = id_v1;ceu_args_259[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_259[0] = ceu_acc;
 
                     
                     
@@ -2334,6 +2394,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_265[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_281 = ceu_acc;
                     if (ceu_closure_281.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2346,6 +2407,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_265[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_275 = ceu_acc;
                     if (ceu_closure_275.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2355,7 +2417,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_265[1]
                     
                     CEU_Value ceu_args_275[1];
                     
-                    ceu_acc = id_v2;ceu_args_275[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_275[0] = ceu_acc;
 
                     
                     
@@ -2400,6 +2463,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_293 = ceu_acc;
                     if (ceu_closure_293.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2511,15 +2575,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_370,
-                                            ceu_hold_chk_set(&ceu_block_370->dyns, ceu_block_370->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_370->dyns, ceu_block_370->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 51, col 28)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2527,11 +2591,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_370,
-                                            ceu_hold_chk_set(&ceu_block_370->dyns, ceu_block_370->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_370->dyns, ceu_block_370->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 51, col 28)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2548,6 +2611,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_351 = ceu_acc;
                     if (ceu_closure_351.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2560,6 +2624,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_331 = ceu_acc;
                     if (ceu_closure_331.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2572,6 +2637,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_325 = ceu_acc;
                     if (ceu_closure_325.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2581,7 +2647,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_281[1]
                     
                     CEU_Value ceu_args_325[1];
                     
-                    ceu_acc = id_v1;ceu_args_325[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_325[0] = ceu_acc;
 
                     
                     
@@ -2610,6 +2677,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_331[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_347 = ceu_acc;
                     if (ceu_closure_347.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2622,6 +2690,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_331[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_341 = ceu_acc;
                     if (ceu_closure_341.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2631,7 +2700,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_331[1]
                     
                     CEU_Value ceu_args_341[1];
                     
-                    ceu_acc = id_v2;ceu_args_341[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_341[0] = ceu_acc;
 
                     
                     
@@ -2676,6 +2746,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_359 = ceu_acc;
                     if (ceu_closure_359.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2787,15 +2858,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_436,
-                                            ceu_hold_chk_set(&ceu_block_436->dyns, ceu_block_436->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_436->dyns, ceu_block_436->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 59, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2803,11 +2874,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_436,
-                                            ceu_hold_chk_set(&ceu_block_436->dyns, ceu_block_436->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_436->dyns, ceu_block_436->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 59, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -2824,6 +2894,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_417 = ceu_acc;
                     if (ceu_closure_417.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2836,6 +2907,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_397 = ceu_acc;
                     if (ceu_closure_397.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2848,6 +2920,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_391 = ceu_acc;
                     if (ceu_closure_391.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2857,7 +2930,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_347[1]
                     
                     CEU_Value ceu_args_391[1];
                     
-                    ceu_acc = id_v1;ceu_args_391[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_391[0] = ceu_acc;
 
                     
                     
@@ -2886,6 +2960,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_397[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_413 = ceu_acc;
                     if (ceu_closure_413.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2898,6 +2973,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_397[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_407 = ceu_acc;
                     if (ceu_closure_407.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -2907,7 +2983,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_397[1]
                     
                     CEU_Value ceu_args_407[1];
                     
-                    ceu_acc = id_v2;ceu_args_407[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_407[0] = ceu_acc;
 
                     
                     
@@ -2952,6 +3029,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_425 = ceu_acc;
                     if (ceu_closure_425.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3063,15 +3141,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_502,
-                                            ceu_hold_chk_set(&ceu_block_502->dyns, ceu_block_502->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_502->dyns, ceu_block_502->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 67, col 28)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3079,11 +3157,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_502,
-                                            ceu_hold_chk_set(&ceu_block_502->dyns, ceu_block_502->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_502->dyns, ceu_block_502->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 67, col 28)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3100,6 +3177,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_483 = ceu_acc;
                     if (ceu_closure_483.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3112,6 +3190,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_463 = ceu_acc;
                     if (ceu_closure_463.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3124,6 +3203,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_457 = ceu_acc;
                     if (ceu_closure_457.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3133,7 +3213,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_413[1]
                     
                     CEU_Value ceu_args_457[1];
                     
-                    ceu_acc = id_v1;ceu_args_457[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_457[0] = ceu_acc;
 
                     
                     
@@ -3162,6 +3243,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_463[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_479 = ceu_acc;
                     if (ceu_closure_479.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3174,6 +3256,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_463[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_473 = ceu_acc;
                     if (ceu_closure_473.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3183,7 +3266,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_463[1]
                     
                     CEU_Value ceu_args_473[1];
                     
-                    ceu_acc = id_v2;ceu_args_473[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_473[0] = ceu_acc;
 
                     
                     
@@ -3228,6 +3312,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_491 = ceu_acc;
                     if (ceu_closure_491.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3339,15 +3424,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_568,
-                                            ceu_hold_chk_set(&ceu_block_568->dyns, ceu_block_568->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_568->dyns, ceu_block_568->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 75, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3355,11 +3440,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_568,
-                                            ceu_hold_chk_set(&ceu_block_568->dyns, ceu_block_568->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_568->dyns, ceu_block_568->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 75, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3376,6 +3460,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_549 = ceu_acc;
                     if (ceu_closure_549.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3388,6 +3473,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_529 = ceu_acc;
                     if (ceu_closure_529.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3400,6 +3486,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_523 = ceu_acc;
                     if (ceu_closure_523.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3409,7 +3496,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_479[1]
                     
                     CEU_Value ceu_args_523[1];
                     
-                    ceu_acc = id_v1;ceu_args_523[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_523[0] = ceu_acc;
 
                     
                     
@@ -3438,6 +3526,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_529[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_545 = ceu_acc;
                     if (ceu_closure_545.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3450,6 +3539,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_529[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_539 = ceu_acc;
                     if (ceu_closure_539.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3459,7 +3549,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_529[1]
                     
                     CEU_Value ceu_args_539[1];
                     
-                    ceu_acc = id_v2;ceu_args_539[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_539[0] = ceu_acc;
 
                     
                     
@@ -3504,6 +3595,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_557 = ceu_acc;
                     if (ceu_closure_557.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3615,15 +3707,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_640,
-                                            ceu_hold_chk_set(&ceu_block_640->dyns, ceu_block_640->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_640->dyns, ceu_block_640->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 85, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3631,11 +3723,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_640,
-                                            ceu_hold_chk_set(&ceu_block_640->dyns, ceu_block_640->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_640->dyns, ceu_block_640->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 85, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3654,6 +3745,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_590 = ceu_acc;
                     if (ceu_closure_590.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3663,7 +3755,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                     CEU_Value ceu_args_590[1];
                     
-                    ceu_acc = id_v1;ceu_args_590[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_590[0] = ceu_acc;
 
                     
                     
@@ -3692,6 +3785,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_621 = ceu_acc;
                     if (ceu_closure_621.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3704,6 +3798,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_606 = ceu_acc;
                     if (ceu_closure_606.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3713,10 +3808,12 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                     CEU_Value ceu_args_606[2];
                     
-                    ceu_acc = id_t1;ceu_args_606[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_606[0] = ceu_acc;
 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_603 = ceu_acc;
                     if (ceu_closure_603.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3726,7 +3823,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                     CEU_Value ceu_args_603[1];
                     
-                    ceu_acc = id_v2;ceu_args_603[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_603[0] = ceu_acc;
 
                     
                     
@@ -3754,6 +3852,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_617 = ceu_acc;
                     if (ceu_closure_617.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3763,7 +3862,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_545[1]
                     
                     CEU_Value ceu_args_617[2];
                     
-                    ceu_acc = id_t1;ceu_args_617[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_617[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1] = ceu_acc;
 
                     
@@ -3796,6 +3896,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_629 = ceu_acc;
                     if (ceu_closure_629.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3911,15 +4012,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_712,
-                                            ceu_hold_chk_set(&ceu_block_712->dyns, ceu_block_712->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_712->dyns, ceu_block_712->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 94, col 26)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3927,11 +4028,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_712,
-                                            ceu_hold_chk_set(&ceu_block_712->dyns, ceu_block_712->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_712->dyns, ceu_block_712->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 94, col 26)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -3950,6 +4050,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_662 = ceu_acc;
                     if (ceu_closure_662.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -3959,7 +4060,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                     CEU_Value ceu_args_662[1];
                     
-                    ceu_acc = id_v1;ceu_args_662[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_662[0] = ceu_acc;
 
                     
                     
@@ -3988,6 +4090,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_693 = ceu_acc;
                     if (ceu_closure_693.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4000,6 +4103,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_678 = ceu_acc;
                     if (ceu_closure_678.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4009,10 +4113,12 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                     CEU_Value ceu_args_678[2];
                     
-                    ceu_acc = id_t1;ceu_args_678[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_678[0] = ceu_acc;
 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_675 = ceu_acc;
                     if (ceu_closure_675.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4022,7 +4128,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                     CEU_Value ceu_args_675[1];
                     
-                    ceu_acc = id_v2;ceu_args_675[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_675[0] = ceu_acc;
 
                     
                     
@@ -4050,6 +4157,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_689 = ceu_acc;
                     if (ceu_closure_689.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4059,7 +4167,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_617[1]
                     
                     CEU_Value ceu_args_689[2];
                     
-                    ceu_acc = id_t1;ceu_args_689[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_689[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1] = ceu_acc;
 
                     
@@ -4092,6 +4201,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_701 = ceu_acc;
                     if (ceu_closure_701.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4207,15 +4317,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_784,
-                                            ceu_hold_chk_set(&ceu_block_784->dyns, ceu_block_784->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_784->dyns, ceu_block_784->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 103, col 27)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -4223,11 +4333,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_784,
-                                            ceu_hold_chk_set(&ceu_block_784->dyns, ceu_block_784->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_784->dyns, ceu_block_784->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 103, col 27)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -4246,6 +4355,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_734 = ceu_acc;
                     if (ceu_closure_734.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4255,7 +4365,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                     CEU_Value ceu_args_734[1];
                     
-                    ceu_acc = id_v1;ceu_args_734[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_734[0] = ceu_acc;
 
                     
                     
@@ -4284,6 +4395,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_765 = ceu_acc;
                     if (ceu_closure_765.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4296,6 +4408,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_750 = ceu_acc;
                     if (ceu_closure_750.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4305,10 +4418,12 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                     CEU_Value ceu_args_750[2];
                     
-                    ceu_acc = id_t1;ceu_args_750[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_750[0] = ceu_acc;
 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_747 = ceu_acc;
                     if (ceu_closure_747.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4318,7 +4433,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                     CEU_Value ceu_args_747[1];
                     
-                    ceu_acc = id_v2;ceu_args_747[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_747[0] = ceu_acc;
 
                     
                     
@@ -4346,6 +4462,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_761 = ceu_acc;
                     if (ceu_closure_761.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4355,7 +4472,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_689[1]
                     
                     CEU_Value ceu_args_761[2];
                     
-                    ceu_acc = id_t1;ceu_args_761[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_761[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1] = ceu_acc;
 
                     
@@ -4388,6 +4506,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_773 = ceu_acc;
                     if (ceu_closure_773.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4503,15 +4622,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_856,
-                                            ceu_hold_chk_set(&ceu_block_856->dyns, ceu_block_856->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_856->dyns, ceu_block_856->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 112, col 26)"
                                         );
                                         id_v1 = ceu_args[0];
-                                        ceu_gc_inc(id_v1);
                                     } else {
                                         id_v1 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -4519,11 +4638,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                                     if (1 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_856,
-                                            ceu_hold_chk_set(&ceu_block_856->dyns, ceu_block_856->depth, CEU_HOLD_FLEET, ceu_args[1], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_856->dyns, ceu_block_856->depth, CEU_HOLD_FLEET, ceu_args[1], 1, "argument error"),
                                             "prelude.ceu : (lin 112, col 26)"
                                         );
                                         id_v2 = ceu_args[1];
-                                        ceu_gc_inc(id_v2);
                                     } else {
                                         id_v2 = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -4542,6 +4660,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_806 = ceu_acc;
                     if (ceu_closure_806.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4551,7 +4670,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                     CEU_Value ceu_args_806[1];
                     
-                    ceu_acc = id_v1;ceu_args_806[0] = ceu_acc;
+                    ceu_acc = id_v1;
+ceu_args_806[0] = ceu_acc;
 
                     
                     
@@ -4580,6 +4700,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                 { // CALL | 
                     ceu_acc = op_bar_bar;
+
                     CEU_Value ceu_closure_837 = ceu_acc;
                     if (ceu_closure_837.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4592,6 +4713,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_822 = ceu_acc;
                     if (ceu_closure_822.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4601,10 +4723,12 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                     CEU_Value ceu_args_822[2];
                     
-                    ceu_acc = id_t1;ceu_args_822[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_822[0] = ceu_acc;
 
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_819 = ceu_acc;
                     if (ceu_closure_819.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4614,7 +4738,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                     CEU_Value ceu_args_819[1];
                     
-                    ceu_acc = id_v2;ceu_args_819[0] = ceu_acc;
+                    ceu_acc = id_v2;
+ceu_args_819[0] = ceu_acc;
 
                     
                     
@@ -4642,6 +4767,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
 
                 { // CALL | 
                     ceu_acc = op_slash_equals;
+
                     CEU_Value ceu_closure_833 = ceu_acc;
                     if (ceu_closure_833.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4651,7 +4777,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_761[1]
                     
                     CEU_Value ceu_args_833[2];
                     
-                    ceu_acc = id_t1;ceu_args_833[0] = ceu_acc;
+                    ceu_acc = id_t1;
+ceu_args_833[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1] = ceu_acc;
 
                     
@@ -4684,6 +4811,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                     
                 { // CALL | 
                     ceu_acc = id_error;
+
                     CEU_Value ceu_closure_845 = ceu_acc;
                     if (ceu_closure_845.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4804,15 +4932,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_1000,
-                                            ceu_hold_chk_set(&ceu_block_1000->dyns, ceu_block_1000->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_1000->dyns, ceu_block_1000->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 124, col 26)"
                                         );
                                         id_v = ceu_args[0];
-                                        ceu_gc_inc(id_v);
                                     } else {
                                         id_v = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -4829,6 +4957,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_884 = ceu_acc;
                     if (ceu_closure_884.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4841,6 +4970,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_878 = ceu_acc;
                     if (ceu_closure_878.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4850,7 +4980,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_833[1]
                     
                     CEU_Value ceu_args_878[1];
                     
-                    ceu_acc = id_v;ceu_args_878[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_878[0] = ceu_acc;
 
                     
                     
@@ -4950,6 +5081,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_pointer} });ceu_args_884[1
                 
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_917 = ceu_acc;
                     if (ceu_closure_917.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4959,8 +5091,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_pointer} });ceu_args_884[1
                     
                     CEU_Value ceu_args_917[2];
                     
-                    ceu_acc = id_i;ceu_args_917[0] = ceu_acc;
-ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
+                    ceu_acc = id_i;
+ceu_args_917[0] = ceu_acc;
+ceu_acc = id_n;
+ceu_args_917[1] = ceu_acc;
 
                     
                     
@@ -4988,6 +5122,7 @@ ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
                         
                 { // CALL | 
                     ceu_acc = op_hash;
+
                     CEU_Value ceu_closure_929 = ceu_acc;
                     if (ceu_closure_929.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -4997,7 +5132,8 @@ ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
                     
                     CEU_Value ceu_args_929[1];
                     
-                    ceu_acc = id_str;ceu_args_929[0] = ceu_acc;
+                    ceu_acc = id_str;
+ceu_args_929[0] = ceu_acc;
 
                     
                     
@@ -5014,6 +5150,7 @@ ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
                         
                     // COL
                     ceu_acc = id_str;
+
                     ceu_assert_pre(ceu_block_951, ceu_col_check(ceu_acc, ceu_idx_931), "prelude.ceu : (lin 131, col 17)");
                 
                         CEU_Value ok = { CEU_VALUE_NIL };
@@ -5043,6 +5180,7 @@ ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
                     
                 { // CALL | 
                     ceu_acc = op_plus;
+
                     CEU_Value ceu_closure_947 = ceu_acc;
                     if (ceu_closure_947.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5052,7 +5190,8 @@ ceu_acc = id_n;ceu_args_917[1] = ceu_acc;
                     
                     CEU_Value ceu_args_947[2];
                     
-                    ceu_acc = id_i;ceu_args_947[0] = ceu_acc;
+                    ceu_acc = id_i;
+ceu_args_947[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_947[1] = ceu_acc;
 
                     
@@ -5088,9 +5227,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_947[1] = ceu_
                     
                         { // ACC - DROP
                             CEU_Value ceu_956 = id_str;
-                            CEU_Value args[1] = { ceu_956 };
                             CEU_Frame ceu_frame_956 = { NULL, ceu_block_960 };
-                            ceu_assert_pre(ceu_block_960, ceu_drop_f(&ceu_frame_956, 1, args), "prelude.ceu : (lin 134, col 14)");
+                            ceu_assert_pre(ceu_block_960, ceu_drop_f(&ceu_frame_956, 1, &ceu_956), "prelude.ceu : (lin 134, col 14)");
                             ceu_gc_dec(ceu_956, 0);
                             id_str = (CEU_Value) { CEU_VALUE_NIL };
                             ceu_acc = ceu_956;
@@ -5132,6 +5270,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_947[1] = ceu_
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_976 = ceu_acc;
                     if (ceu_closure_976.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5144,6 +5283,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_947[1] = ceu_
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_970 = ceu_acc;
                     if (ceu_closure_970.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5153,7 +5293,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_947[1] = ceu_
                     
                     CEU_Value ceu_args_970[1];
                     
-                    ceu_acc = id_v;ceu_args_970[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_970[0] = ceu_acc;
 
                     
                     
@@ -5190,6 +5331,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_number} });ceu_args_976[1]
 ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                 { // CALL | 
                     ceu_acc = id_to_dash_string;
+
                     CEU_Value ceu_closure_986 = ceu_acc;
                     if (ceu_closure_986.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5219,6 +5361,7 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     CEU_Block* ceu_block_994 = ceu_block_997;
                     // >>> block
                     ceu_acc = id_v;
+
                     // <<< block
                     
                     }
@@ -5303,15 +5446,15 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_1114,
-                                            ceu_hold_chk_set(&ceu_block_1114->dyns, ceu_block_1114->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_1114->dyns, ceu_block_1114->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 148, col 26)"
                                         );
                                         id_v = ceu_args[0];
-                                        ceu_gc_inc(id_v);
                                     } else {
                                         id_v = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -5328,6 +5471,7 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_1024 = ceu_acc;
                     if (ceu_closure_1024.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5340,6 +5484,7 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_1018 = ceu_acc;
                     if (ceu_closure_1018.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5349,7 +5494,8 @@ ceu_acc = ((CEU_Value){ CEU_VALUE_NIL });
                     
                     CEU_Value ceu_args_1018[1];
                     
-                    ceu_acc = id_v;ceu_args_1018[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_1018[0] = ceu_acc;
 
                     
                     
@@ -5391,6 +5537,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_tag} });ceu_args_1024[1] =
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_1045 = ceu_acc;
                     if (ceu_closure_1045.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5403,6 +5550,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_tag} });ceu_args_1024[1] =
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_1039 = ceu_acc;
                     if (ceu_closure_1039.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5412,7 +5560,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_tag} });ceu_args_1024[1] =
                     
                     CEU_Value ceu_args_1039[1];
                     
-                    ceu_acc = id_v;ceu_args_1039[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_1039[0] = ceu_acc;
 
                     
                     
@@ -5447,6 +5596,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_vector} });ceu_args_1045[1
                     
                 { // CALL | 
                     ceu_acc = op_greater;
+
                     CEU_Value ceu_closure_1059 = ceu_acc;
                     if (ceu_closure_1059.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5459,6 +5609,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_vector} });ceu_args_1045[1
                     
                 { // CALL | 
                     ceu_acc = op_hash;
+
                     CEU_Value ceu_closure_1053 = ceu_acc;
                     if (ceu_closure_1053.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5468,7 +5619,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_vector} });ceu_args_1045[1
                     
                     CEU_Value ceu_args_1053[1];
                     
-                    ceu_acc = id_v;ceu_args_1053[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_1053[0] = ceu_acc;
 
                     
                     
@@ -5503,6 +5655,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });ceu_args_1059[1] = ceu
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_1079 = ceu_acc;
                     if (ceu_closure_1079.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5515,6 +5668,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });ceu_args_1059[1] = ceu
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_1073 = ceu_acc;
                     if (ceu_closure_1073.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5533,6 +5687,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=0} });ceu_args_1059[1] = ceu
                         
                     // COL
                     ceu_acc = id_v;
+
                     ceu_assert_pre(ceu_block_1093, ceu_col_check(ceu_acc, ceu_idx_1071), "prelude.ceu : (lin 154, col 25)");
                 
                         switch (ceu_acc.type) {
@@ -5590,6 +5745,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     CEU_Block* ceu_block_1090 = ceu_block_1093;
                     // >>> block
                     ceu_acc = id_v;
+
                     // <<< block
                     
                     }
@@ -5602,6 +5758,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     CEU_Block* ceu_block_1099 = ceu_block_1102;
                     // >>> block
                     ceu_acc = id_v;
+
                     // <<< block
                     
                     }
@@ -5614,6 +5771,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     CEU_Block* ceu_block_1108 = ceu_block_1111;
                     // >>> block
                     ceu_acc = id_v;
+
                     // <<< block
                     
                     }
@@ -5694,15 +5852,15 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                         
                         
                             { // func args
+                                ceu_gc_inc_args(ceu_n, ceu_args);
                                 
                                     if (0 < ceu_n) {
                                         ceu_assert_pre(
                                             ceu_block_1157,
-                                            ceu_hold_chk_set(&ceu_block_1157->dyns, ceu_block_1157->depth, CEU_HOLD_FLEET, ceu_args[0], 0, "argument error"),
+                                            ceu_hold_chk_set(&ceu_block_1157->dyns, ceu_block_1157->depth, CEU_HOLD_FLEET, ceu_args[0], 1, "argument error"),
                                             "prelude.ceu : (lin 168, col 23)"
                                         );
                                         id_v = ceu_args[0];
-                                        ceu_gc_inc(id_v);
                                     } else {
                                         id_v = (CEU_Value) { CEU_VALUE_NIL };
                                     }
@@ -5719,6 +5877,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_1138 = ceu_acc;
                     if (ceu_closure_1138.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5731,6 +5890,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     
                 { // CALL | 
                     ceu_acc = id_type;
+
                     CEU_Value ceu_closure_1132 = ceu_acc;
                     if (ceu_closure_1132.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5740,7 +5900,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_char} });ceu_args_1079[1] 
                     
                     CEU_Value ceu_args_1132[1];
                     
-                    ceu_acc = id_v;ceu_args_1132[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_1132[0] = ceu_acc;
 
                     
                     
@@ -5773,6 +5934,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_string} });ceu_args_1138[1
                     
                 { // CALL | 
                     ceu_acc = id_string_dash_to_dash_tag;
+
                     CEU_Value ceu_closure_1146 = ceu_acc;
                     if (ceu_closure_1146.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5782,7 +5944,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_string} });ceu_args_1138[1
                     
                     CEU_Value ceu_args_1146[1];
                     
-                    ceu_acc = id_v;ceu_args_1146[0] = ceu_acc;
+                    ceu_acc = id_v;
+ceu_args_1146[0] = ceu_acc;
 
                     
                     
@@ -5802,6 +5965,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_string} });ceu_args_1138[1
                     CEU_Block* ceu_block_1154 = ceu_block_1157;
                     // >>> block
                     ceu_acc = id_v;
+
                     // <<< block
                     
                     }
@@ -5891,6 +6055,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_string} });ceu_args_1138[1
                 
                 { // CALL | 
                     ceu_acc = op_equals_equals;
+
                     CEU_Value ceu_closure_1184 = ceu_acc;
                     if (ceu_closure_1184.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5900,7 +6065,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_TAG, {.Tag=CEU_TAG_string} });ceu_args_1138[1
                     
                     CEU_Value ceu_args_1184[2];
                     
-                    ceu_acc = id_i;ceu_args_1184[0] = ceu_acc;
+                    ceu_acc = id_i;
+ceu_args_1184[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1000000} });ceu_args_1184[1] = ceu_acc;
 
                     
@@ -5923,6 +6089,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1000000} });ceu_args_1184[1]
                     
                 { // CALL | 
                     ceu_acc = op_plus;
+
                     CEU_Value ceu_closure_1198 = ceu_acc;
                     if (ceu_closure_1198.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5932,8 +6099,10 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1000000} });ceu_args_1184[1]
                     
                     CEU_Value ceu_args_1198[2];
                     
-                    ceu_acc = id_sum;ceu_args_1198[0] = ceu_acc;
-ceu_acc = id_i;ceu_args_1198[1] = ceu_acc;
+                    ceu_acc = id_sum;
+ceu_args_1198[0] = ceu_acc;
+ceu_acc = id_i;
+ceu_args_1198[1] = ceu_acc;
 
                     
                     
@@ -5966,6 +6135,7 @@ ceu_acc = id_i;ceu_args_1198[1] = ceu_acc;
                     
                 { // CALL | 
                     ceu_acc = op_plus;
+
                     CEU_Value ceu_closure_1211 = ceu_acc;
                     if (ceu_closure_1211.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -5975,7 +6145,8 @@ ceu_acc = id_i;ceu_args_1198[1] = ceu_acc;
                     
                     CEU_Value ceu_args_1211[2];
                     
-                    ceu_acc = id_i;ceu_args_1211[0] = ceu_acc;
+                    ceu_acc = id_i;
+ceu_args_1211[0] = ceu_acc;
 ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1211[1] = ceu_acc;
 
                     
@@ -6011,6 +6182,7 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1211[1] = ceu
                     
                 { // CALL | 
                     ceu_acc = id_println;
+
                     CEU_Value ceu_closure_1262 = ceu_acc;
                     if (ceu_closure_1262.type != CEU_VALUE_CLOSURE) {
                         CEU_Value err = { CEU_VALUE_ERROR, {.Error="call error : expected function"} };
@@ -6099,7 +6271,8 @@ ceu_acc = ((CEU_Value) { CEU_VALUE_NUMBER, {.Number=1} });ceu_args_1211[1] = ceu
                     ceu_acc = ceu_vec_1256;
                 }
                 ceu_args_1262[0] = ceu_acc;
-ceu_acc = id_sum;ceu_args_1262[1] = ceu_acc;
+ceu_acc = id_sum;
+ceu_args_1262[1] = ceu_acc;
 
                     
                     

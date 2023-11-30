@@ -1,0 +1,459 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 1K of event 'cycles:Pu'
+# Event count (approx.): 1562687388
+#
+# Children      Self  Command     Shared Object         Symbol                           
+# ........  ........  ..........  ....................  .................................
+#
+    99.94%     0.00%  simple.exe  simple.exe            [.] _start
+            |
+            ---_start
+               __libc_start_main@@GLIBC_2.34
+               __libc_start_call_main
+               |          
+               |--98.16%--main
+               |          |          
+               |          |--52.99%--ceu_proto_76.13
+               |          |          |          
+               |          |          |--22.68%--__mcount_internal
+               |          |          |          
+               |          |          |--11.17%--ceu_gc_inc_args
+               |          |          |          |          
+               |          |          |          |--6.40%--__mcount_internal
+               |          |          |          |          
+               |          |          |          |--2.29%--_mcount
+               |          |          |          |          
+               |          |          |           --1.31%--ceu_gc_inc
+               |          |          |          
+               |          |          |--6.33%--_mcount
+               |          |          |          
+               |          |          |--2.40%--ceu_hold_chk_set
+               |          |          |          
+               |          |          |--2.40%--ceu_assert_pre
+               |          |          |          
+               |          |          |--0.77%--mcount@plt
+               |          |          |          
+               |          |           --0.58%--ceu_block_free
+               |          |          
+               |          |--18.70%--__mcount_internal
+               |          |          
+               |          |--7.64%--ceu_op_equals_equals_f
+               |          |          |          
+               |          |          |--3.65%--__mcount_internal
+               |          |          |          
+               |          |          |--1.72%--_ceu_op_equals_equals_f_
+               |          |          |          
+               |          |           --0.95%--_mcount
+               |          |          
+               |          |--6.10%--_mcount
+               |          |          
+               |          |--2.47%--ceu_assert_pre
+               |          |          
+               |          |--1.24%--ceu_hold_chk_set
+               |          |          
+               |          |--0.87%--mcount@plt
+               |          |          
+               |           --0.58%--ceu_gc_dec
+               |          
+                --0.62%--ceu_hold_chk_set
+
+    99.94%     0.00%  simple.exe  libc.so.6             [.] __libc_start_main@@GLIBC_2.34
+            |
+            ---__libc_start_main@@GLIBC_2.34
+               __libc_start_call_main
+               |          
+               |--98.16%--main
+               |          |          
+               |          |--52.99%--ceu_proto_76.13
+               |          |          |          
+               |          |          |--22.68%--__mcount_internal
+               |          |          |          
+               |          |          |--11.17%--ceu_gc_inc_args
+               |          |          |          |          
+               |          |          |          |--6.40%--__mcount_internal
+               |          |          |          |          
+               |          |          |          |--2.29%--_mcount
+               |          |          |          |          
+               |          |          |           --1.31%--ceu_gc_inc
+               |          |          |          
+               |          |          |--6.33%--_mcount
+               |          |          |          
+               |          |          |--2.40%--ceu_hold_chk_set
+               |          |          |          
+               |          |          |--2.40%--ceu_assert_pre
+               |          |          |          
+               |          |          |--0.77%--mcount@plt
+               |          |          |          
+               |          |           --0.58%--ceu_block_free
+               |          |          
+               |          |--18.70%--__mcount_internal
+               |          |          
+               |          |--7.64%--ceu_op_equals_equals_f
+               |          |          |          
+               |          |          |--3.65%--__mcount_internal
+               |          |          |          
+               |          |          |--1.72%--_ceu_op_equals_equals_f_
+               |          |          |          
+               |          |           --0.95%--_mcount
+               |          |          
+               |          |--6.10%--_mcount
+               |          |          
+               |          |--2.47%--ceu_assert_pre
+               |          |          
+               |          |--1.24%--ceu_hold_chk_set
+               |          |          
+               |          |--0.87%--mcount@plt
+               |          |          
+               |           --0.58%--ceu_gc_dec
+               |          
+                --0.62%--ceu_hold_chk_set
+
+    99.94%     0.00%  simple.exe  libc.so.6             [.] __libc_start_call_main
+            |
+            ---__libc_start_call_main
+               |          
+               |--98.16%--main
+               |          |          
+               |          |--52.99%--ceu_proto_76.13
+               |          |          |          
+               |          |          |--22.68%--__mcount_internal
+               |          |          |          
+               |          |          |--11.17%--ceu_gc_inc_args
+               |          |          |          |          
+               |          |          |          |--6.40%--__mcount_internal
+               |          |          |          |          
+               |          |          |          |--2.29%--_mcount
+               |          |          |          |          
+               |          |          |           --1.31%--ceu_gc_inc
+               |          |          |          
+               |          |          |--6.33%--_mcount
+               |          |          |          
+               |          |          |--2.40%--ceu_hold_chk_set
+               |          |          |          
+               |          |          |--2.40%--ceu_assert_pre
+               |          |          |          
+               |          |          |--0.77%--mcount@plt
+               |          |          |          
+               |          |           --0.58%--ceu_block_free
+               |          |          
+               |          |--18.70%--__mcount_internal
+               |          |          
+               |          |--7.64%--ceu_op_equals_equals_f
+               |          |          |          
+               |          |          |--3.65%--__mcount_internal
+               |          |          |          
+               |          |          |--1.72%--_ceu_op_equals_equals_f_
+               |          |          |          
+               |          |           --0.95%--_mcount
+               |          |          
+               |          |--6.10%--_mcount
+               |          |          
+               |          |--2.47%--ceu_assert_pre
+               |          |          
+               |          |--1.24%--ceu_hold_chk_set
+               |          |          
+               |          |--0.87%--mcount@plt
+               |          |          
+               |           --0.58%--ceu_gc_dec
+               |          
+                --0.62%--ceu_hold_chk_set
+
+    99.14%     6.30%  simple.exe  simple.exe            [.] main
+            |          
+            |--92.85%--main
+            |          |          
+            |          |--52.99%--ceu_proto_76.13
+            |          |          |          
+            |          |          |--22.68%--__mcount_internal
+            |          |          |          
+            |          |          |--11.17%--ceu_gc_inc_args
+            |          |          |          |          
+            |          |          |          |--6.40%--__mcount_internal
+            |          |          |          |          
+            |          |          |          |--2.29%--_mcount
+            |          |          |          |          
+            |          |          |           --1.31%--ceu_gc_inc
+            |          |          |          
+            |          |          |--6.33%--_mcount
+            |          |          |          
+            |          |          |--2.40%--ceu_hold_chk_set
+            |          |          |          
+            |          |          |--2.40%--ceu_assert_pre
+            |          |          |          
+            |          |          |--0.77%--mcount@plt
+            |          |          |          
+            |          |           --0.58%--ceu_block_free
+            |          |          
+            |          |--18.70%--__mcount_internal
+            |          |          
+            |          |--7.64%--ceu_op_equals_equals_f
+            |          |          |          
+            |          |          |--3.65%--__mcount_internal
+            |          |          |          
+            |          |          |--1.72%--_ceu_op_equals_equals_f_
+            |          |          |          
+            |          |           --0.95%--_mcount
+            |          |          
+            |          |--6.10%--_mcount
+            |          |          
+            |          |--2.47%--ceu_assert_pre
+            |          |          
+            |          |--1.24%--ceu_hold_chk_set
+            |          |          
+            |          |--0.87%--mcount@plt
+            |          |          
+            |           --0.58%--ceu_gc_dec
+            |          
+             --6.30%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       |          
+                       |--5.31%--main
+                       |          
+                        --0.62%--ceu_hold_chk_set
+
+    53.99%     6.26%  simple.exe  simple.exe            [.] ceu_proto_76.13
+            |          
+            |--47.73%--ceu_proto_76.13
+            |          |          
+            |          |--22.68%--__mcount_internal
+            |          |          
+            |          |--11.17%--ceu_gc_inc_args
+            |          |          |          
+            |          |          |--6.40%--__mcount_internal
+            |          |          |          
+            |          |          |--2.29%--_mcount
+            |          |          |          
+            |          |           --1.31%--ceu_gc_inc
+            |          |          
+            |          |--6.33%--_mcount
+            |          |          
+            |          |--2.40%--ceu_hold_chk_set
+            |          |          
+            |          |--2.40%--ceu_assert_pre
+            |          |          
+            |          |--0.77%--mcount@plt
+            |          |          
+            |           --0.58%--ceu_block_free
+            |          
+             --6.26%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       |          
+                        --6.12%--main
+                                  |          
+                                   --5.26%--ceu_proto_76.13
+
+    53.32%    51.79%  simple.exe  libc.so.6             [.] __mcount_internal
+            |          
+            |--51.79%--_start
+            |          __libc_start_main@@GLIBC_2.34
+            |          __libc_start_call_main
+            |          main
+            |          |          
+            |          |--29.16%--ceu_proto_76.13
+            |          |          |          
+            |          |          |--21.81%--__mcount_internal
+            |          |          |          
+            |          |          |--6.62%--ceu_gc_inc_args
+            |          |          |          |          
+            |          |          |           --6.26%--__mcount_internal
+            |          |          |          
+            |          |           --0.73%--_mcount
+            |          |          
+            |          |--18.19%--__mcount_internal
+            |          |          
+            |          |--3.65%--ceu_op_equals_equals_f
+            |          |          __mcount_internal
+            |          |          
+            |           --0.79%--_mcount
+            |          
+             --1.53%--__mcount_internal
+
+    18.65%    14.99%  simple.exe  libc.so.6             [.] _mcount
+            |          
+            |--14.99%--_start
+            |          __libc_start_main@@GLIBC_2.34
+            |          __libc_start_call_main
+            |          main
+            |          |          
+            |          |--8.65%--ceu_proto_76.13
+            |          |          |          
+            |          |          |--4.98%--_mcount
+            |          |          |          
+            |          |          |--2.15%--ceu_gc_inc_args
+            |          |          |          |          
+            |          |          |           --1.64%--_mcount
+            |          |          |          
+            |          |           --0.87%--__mcount_internal
+            |          |          
+            |          |--4.59%--_mcount
+            |          |          
+            |          |--0.95%--ceu_op_equals_equals_f
+            |          |          |          
+            |          |           --0.80%--_mcount
+            |          |          
+            |           --0.51%--__mcount_internal
+            |          
+             --3.67%--_mcount
+
+    11.90%     1.38%  simple.exe  simple.exe            [.] ceu_gc_inc_args
+            |          
+            |--10.52%--ceu_gc_inc_args
+            |          |          
+            |          |--6.40%--__mcount_internal
+            |          |          
+            |          |--2.29%--_mcount
+            |          |          
+            |           --1.31%--ceu_gc_inc
+            |          
+             --1.38%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       main
+                       |          
+                        --1.09%--ceu_proto_76.13
+                                  |          
+                                   --0.73%--ceu_gc_inc_args
+
+     7.79%     0.73%  simple.exe  simple.exe            [.] ceu_op_equals_equals_f
+            |          
+            |--7.06%--ceu_op_equals_equals_f
+            |          |          
+            |          |--3.65%--__mcount_internal
+            |          |          
+            |          |--1.72%--_ceu_op_equals_equals_f_
+            |          |          
+            |           --0.95%--_mcount
+            |          
+             --0.73%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       |          
+                        --0.66%--main
+                                  |          
+                                   --0.58%--ceu_op_equals_equals_f
+
+     6.81%     6.22%  simple.exe  simple.exe            [.] ceu_assert_pre
+            |          
+            |--6.22%--_start
+            |          __libc_start_main@@GLIBC_2.34
+            |          __libc_start_call_main
+            |          |          
+            |           --5.93%--main
+            |                     |          
+            |                     |--3.10%--ceu_proto_76.13
+            |                     |          |          
+            |                     |           --2.25%--ceu_assert_pre
+            |                     |          
+            |                      --2.18%--ceu_assert_pre
+            |          
+             --0.58%--ceu_assert_pre
+
+     5.14%     3.79%  simple.exe  simple.exe            [.] ceu_hold_chk_set
+            |          
+            |--3.79%--_start
+            |          __libc_start_main@@GLIBC_2.34
+            |          __libc_start_call_main
+            |          main
+            |          |          
+            |          |--2.77%--ceu_proto_76.13
+            |          |          |          
+            |          |           --2.11%--ceu_hold_chk_set
+            |          |          
+            |           --0.80%--ceu_hold_chk_set
+            |          
+             --1.35%--ceu_hold_chk_set
+
+     3.82%     1.79%  simple.exe  simple.exe            [.] mcount@plt
+            |          
+            |--2.03%--mcount@plt
+            |          
+             --1.79%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       main
+                       |          
+                       |--0.92%--ceu_proto_76.13
+                       |          |          
+                       |           --0.63%--_mcount
+                       |          
+                        --0.72%--_mcount
+
+     2.48%     1.97%  simple.exe  simple.exe            [.] ceu_gc_inc
+            |          
+            |--1.97%--_start
+            |          __libc_start_main@@GLIBC_2.34
+            |          __libc_start_call_main
+            |          |          
+            |           --1.82%--main
+            |                     |          
+            |                      --1.46%--ceu_proto_76.13
+            |                                |          
+            |                                 --1.38%--ceu_gc_inc_args
+            |                                           |          
+            |                                            --1.09%--ceu_gc_inc
+            |          
+             --0.51%--ceu_gc_inc
+
+     2.03%     1.88%  simple.exe  simple.exe            [.] _ceu_op_equals_equals_f_
+            |          
+             --1.88%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       main
+                       ceu_op_equals_equals_f
+                       |          
+                        --1.65%--_ceu_op_equals_equals_f_
+
+     1.31%     1.09%  simple.exe  simple.exe            [.] ceu_gc_dec
+            |          
+             --1.09%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       |          
+                        --1.02%--main
+                                  |          
+                                   --0.51%--ceu_gc_dec
+
+     0.80%     0.58%  simple.exe  simple.exe            [.] ceu_block_free
+            |          
+             --0.58%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       main
+                       ceu_proto_76.13
+
+     0.73%     0.66%  simple.exe  simple.exe            [.] ceu_gc_chk_args
+            |          
+             --0.66%--_start
+                       __libc_start_main@@GLIBC_2.34
+                       __libc_start_call_main
+                       main
+
+     0.51%     0.51%  simple.exe  simple.exe            [.] ceu_as_bool
+            |
+            ---_start
+               __libc_start_main@@GLIBC_2.34
+               __libc_start_call_main
+
+     0.06%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] _dl_start_user
+     0.06%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] _dl_start
+     0.05%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] _dl_sysdep_start
+     0.04%     0.04%  simple.exe  ld-linux-x86-64.so.2  [.] _dl_relocate_object
+     0.04%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] dl_main
+     0.01%     0.01%  simple.exe  ld-linux-x86-64.so.2  [.] intel_check_word.constprop.0
+     0.01%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] init_cpu_features.constprop.0
+     0.01%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] handle_intel.constprop.0
+     0.00%     0.00%  simple.exe  ld-linux-x86-64.so.2  [.] _start
+     0.00%     0.00%  simple.exe  [unknown]             [.] 0xffffffffa90012a0
+     0.00%     0.00%  simple.exe  [unknown]             [k] 0xffffffffa9001937
+
+
+#
+# (Tip: Order by the overhead of source file name and line number: perf report -s srcline)
+#

@@ -1,0 +1,88 @@
+var A
+set A = func (i, j) {
+    val ij = i + j
+    1.0 / ((((ij) * (ij+1)) * 0.5) + i + 1)
+}
+
+var MultiplyAv
+set MultiplyAv = func (N, v, out) {
+    var i = 0
+    loop {
+        break if i == N
+        var s = 0.0
+        var j = 0
+        loop {
+            break if j == N
+            set s = s + (A(i, j) * v[j])
+            set j = j + 1
+        }
+        set out[i] = s
+        set i = i + 1
+    }
+}
+
+var MultiplyAtv
+set MultiplyAtv = func (N, v, out) {
+    var i = 0
+    loop {
+        break if i == N
+        var s = 0.0
+        var j = 0
+        loop {
+            break if j == N
+            set s = s + (A(j, i) * v[j])
+            set j = j + 1
+        }
+        set out[i] = s
+        set i = i + 1
+    }
+}
+
+var MultiplyAtAv
+set MultiplyAtAv = func (N, v, out) {
+    var u = #[]
+    MultiplyAv(N, v, u)
+    MultiplyAtv(N, u, out)
+}
+
+var Approximate
+set Approximate = func (N) {
+    var u = #[]
+    var i = 0
+    loop {
+        break if i == N
+        set u[i] = 1.0
+        set i = i + 1
+    }
+    var v = #[]
+    set i = 0
+    loop {
+        break if i == 10
+        MultiplyAtAv(N, u, v)
+        MultiplyAtAv(N, v, u)
+        set i = i + 1
+    }
+
+    var vBv = 0.0
+    var vv = 0.0
+    set i = 0
+    loop {
+        break if i == N
+        var ui = u[i]
+        var vi = v[i]
+        set vBv = vBv + (ui * vi)
+        set vv = vv + (vi * vi)
+        set i = i + 1
+    }
+
+    val result = (vBv / vv)**(1/2)
+    result
+}
+
+var main
+set main = func (N) {
+    var res = Approximate(N)
+    println(res)
+}
+
+main(300)

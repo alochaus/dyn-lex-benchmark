@@ -1,0 +1,343 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 37.29      4.46     4.46                             main
+ 10.79      5.75     1.29 1254149518     0.00     0.00  ceu_assert_pre
+  8.82      6.80     1.05 149303512     0.00     0.00  ceu_op_slash_equals_f
+  8.11      7.78     0.97                             _init
+  7.44      8.66     0.89 686796173     0.00     0.00  ceu_hold_chk_set
+  4.89      9.25     0.58 358328429     0.00     0.00  ceu_gc_chk_args
+  3.80      9.71     0.46 209024916     0.00     0.00  ceu_op_equals_equals_f
+  3.68     10.14     0.44 209024916     0.00     0.00  _ceu_op_equals_equals_f_
+  3.09     10.52     0.37 477771267     0.00     0.00  ceu_gc_inc
+  3.09     10.88     0.37 209024917     0.00     0.00  ceu_gc_inc_args
+  2.47     11.18     0.29 209024918     0.00     0.00  ceu_block_free
+  2.05     11.43     0.24 238885619     0.00     0.00  ceu_as_bool
+  2.01     11.66     0.24 149303512     0.00     0.00  ceu_type_f
+  1.09     11.79     0.13 29860702     0.00     0.00  ceu_op_hash_f
+  0.63     11.87     0.07       20     3.75     3.75  ceu_gc_dec
+  0.46     11.93     0.06       19     2.89     2.89  ceu_hold_add
+  0.21     11.95     0.03                             ceu_dump_f
+  0.08     11.96     0.01                             ceu_error_f
+  0.00     11.96     0.00       19     0.00     0.00  ceu_dyn_free
+  0.00     11.96     0.00       17     0.00     2.89  ceu_closure_create
+  0.00     11.96     0.00       17     0.00     0.00  ceu_gc_chk
+  0.00     11.96     0.00       17     0.00     0.00  ceu_gc_free
+  0.00     11.96     0.00       17     0.00     0.00  ceu_hold_rem
+  0.00     11.96     0.00       10     0.00     0.00  ceu_hold_chk_set_col
+  0.00     11.96     0.00        9     0.00     0.00  ceu_tag_to_size
+  0.00     11.96     0.00        9     0.00     0.00  ceu_vector_set
+  0.00     11.96     0.00        1     0.00     0.00  ceu_print1
+  0.00     11.96     0.00        1     0.00     0.00  ceu_print_f
+  0.00     11.96     0.00        1     0.00     0.00  ceu_println_f
+  0.00     11.96     0.00        1     0.00     2.89  ceu_tuple_create
+  0.00     11.96     0.00        1     0.00     3.75  ceu_tuple_set
+  0.00     11.96     0.00        1     0.00     2.89  ceu_vector_create
+  0.00     11.96     0.00        1     0.00     2.89  ceu_vector_from_c_string
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2023 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.08% of 11.96 seconds
+
+index % time    self  children    called     name
+                             179164215             main [1]
+[1]     91.6    4.46    6.50       0+179164215 main [1]
+                1.05    0.88 149303512/149303512     ceu_op_slash_equals_f [2]
+                1.20    0.00 1164567412/1254149518     ceu_assert_pre [3]
+                0.77    0.00 597214066/686796173     ceu_hold_chk_set [6]
+                0.32    0.26 179164215/209024917     ceu_gc_inc_args [7]
+                0.13    0.38 29860702/29860702     ceu_op_hash_f [9]
+                0.24    0.24 149303512/149303512     ceu_type_f [10]
+                0.13    0.22 59721404/209024916     ceu_op_equals_equals_f [4]
+                0.25    0.00 179164216/209024918     ceu_block_free [13]
+                0.21    0.00 209024917/238885619     ceu_as_bool [14]
+                0.07    0.00      19/20          ceu_gc_dec [15]
+                0.07    0.00 89582126/477771267     ceu_gc_inc [12]
+                0.00    0.05      17/17          ceu_closure_create [17]
+                0.00    0.00       1/1           ceu_tuple_set [20]
+                0.00    0.00       1/1           ceu_vector_from_c_string [21]
+                0.00    0.00       1/1           ceu_tuple_create [22]
+                0.00    0.00       1/1           ceu_println_f [26]
+                             179164215             main [1]
+-----------------------------------------------
+                1.05    0.88 149303512/149303512     main [1]
+[2]     16.2    1.05    0.88 149303512         ceu_op_slash_equals_f [2]
+                0.33    0.56 149303512/209024916     ceu_op_equals_equals_f [4]
+-----------------------------------------------
+                0.09    0.00 89582106/1254149518     ceu_op_hash_f [9]
+                1.20    0.00 1164567412/1254149518     main [1]
+[3]     10.8    1.29    0.00 1254149518         ceu_assert_pre [3]
+-----------------------------------------------
+                0.13    0.22 59721404/209024916     main [1]
+                0.33    0.56 149303512/209024916     ceu_op_slash_equals_f [2]
+[4]     10.3    0.46    0.78 209024916         ceu_op_equals_equals_f [4]
+                0.44    0.00 209024916/209024916     _ceu_op_equals_equals_f_ [11]
+                0.34    0.00 209024916/358328429     ceu_gc_chk_args [8]
+-----------------------------------------------
+                                                 <spontaneous>
+[5]      8.1    0.97    0.00                 _init [5]
+-----------------------------------------------
+                0.00    0.00       1/686796173     ceu_hold_chk_set_col [27]
+                0.12    0.00 89582106/686796173     ceu_op_hash_f [9]
+                0.77    0.00 597214066/686796173     main [1]
+[6]      7.4    0.89    0.00 686796173         ceu_hold_chk_set [6]
+-----------------------------------------------
+                0.05    0.04 29860702/209024917     ceu_op_hash_f [9]
+                0.32    0.26 179164215/209024917     main [1]
+[7]      5.6    0.37    0.30 209024917         ceu_gc_inc_args [7]
+                0.30    0.00 388189131/477771267     ceu_gc_inc [12]
+-----------------------------------------------
+                0.00    0.00       1/358328429     ceu_print_f [25]
+                0.24    0.00 149303512/358328429     ceu_type_f [10]
+                0.34    0.00 209024916/358328429     ceu_op_equals_equals_f [4]
+[8]      4.9    0.58    0.00 358328429         ceu_gc_chk_args [8]
+-----------------------------------------------
+                0.13    0.38 29860702/29860702     main [1]
+[9]      4.2    0.13    0.38 29860702         ceu_op_hash_f [9]
+                0.12    0.00 89582106/686796173     ceu_hold_chk_set [6]
+                0.05    0.04 29860702/209024917     ceu_gc_inc_args [7]
+                0.09    0.00 89582106/1254149518     ceu_assert_pre [3]
+                0.04    0.00 29860702/209024918     ceu_block_free [13]
+                0.03    0.00 29860702/238885619     ceu_as_bool [14]
+-----------------------------------------------
+                0.24    0.24 149303512/149303512     main [1]
+[10]     4.0    0.24    0.24 149303512         ceu_type_f [10]
+                0.24    0.00 149303512/358328429     ceu_gc_chk_args [8]
+-----------------------------------------------
+                0.44    0.00 209024916/209024916     ceu_op_equals_equals_f [4]
+[11]     3.7    0.44    0.00 209024916         _ceu_op_equals_equals_f_ [11]
+-----------------------------------------------
+                0.00    0.00       1/477771267     ceu_tuple_set [20]
+                0.00    0.00       9/477771267     ceu_vector_set [24]
+                0.07    0.00 89582126/477771267     main [1]
+                0.30    0.00 388189131/477771267     ceu_gc_inc_args [7]
+[12]     3.1    0.37    0.00 477771267         ceu_gc_inc [12]
+-----------------------------------------------
+                0.04    0.00 29860702/209024918     ceu_op_hash_f [9]
+                0.25    0.00 179164216/209024918     main [1]
+[13]     2.5    0.29    0.00 209024918         ceu_block_free [13]
+                0.00    0.00       2/19          ceu_dyn_free [28]
+-----------------------------------------------
+                0.03    0.00 29860702/238885619     ceu_op_hash_f [9]
+                0.21    0.00 209024917/238885619     main [1]
+[14]     2.0    0.24    0.00 238885619         ceu_as_bool [14]
+-----------------------------------------------
+                0.00    0.00       1/20          ceu_tuple_set [20]
+                0.07    0.00      19/20          main [1]
+[15]     0.6    0.07    0.00      20         ceu_gc_dec [15]
+                0.00    0.00      17/17          ceu_gc_chk [29]
+-----------------------------------------------
+                0.00    0.00       1/19          ceu_tuple_create [22]
+                0.00    0.00       1/19          ceu_vector_create [23]
+                0.05    0.00      17/19          ceu_closure_create [17]
+[16]     0.5    0.06    0.00      19         ceu_hold_add [16]
+-----------------------------------------------
+                0.00    0.05      17/17          main [1]
+[17]     0.4    0.00    0.05      17         ceu_closure_create [17]
+                0.05    0.00      17/19          ceu_hold_add [16]
+-----------------------------------------------
+                                                 <spontaneous>
+[18]     0.2    0.03    0.00                 ceu_dump_f [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[19]     0.1    0.01    0.00                 ceu_error_f [19]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[20]     0.0    0.00    0.00       1         ceu_tuple_set [20]
+                0.00    0.00       1/20          ceu_gc_dec [15]
+                0.00    0.00       1/477771267     ceu_gc_inc [12]
+                0.00    0.00       1/10          ceu_hold_chk_set_col [27]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[21]     0.0    0.00    0.00       1         ceu_vector_from_c_string [21]
+                0.00    0.00       1/1           ceu_vector_create [23]
+                0.00    0.00       9/9           ceu_vector_set [24]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[22]     0.0    0.00    0.00       1         ceu_tuple_create [22]
+                0.00    0.00       1/19          ceu_hold_add [16]
+-----------------------------------------------
+                0.00    0.00       1/1           ceu_vector_from_c_string [21]
+[23]     0.0    0.00    0.00       1         ceu_vector_create [23]
+                0.00    0.00       1/19          ceu_hold_add [16]
+-----------------------------------------------
+                0.00    0.00       9/9           ceu_vector_from_c_string [21]
+[24]     0.0    0.00    0.00       9         ceu_vector_set [24]
+                0.00    0.00       9/477771267     ceu_gc_inc [12]
+                0.00    0.00       9/10          ceu_hold_chk_set_col [27]
+                0.00    0.00       9/9           ceu_tag_to_size [32]
+-----------------------------------------------
+                0.00    0.00       1/1           ceu_println_f [26]
+[25]     0.0    0.00    0.00       1         ceu_print_f [25]
+                0.00    0.00       1/358328429     ceu_gc_chk_args [8]
+                0.00    0.00       1/1           ceu_print1 [33]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[26]     0.0    0.00    0.00       1         ceu_println_f [26]
+                0.00    0.00       1/1           ceu_print_f [25]
+-----------------------------------------------
+                0.00    0.00       1/10          ceu_tuple_set [20]
+                0.00    0.00       9/10          ceu_vector_set [24]
+[27]     0.0    0.00    0.00      10         ceu_hold_chk_set_col [27]
+                0.00    0.00       1/686796173     ceu_hold_chk_set [6]
+-----------------------------------------------
+                0.00    0.00       2/19          ceu_block_free [13]
+                0.00    0.00      17/19          ceu_gc_free [30]
+[28]     0.0    0.00    0.00      19         ceu_dyn_free [28]
+-----------------------------------------------
+                0.00    0.00      17/17          ceu_gc_dec [15]
+[29]     0.0    0.00    0.00      17         ceu_gc_chk [29]
+                0.00    0.00      17/17          ceu_gc_free [30]
+-----------------------------------------------
+                0.00    0.00      17/17          ceu_gc_chk [29]
+[30]     0.0    0.00    0.00      17         ceu_gc_free [30]
+                0.00    0.00      17/17          ceu_hold_rem [31]
+                0.00    0.00      17/19          ceu_dyn_free [28]
+-----------------------------------------------
+                0.00    0.00      17/17          ceu_gc_free [30]
+[31]     0.0    0.00    0.00      17         ceu_hold_rem [31]
+-----------------------------------------------
+                0.00    0.00       9/9           ceu_vector_set [24]
+[32]     0.0    0.00    0.00       9         ceu_tag_to_size [32]
+-----------------------------------------------
+                0.00    0.00       1/1           ceu_print_f [25]
+[33]     0.0    0.00    0.00       1         ceu_print1 [33]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2023 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [11] _ceu_op_equals_equals_f_ [15] ceu_gc_dec           [33] ceu_print1
+   [5] _init                  [30] ceu_gc_free            [25] ceu_print_f
+  [14] ceu_as_bool            [12] ceu_gc_inc             [26] ceu_println_f
+   [3] ceu_assert_pre          [7] ceu_gc_inc_args        [32] ceu_tag_to_size
+  [13] ceu_block_free         [16] ceu_hold_add           [22] ceu_tuple_create
+  [17] ceu_closure_create      [6] ceu_hold_chk_set       [20] ceu_tuple_set
+  [18] ceu_dump_f             [27] ceu_hold_chk_set_col   [10] ceu_type_f
+  [28] ceu_dyn_free           [31] ceu_hold_rem           [23] ceu_vector_create
+  [19] ceu_error_f             [4] ceu_op_equals_equals_f [21] ceu_vector_from_c_string
+  [29] ceu_gc_chk              [9] ceu_op_hash_f          [24] ceu_vector_set
+   [8] ceu_gc_chk_args         [2] ceu_op_slash_equals_f   [1] main
