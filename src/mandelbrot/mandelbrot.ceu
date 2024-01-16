@@ -1,0 +1,74 @@
+var shiftLeft
+set shiftLeft = func (value, bits) {
+    value * (2 ** bits)
+}
+
+var mandelbrot
+set mandelbrot = func (N) {
+    var bits = 0
+    var nbits = 0
+    var delta = 2.0 / N
+
+    var y = 0
+    loop {
+        break if y >= N
+        var Ci = (y * delta) - 1.0
+
+        var x = 0
+        loop {
+            break if x >= N
+            var Cr = (x * delta) - 1.5
+
+            var bit = 1
+            var Zr = 0.0
+            var Zi = 0.0
+            var Zr2 = 0.0
+            var Zi2 = 0.0
+
+            var tmp = 1
+            loop {
+                break if tmp > 50
+
+                set Zi = ((2.0 * Zr) * Zi) + Ci
+                set Zr = (Zr2 - Zi2) + Cr
+                set Zi2 = Zi * Zi
+                set Zr2 = Zr * Zr
+
+                if ((Zi2 + Zr2) > 4.0) {
+                    set bit = 0
+                }
+                break if ((Zi2 + Zr2) > 4.0)
+
+                set tmp = tmp + 1
+            }
+
+            set bits = `:number (((int) $bits.Number << 1) | (int) ($bit.Number))`
+            set nbits = nbits + 1
+
+            if nbits == 8 {
+                println(bits)
+                set bits = 0
+                set nbits = 0
+            }
+
+            set x = x + 1
+        }
+
+        if nbits > 0 {
+            set bits = `:number ((int) $bits.Number << (8 - (int) $nbits.Number))`
+            println(bits)
+            set bits = 0
+            set nbits = 0
+        }
+
+        set y = y + 1
+    }
+}
+
+var main
+set main = func (N) {
+    println("P4\n", N, N)
+    mandelbrot(N)
+}
+
+main(100)

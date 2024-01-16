@@ -1,0 +1,4 @@
+var x = 0.000000000000001
+var y = 1.0E-05
+println(x)
+println(y)

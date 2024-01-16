@@ -1,0 +1,5 @@
+var a = "asd"
+var b = "efgzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+`strcat($a.Dyn->Vector.buf, $b.Dyn->Vector.buf);`
+`$a.Dyn->Vector.its = $a.Dyn->Vector.its + $b.Dyn->Vector.its;`
+println(#a)

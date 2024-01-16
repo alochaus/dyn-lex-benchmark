@@ -1,0 +1,6 @@
+var a = #[]
+set a[0] = 1
+println(#a)
+set a[#a] = 2
+
+println(a)

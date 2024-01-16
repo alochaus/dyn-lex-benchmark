@@ -1,0 +1,111 @@
+val n = 12
+
+var fannkuch
+set fannkuch = func (N) {
+    val initial_perm = #[]
+    var i = 1
+    loop {
+        break if (i > N)
+        set initial_perm[#initial_perm] = i
+        set i = i + 1
+    }
+    println(initial_perm)
+    
+    val perm = #[]
+    
+    val count = #[]
+    set count[0] = 0
+    var r = N
+
+    var perm_count = 0
+    var max_flips = 0
+    var checksum = 0
+
+    loop {
+        do {
+            set i = 0
+            loop {
+                break if (i > (N - 1))
+                set perm[#perm] = initial_perm[i]
+                set i = i + 1
+            }
+
+            var flips_count = 0
+            var h = perm[0]
+            loop {
+                break if h <= 1
+
+                set i = 0
+                var j = i
+                loop {
+                    break if i >= j
+
+                    var a = perm[i]
+                    var b = perm[j]
+
+                    set perm[i] = b
+                    set perm[j] = a
+
+                    set i = i + 1
+                    set j = j - 1
+                }
+
+                set flips_count = flips_count + 1
+                set h = initial_perm[0]
+            }
+
+            if flips_count > max_flips {
+                set max_flips = flips_count
+            }
+
+            if (perm_count % 2) == 0 {
+                set checksum = checksum + flips_count
+            } else {
+                set checksum = checksum - flips_count
+            }
+        }
+
+        loop {
+            break if r <= 1
+            set count[r] = r
+            set r = r - 1
+        }
+
+        loop {
+            if r == N {
+                [
+                    checksum,
+                    max_flips
+                ]
+            } else {
+                var tmp = initial_perm[0]
+
+                set i = 0
+                loop {
+                    break if i >= r
+                    set initial_perm[i] = initial_perm[i + 1]
+                    set i = i + 1
+                }
+                set initial_perm[r + 1] = tmp
+
+                var r1 = r + 1
+                set count[r1] = count[r1] - 1
+                break if count[r1] > 0
+                set r = r1
+            }
+        }
+        set perm_count = perm_count + 1
+    }
+}
+
+var main
+set main = func (N) {
+    var ret = fannkuch(N)
+    var checksum = ret[0]
+    var flips = ret[1]
+
+    println(checksum)
+    println("Pfannkuchen(", N, ") = ", flips)
+}
+
+fannkuch(7)
