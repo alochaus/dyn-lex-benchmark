@@ -1,123 +1,134 @@
-val n = 12
+val {{>>}} = func (a, b) {
+    `:number ((int) $a.Number >> (int) $b.Number)`
+}
 
-var fannkuch
-set fannkuch = func (N) {
-    val initial_perm = #[]
-    var i = 1
-    loop {
-        break if (i > N)
-        set initial_perm[#initial_perm] = i
-        set i = i + 1
+var max
+set max = func (a, b) {
+    if a > b {
+        a
+    } else {
+        b
     }
-    println(initial_perm)
-    
-    val perm = #[]
-    
-    val count = #[]
-    loop {
-        break if #count == N
-        set count[#count] = 0
-    }
-    println('a')
+}
 
-    var r = N
-
-    var perm_count = 0
-    var max_flips = 0
+var fannkuchredux
+set fannkuchredux = func (n) {
+    var perm
+    var perm1
+    var count
+    var maxFlipsCount = 0
+    var permCount = 0
     var checksum = 0
 
-    println('b')
+    set perm = #[]
+    set perm1 = #[]
+    set count = #[]
+
+    var i = 1
     loop {
-        do {
-            set i = 0
-            loop {
-                break if (i > (N - 1))
-                set perm[#perm] = initial_perm[i]
-                set i = i + 1
-            }
+        break if (i > n)
+        set perm[#perm] = 999
+        set perm1[#perm1] = 999
+        set count[#count] = 999
+        set i = i + 1
+    }
 
-            var flips_count = 0
-            var h = perm[0]
-            loop {
-                break if h <= 1
+    set i = 0
+    loop {
+        break if (i == n)
+        set perm1[i] = i
+        set i = i + 1
+    }
 
-                set i = 0
-                var j = i
-                loop {
-                    break if i >= j
+    var r = n
 
-                    var a = perm[i]
-                    var b = perm[j]
+    var retVal = nil
 
-                    set perm[i] = b
-                    set perm[j] = a
+    loop {
 
-                    set i = i + 1
-                    set j = j - 1
-                }
-
-                set flips_count = flips_count + 1
-                set h = initial_perm[0]
-            }
-
-            if flips_count > max_flips {
-                set max_flips = flips_count
-            }
-
-            if (perm_count % 2) == 0 {
-                set checksum = checksum + flips_count
-            } else {
-                set checksum = checksum - flips_count
-            }
-        }
-
-        print(count)
         loop {
-            break if r <= 1
-            set count[r-1] = r
+            break if (r == 1)
+            set count[r - 1] = r
             set r = r - 1
         }
-        print(count)
+        println(r, count)
+        set i = 0
+        loop {
+            break if not (i == n)
+            set perm[i] = perm1[i]
+            set i = i + 1
+        }
+        println("perm", perm, "n", n, "i", i)
 
-        var shouldBreak = false
+        var flipsCount = 0
 
         loop {
-            if r /= N {
-                var tmp = initial_perm[0]
+            var k = perm[0]
+            break if k == 0
 
-                set i = 0
-                loop {
-                    break if i >= r
-                    set initial_perm[i] = initial_perm[i + 1]
-                    set i = i + 1
-                }
-                set initial_perm[r + 1] = tmp
+            var k2 = (k + 1) >> 1
+            set i = 0
 
-                var r1 = r + 1
-                set count[r1] = count[r1] - 1
-                set shouldBreak = count[r1] > 0
+            loop {
+                break if (i >= k2)
+                var temp = perm[i]
+                println(i, k, k2, perm)
+                set perm[i] = perm[k - i]
+                set perm[k - i] = temp
+                set i = i + 1
+                
             }
+            set flipsCount = flipsCount + 1
+        }
 
-            break if shouldBreak
+        
+        set maxFlipsCount = max(maxFlipsCount, flipsCount)
+        if (permCount % 2) == 0 {
+            set checksum = checksum + flipsCount
+        } else {
+            set checksum = checksum - flipsCount
         }
-        if r == N {
-            #[
-                checksum,
-                max_flips
-            ]
+
+        println("flipsCount", flipsCount, "permcount", permCount, "checksum", checksum, "max", maxFlipsCount)
+        
+        set retVal = nil
+        loop {
+            println("i", i, "r", r, "n", n, "r==n", r==n)
+            if r == n {
+                set retVal = maxFlipsCount
+            } else {
+                nil
+            }
+            break if retVal /= nil
+
+            var perm0 = perm1[0]
+            set i = 0
+            loop {
+                break if i >= r
+                
+                var j = i + 1
+                set perm1[i] = perm1[j]
+                set i = j
+            }
+            set perm1[r] = perm0
+            set count[r] = count[r] - 1
+            break if (count[r] > 0)
+            set r = r + 1
         }
-        set perm_count = perm_count + 1
+        println("z", retVal)
+        break if retVal /= nil
+        println("x")
+        set permCount = permCount + 1
     }
+    if retVal /= nil {
+        retVal
+    } else { nil }
 }
 
 var main
-set main = func (N) {
-    var ret = fannkuch(N)
-    var checksum = ret[0]
-    var flips = ret[1]
-
-    println(checksum)
-    println("Pfannkuchen(", N, ") = ", flips)
+set main = func () {
+    var n = 5
+    println("Pfannkuchen(", n, ") = ", fannkuchredux(n))
 }
 
-fannkuch(3)
+main(5)

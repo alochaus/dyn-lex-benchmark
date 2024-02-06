@@ -1,3 +1,7 @@
+var pi = 3.141592653589793
+var SOLAR_MASS = 4 * pi * pi
+var DAYS_PER_YEAR = 365.24
+
 var new_body
 set new_body = func (x, y, z, vx, vy, vz, mass) {
     @[
@@ -11,112 +15,61 @@ set new_body = func (x, y, z, vx, vy, vz, mass) {
     ]
 }
 
-var offset_momentum
-set offset_momentum = func (bodies) {
-    var n = #bodies
-    var px = 0.0
-    var py = 0.0
-    var pz = 0.0
-
-    var i = 0
-    loop {
-        break if (i == n)
-        var bi = bodies[i]
-        var bim = bi[:mass]
-
-        set px = px + (bi[:vx] * bim)
-        set py = py + (bi[:vy] * bim)
-        set pz = pz + (bi[:vz] * bim)
-        set i = i + 1
-    }
-
-    var sun = bodies[0]
-    var solar_mass = sun[:mass]
-    set sun[:vx] = sun[:vx] - (px / solar_mass)
-    set sun[:vy] = sun[:vy] - (py / solar_mass)
-    set sun[:vz] = sun[:vz] - (pz / solar_mass)
-}
-
 var advance
-set advance = func (bodies, dt) {
-    var n = #bodies
+set advance = func (nbodies, bodies, dt) {
     var i = 0
     loop {
-        break if (i == n)
-        var bi = bodies[i]
-        
+        break if i >= nbodies
         var j = i + 1
         loop {
-            break if (j == n)
-            var bj = bodies[j]
-            var dx = bi[:x] - bj[:x]
-            var dy = bi[:y] - bj[:y]
-            var dz = bi[:z] - bj[:z]
+            break if j >= nbodies
 
-            var dist = ((dx*dx) + ((dy*dy) + (dz*dz)))*(1/2)
-            var mag = dt / (dist * dist * dist)
+            var dx = bodies[i][:x] - bodies[j][:x]
+            var dy = bodies[i][:y] - bodies[j][:y]
+            var dz = bodies[i][:z] - bodies[j][:z]
 
-            var bjm = bj[:mass] * mag
-            set bi[:vx] = bi[:vx] - (dx * bjm)
-            set bi[:vy] = bi[:vy] - (dy * bjm)
-            set bi[:vz] = bi[:vz] - (dz * bjm)
+            var distance = ((dx*dx) + (dy*dy) + (dz*dz))**(1/2)
+            var mag = dt / (distance * distance * distance)
 
-            var bim = bi[:mass] * mag
-            set bj[:vx] = bj[:vx] + (dx * bim)
-            set bj[:vy] = bj[:vy] + (dy * bim)
-            set bj[:vz] = bj[:vz] + (dz * bim)
+            set bodies[i][:vx] = bodies[i][:vx] - (dx * bodies[j][:mass] * mag)
+            set bodies[i][:vy] = bodies[i][:vy] - (dy * bodies[j][:mass] * mag)
+            set bodies[i][:vz] = bodies[i][:vz] - (dz * bodies[j][:mass] * mag)
 
+            set bodies[j][:vx] = bodies[j][:vx] + (dx * bodies[i][:mass] * mag)
+            set bodies[j][:vy] = bodies[j][:vy] + (dy * bodies[i][:mass] * mag)
+            set bodies[j][:vz] = bodies[j][:vz] + (dz * bodies[i][:mass] * mag)
             set j = j + 1
         }
         set i = i + 1
-    }
+    }     
 
     var k = 0
     loop {
-        break if (k == n)
-        var bi = bodies[k]
+        break if k >= nbodies
 
-        set bi[:x] = bi[:x] + (dt * bi[:vx])
-        set bi[:y] = bi[:y] + (dt * bi[:vy])
-        set bi[:z] = bi[:z] + (dt * bi[:vz])
+        set bodies[k][:x] = bodies[k][:x] + (dt * bodies[k][:vx])
+        set bodies[k][:y] = bodies[k][:y] + (dt * bodies[k][:vy])
+        set bodies[k][:z] = bodies[k][:z] + (dt * bodies[k][:vz])
 
         set k = k + 1
     }
 }
 
-var advance_multiple_steps
-set advance_multiple_steps = func (nsteps, bodies, dt) {
-    var i = 0
-    loop {
-        break if (i == nsteps)
-        advance(bodies, dt)
-        set i = i + 1
-    }
-}
-
 var energy
-set energy = func (bodies) {
-    var n = #bodies
+set energy = func (nbodies, bodies) {
     var e = 0.0
     var i = 0
     loop {
-        break if (i == n)
-        var bi = bodies[i]
-        var vx = bi[:vx]
-        var vy = bi[:vy]
-        var vz = bi[:vz]
-        set e = (e) + (0.5 * (bi[:mass] * ((vx*vx) + ((vy*vy) + (vz*vz)))))
-
+        break if i >= nbodies
+        set e = e + (0.5 * bodies[i][:mass] * ((bodies[i][:vx] * bodies[i][:vx]) + (bodies[i][:vy] * bodies[i][:vy]) + (bodies[i][:vz] * bodies[i][:vz])))
         var j = i + 1
         loop {
-            break if (j == n)
-            var bj = bodies[j]
-            var dx = bi[:x] - bj[:x]
-            var dy = bi[:y] - bj[:y]
-            var dz = bi[:z] - bj[:z]
-            var distance = ((dx*dx) + (dy*dy) + (dz*dz))*(1/2)
-            set e = e - ((bi[:mass] * bj[:mass]) / distance)
-
+            break if j >= nbodies
+            var dx = bodies[i][:x] - bodies[j][:x]
+            var dy = bodies[i][:y] - bodies[j][:y]
+            var dz = bodies[i][:z] - bodies[j][:z]
+            var distance = ((dx * dx) + (dy * dy) + (dz * dz))**(1/2)
+            set e = e - ((bodies[i][:mass] * bodies[j][:mass]) / distance)
             set j = j + 1
         }
         set i = i + 1
@@ -124,9 +77,26 @@ set energy = func (bodies) {
     e
 }
 
-var PI = 3.141592653589793
-var SOLAR_MASS = 4 * PI * PI
-var DAYS_PER_YEAR = 365.24
+var offset_momentum
+set offset_momentum = func (nbodies, bodies) {
+    var px = 0.0
+    var py = 0.0
+    var pz = 0.0
+    var i = 0
+    loop {
+        break if i >= nbodies
+        set px = px + (bodies[i][:vx] * bodies[i][:mass])
+        set py = py + (bodies[i][:vy] * bodies[i][:mass])
+        set pz = pz + (bodies[i][:vz] * bodies[i][:mass])
+        set i = i + 1
+    }
+    set bodies[0][:vx] = -px / SOLAR_MASS
+    set bodies[0][:vy] = -py / SOLAR_MASS
+    set bodies[0][:vz] = -pz / SOLAR_MASS
+}
+
+var NBODIES = 5
+
 var bodies = #[
     new_body(
     0.0,
@@ -164,8 +134,8 @@ var bodies = #[
 
 
     new_body(
-        1.537969711485091650,
-       -2.591931460998796410,
+        15.3796971148509165,
+       -25.9193146099879641,
         0.179258772950371181,
         0.00268067772490389322 * DAYS_PER_YEAR,
         0.00162824170038242295 * DAYS_PER_YEAR,
@@ -174,11 +144,18 @@ var bodies = #[
 ]
 
 var main
-set main = func (N) {
-    offset_momentum(bodies)
-    println(energy(bodies))
-    advance_multiple_steps(N, bodies, 0.01)
-    println(energy(bodies))
+set main = func (n) {
+    offset_momentum(NBODIES, bodies)
+    println(energy(NBODIES, bodies))
+
+    var i = 1
+    loop {
+        break if i > n
+        advance(NBODIES, bodies, 0.01)
+        set i = i + 1
+    }
+
+    println(energy(NBODIES, bodies))
 }
 
-main(50000000)
+main(1000)
