@@ -1,11 +1,12 @@
 #!/bin/bash
 
+N=4
 
-for i in {1..10}
+for i in {1..N}
 do
 
     START=$(date +%s.%N)
-    lua binarytrees.lua 12
+    lua nbody.lua 100
     END=$(date +%s.%N)
     DIFF_LUA=$(echo "$END - $START" | bc)
     echo "SIMPLE ON LUA: $DIFF_LUA"
@@ -13,12 +14,12 @@ do
 done
 
 
-ceu ./binarytrees.ceu
-for i in {1..10}
+ceu ./nbody.ceu
+for i in {1..N}
 do
 
     START=$(date +%s.%N)
-    ./binarytrees.exe
+    ./nbody.exe
     END=$(date +%s.%N)
     DIFF_CEU=$(echo "$END - $START" | bc)
     echo "SIMPLE ON CEU: $DIFF_CEU"
@@ -26,12 +27,12 @@ do
 done
 
 
-vstk ./binarytrees.ceu
-for i in {1..10}
+vstk ./nbody.ceu
+for i in {1..N}
 do
 
     START=$(date +%s.%N)
-    ./binarytrees.exe
+    ./nbody.exe
     END=$(date +%s.%N)
     DIFF_CEU=$(echo "$END - $START" | bc)
     echo "SIMPLE ON VSTK: $DIFF_CEU"

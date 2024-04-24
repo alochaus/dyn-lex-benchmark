@@ -5,7 +5,7 @@ for i in {1..10}
 do
 
     START=$(date +%s.%N)
-    lua binarytrees.lua 12
+    lua fannkuch.lua 5
     END=$(date +%s.%N)
     DIFF_LUA=$(echo "$END - $START" | bc)
     echo "SIMPLE ON LUA: $DIFF_LUA"
@@ -13,12 +13,12 @@ do
 done
 
 
-ceu ./binarytrees.ceu
+ceu ./fannkuch.ceu
 for i in {1..10}
 do
 
     START=$(date +%s.%N)
-    ./binarytrees.exe
+    ./fannkuch.exe
     END=$(date +%s.%N)
     DIFF_CEU=$(echo "$END - $START" | bc)
     echo "SIMPLE ON CEU: $DIFF_CEU"
@@ -26,12 +26,12 @@ do
 done
 
 
-vstk ./binarytrees.ceu
+vstk ./fannkuch.ceu
 for i in {1..10}
 do
 
     START=$(date +%s.%N)
-    ./binarytrees.exe
+    ./fannkuch.exe
     END=$(date +%s.%N)
     DIFF_CEU=$(echo "$END - $START" | bc)
     echo "SIMPLE ON VSTK: $DIFF_CEU"

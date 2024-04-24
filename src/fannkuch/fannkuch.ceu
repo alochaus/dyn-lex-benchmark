@@ -126,8 +126,7 @@ set fannkuchredux = func (n) {
 }
 
 var main
-set main = func () {
-    var n = 5
+set main = func (n) {
     println("Pfannkuchen(", n, ") = ", fannkuchredux(n))
 }
 
