@@ -1,17 +1,12 @@
 var bottomUpTree
 set bottomUpTree = func (d) {
-    var depth = d
-    if depth > 0 {
-        set depth = depth - 1
-        [
-            bottomUpTree(depth),
-            bottomUpTree(depth)
-        ]
+    if d > 0 {
+        var depth = depth - 1
+        val left = bottomUpTree(depth)
+        val right = bottomUpTree(depth)
+        [left, right]
     } else {
-        [
-            nil, 
-            nil
-        ]
+        [nil, nil]
     }
 }
 
@@ -25,8 +20,7 @@ set itemCheck = func (tree) {
     }
 }
 
-var stress
-set stress = func (mindepth, maxdepth, depth) {
+val stress = func (mindepth, maxdepth, depth) {
     val iterations = (2**((maxdepth - depth) + mindepth))
     
     var check = 0
@@ -39,17 +33,11 @@ set stress = func (mindepth, maxdepth, depth) {
 
         set i = i + 1
     }
-    
-    [
-        iterations,
-        check
-    ]
+
+    [iterations, check]
 }
 
-var main
-set main = func (n) {
-    val N = n
-
+val main = func (N) {
     val mindepth = 4
     var maxdepth
 

@@ -42,23 +42,19 @@ set fannkuchredux = func (n) {
 
     var r = n
 
-    var retVal = nil
-
-    loop {
-
+    drop(loop {
         loop {
             break if (r == 1)
             set count[r - 1] = r
             set r = r - 1
         }
-        println(r, count)
+
         set i = 0
         loop {
             break if not (i == n)
             set perm[i] = perm1[i]
             set i = i + 1
         }
-        println("perm", perm, "n", n, "i", i)
 
         var flipsCount = 0
 
@@ -72,7 +68,6 @@ set fannkuchredux = func (n) {
             loop {
                 break if (i >= k2)
                 var temp = perm[i]
-                println(i, k, k2, perm)
                 set perm[i] = perm[k - i]
                 set perm[k - i] = temp
                 set i = i + 1
@@ -81,7 +76,6 @@ set fannkuchredux = func (n) {
             set flipsCount = flipsCount + 1
         }
 
-        
         set maxFlipsCount = max(maxFlipsCount, flipsCount)
         if (permCount % 2) == 0 {
             set checksum = checksum + flipsCount
@@ -89,17 +83,8 @@ set fannkuchredux = func (n) {
             set checksum = checksum - flipsCount
         }
 
-        println("flipsCount", flipsCount, "permcount", permCount, "checksum", checksum, "max", maxFlipsCount)
-        
-        set retVal = nil
-        loop {
-            println("i", i, "r", r, "n", n, "r==n", r==n)
-            if r == n {
-                set retVal = maxFlipsCount
-            } else {
-                nil
-            }
-            break if retVal /= nil
+        break ([checksum, maxFlipsCount]) if (loop {
+            break (true) if (r == n)
 
             var perm0 = perm1[0]
             set i = 0
@@ -112,22 +97,20 @@ set fannkuchredux = func (n) {
             }
             set perm1[r] = perm0
             set count[r] = count[r] - 1
-            break if (count[r] > 0)
+            break (false) if (count[r] > 0)
             set r = r + 1
-        }
-        println("z", retVal)
-        break if retVal /= nil
-        println("x")
+        })
         set permCount = permCount + 1
-    }
-    if retVal /= nil {
-        retVal
-    } else { nil }
+    })
 }
 
 var main
 set main = func (n) {
-    println("Pfannkuchen(", n, ") = ", fannkuchredux(n))
+    val ret = fannkuchredux(n)
+    val checksum = ret[0]
+    val flips = ret[1]
+    println(checksum)
+    println("Pfannkuchen(", n, ") = ", flips)
 }
 
-main(5)
+main(9)
